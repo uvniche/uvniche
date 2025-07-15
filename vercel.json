@@ -1,0 +1,8 @@
+{
+  "rewrites": [
+    {
+      "source": "/dev",
+      "destination": "https://uvniche-git-dev-avaneeshprojects.vercel.app/"
+    }
+  ]
+} 
