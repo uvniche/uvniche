@@ -27,7 +27,7 @@ export default function RootLayout({
     <html lang="en">
       <head>
         <meta property="og:title" content="avaneesh" />
-        <meta property="og:image" content="/FE4290C4-C666-4C9C-A9B2-C74F664EA85E.jpeg" />
+        <meta property="og:image" content="/pfp.jpeg" />
         <link rel="icon" href="/favicon.ico" />
         <link rel="apple-touch-icon" href="/window.svg" />
       </head>
