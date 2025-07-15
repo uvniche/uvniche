@@ -3,6 +3,30 @@
     {
       "source": "/dev",
       "destination": "https://uvniche-git-dev-avaneeshprojects.vercel.app/"
+    },
+    {
+      "source": "/instagram",
+      "destination": "https://www.instagram.com/uvniche/"
+    },
+    {
+      "source": "/twitter",
+      "destination": "https://x.com/uvniche"
+    },
+    {
+      "source": "/youtube",
+      "destination": "https://www.youtube.com/@uvniche"
+    },
+    {
+      "source": "/github",
+      "destination": "https://github.com/uvniche"
+    },
+    {
+      "source": "/linkedin",
+      "destination": "https://www.linkedin.com/in/uvniche/"
+    },
+    {
+      "source": "/tiktok",
+      "destination": "https://www.tiktok.com/@uvniche"
     }
   ]
 } 
