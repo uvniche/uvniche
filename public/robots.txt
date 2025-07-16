@@ -1,0 +1,9 @@
+# *
+User-agent: *
+Allow: /
+
+# Host
+Host: https://www.uvniche.com
+
+# Sitemaps
+Sitemap: https://www.uvniche.com/sitemap.xml
