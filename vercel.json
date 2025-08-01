@@ -27,6 +27,14 @@
     {
       "source": "/tiktok",
       "destination": "https://www.tiktok.com/@uvniche"
+    },
+    {
+      "source": "/applemusic",
+      "destination": "https://music.apple.com/profile/uvniche"
+    },
+    {
+      "source": "/spotify",
+      "destination": "https://open.spotify.com/user/uvniche"
     }
   ]
 } 
