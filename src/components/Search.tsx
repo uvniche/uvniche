@@ -5,11 +5,7 @@ import { Search as SearchIcon, Music, Github, Instagram, Linkedin, Music2, Video
 import { motion, AnimatePresence } from "framer-motion"
 
 const socialLinks = [
-  {
-    name: "Apple Music",
-    url: "https://music.apple.com/profile/uvniche",
-    icon: Music
-  },
+
   {
     name: "GitHub",
     url: "https://github.com/uvniche",
@@ -25,11 +21,7 @@ const socialLinks = [
     url: "https://www.linkedin.com/in/uvniche/",
     icon: Linkedin
   },
-  {
-    name: "Spotify",
-    url: "https://open.spotify.com/user/uvniche",
-    icon: Music2
-  },
+
   {
     name: "TikTok",
     url: "https://www.tiktok.com/@uvniche",
