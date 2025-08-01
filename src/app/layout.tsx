@@ -28,7 +28,8 @@ export default function RootLayout({
         <link rel="apple-touch-icon" href="/window.svg" />
       </head>
       <body
-        className={`${inter.variable} font-sans antialiased`}
+        className={`${inter.variable} antialiased`}
+        style={{ fontFamily: 'var(--font-inter), sans-serif' }}
       >
         {children}
         {/* Vercel Speed Insights */}

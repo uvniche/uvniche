@@ -124,9 +124,13 @@ html, body {
 @layer base {
   * {
     @apply border-border outline-ring/50;
+    font-family: var(--font-inter), sans-serif !important;
   }
   body {
     @apply bg-background text-foreground;
-    font-family: var(--font-sans), sans-serif;
+    font-family: var(--font-inter), sans-serif !important;
+  }
+  input, textarea, button {
+    font-family: var(--font-inter), sans-serif !important;
   }
 }
