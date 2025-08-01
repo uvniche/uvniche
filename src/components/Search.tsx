@@ -1,41 +1,49 @@
 "use client"
 
 import * as React from "react"
-import { Search as SearchIcon } from "lucide-react"
+import { Search as SearchIcon, Music, Github, Instagram, Linkedin, Music2, Video, Twitter, Youtube } from "lucide-react"
 import { motion, AnimatePresence } from "framer-motion"
 
 const socialLinks = [
   {
     name: "Apple Music",
-    url: "https://music.apple.com/profile/uvniche"
+    url: "https://music.apple.com/profile/uvniche",
+    icon: Music
   },
   {
     name: "GitHub",
-    url: "https://github.com/uvniche"
+    url: "https://github.com/uvniche",
+    icon: Github
   },
   {
     name: "Instagram",
-    url: "https://www.instagram.com/uvniche/"
+    url: "https://www.instagram.com/uvniche/",
+    icon: Instagram
   },
   {
     name: "LinkedIn",
-    url: "https://www.linkedin.com/in/uvniche/"
+    url: "https://www.linkedin.com/in/uvniche/",
+    icon: Linkedin
   },
   {
     name: "Spotify",
-    url: "https://open.spotify.com/user/uvniche"
+    url: "https://open.spotify.com/user/uvniche",
+    icon: Music2
   },
   {
     name: "TikTok",
-    url: "https://www.tiktok.com/@uvniche"
+    url: "https://www.tiktok.com/@uvniche",
+    icon: Video
   },
   {
     name: "Twitter",
-    url: "https://x.com/uvniche"
+    url: "https://x.com/uvniche",
+    icon: Twitter
   },
   {
     name: "YouTube",
-    url: "https://www.youtube.com/@uvniche"
+    url: "https://www.youtube.com/@uvniche",
+    icon: Youtube
   },
 ]
 
@@ -164,12 +172,13 @@ export function Search() {
                   }}
                   onClick={() => handleLinkClick(link.url)}
                   onMouseEnter={() => setSelectedIndex(index)}
-                  className={`flex items-center px-3 py-2.5 rounded-md cursor-pointer transition-colors ${
+                  className={`flex items-center gap-3 px-3 py-2.5 rounded-md cursor-pointer transition-colors ${
                     index === selectedIndex 
                       ? 'bg-zinc-800 text-zinc-100' 
                       : 'hover:bg-zinc-800 text-zinc-100'
                   }`}
                 >
+                  <link.icon className="h-4 w-4 text-zinc-400" />
                   <span className="text-sm font-medium">{link.name}</span>
                 </motion.div>
               ))}
