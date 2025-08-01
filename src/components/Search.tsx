@@ -128,7 +128,7 @@ export function Search() {
           onFocus={handleMouseEnter}
           onBlur={handleMouseLeave}
           onKeyDown={handleKeyDown}
-          className="flex-1 bg-transparent text-zinc-100 text-sm placeholder-zinc-500 outline-none"
+          className="flex-1 bg-transparent text-zinc-100 text-base placeholder-zinc-500 outline-none"
         />
       </motion.div>
 
