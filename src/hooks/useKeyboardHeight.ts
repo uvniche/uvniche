@@ -28,8 +28,8 @@ export function useKeyboardHeight(options: UseKeyboardHeightOptions = {}) {
       return
     }
 
-    let initialViewportHeight = window.visualViewport?.height || window.innerHeight
-    let initialInnerHeight = window.innerHeight
+    const initialViewportHeight = window.visualViewport?.height || window.innerHeight
+    const initialInnerHeight = window.innerHeight
 
     const handleViewportChange = () => {
       if (window.visualViewport) {

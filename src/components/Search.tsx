@@ -1,7 +1,7 @@
 "use client"
 
 import * as React from "react"
-import { Search as SearchIcon, Music, Github, Instagram, Linkedin, Music2, Video, Twitter, Youtube } from "lucide-react"
+import { Search as SearchIcon, Github, Instagram, Linkedin, Video, Twitter, Youtube } from "lucide-react"
 import { motion, AnimatePresence } from "framer-motion"
 import { useKeyboardHeight } from "@/hooks/useKeyboardHeight"
 
