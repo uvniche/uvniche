@@ -6,12 +6,15 @@ import { motion } from "framer-motion"
 
 export default function Home() {
   return (
-    <div className="h-screen w-screen flex items-center justify-center bg-black overflow-hidden">
-      <div className="flex flex-col items-center gap-6">
+    <div className="min-h-screen w-full flex items-center justify-center bg-black p-4">
+      <div className="flex flex-col items-center gap-6 w-full max-w-md">
         {/* Profile picture optimized with Next.js Image */}
         <motion.div
+          whileFocus={{ scale: 1.02 }}
           whileHover={{ scale: 1.01 }}
+          whileTap={{ scale: 1.01 }}
           transition={{ duration: 0.2, ease: [0.4, 0.0, 0.2, 1] }}
+          tabIndex={0}
         >
           <Image 
             src="/pfp.jpeg" 

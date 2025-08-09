@@ -157,6 +157,7 @@ export const Search = React.memo(function Search({
         className="flex items-center gap-2 px-4 py-2 bg-zinc-900 border border-zinc-800 rounded-lg hover:border-zinc-700 transition-colors"
         whileFocus={{ scale: 1.02 }}
         whileHover={{ scale: 1.01 }}
+        whileTap={{ scale: 1.01 }}
         transition={{ duration: 0.2, ease: [0.4, 0.0, 0.2, 1] }}
       >
         <SearchIcon className="h-4 w-4 text-zinc-500" />
