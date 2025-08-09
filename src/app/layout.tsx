@@ -11,6 +11,7 @@ const inter = Inter({
 
 export const metadata: Metadata = {
   title: "avaneesh",
+  description: "@uvniche",
 };
 
 export default function RootLayout({

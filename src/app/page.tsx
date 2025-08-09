@@ -5,7 +5,11 @@ export default function Home() {
     <div className="h-screen w-screen flex items-center justify-center bg-black overflow-hidden">
       <div className="flex flex-col items-center gap-6">
         {/* Black profile picture */}
-        <div className="w-32 h-32 rounded-full bg-black border border-zinc-700" />
+        <img 
+          src="/pfp.jpeg" 
+          alt="pfp" 
+          className="w-32 h-32 rounded-full object-cover border border-zinc-700" 
+        />
         {/* Name and username */}
         <div className="flex flex-col items-center">
           <span className="text-2xl font-semibold text-white">avaneesh</span>
