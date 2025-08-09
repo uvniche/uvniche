@@ -25,7 +25,7 @@ export default function RootLayout({
         <meta property="og:title" content="avaneesh" />
         <meta property="og:description" content="@uvniche" />
         <meta property="og:image" content="https://www.uvniche.com/pfp.jpeg" />
-        <link rel="icon" href="/pfp-circle.png" type="image/png" />
+        <link rel="icon" href="/favicon.ico" type="image/x-icon" />
         <link rel="apple-touch-icon" href="/window.svg" />
       </head>
       <body
