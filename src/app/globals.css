@@ -115,7 +115,7 @@
 /* Critical CSS for immediate rendering */
 html, body {
   background: #000000 !important;
-  height: 100%;
+  min-height: 100%;
   width: 100%;
   margin: 0;
   padding: 0;
@@ -130,16 +130,51 @@ html {
   -webkit-overflow-scrolling: touch;
 }
 
+/* Handle iframe constraints (for Twitter, etc.) */
+body {
+  display: flex;
+  flex-direction: column;
+}
+
+/* Fallback for embedded/iframe contexts */
+.h-screen {
+  height: 100vh;
+  min-height: 500px; /* Fallback minimum height */
+}
+
+/* Better iframe support */
+@supports (-webkit-appearance: none) {
+  .h-screen {
+    height: 100vh;
+    height: -webkit-fill-available;
+  }
+}
+
+/* Specific handling for iframe/embedded contexts */
+html[style*="height"] .h-screen,
+body[style*="height"] .h-screen {
+  height: 100vh !important;
+  min-height: 100vh !important;
+}
+
+/* Twitter/social media iframe fixes */
+@media screen and (max-height: 800px) {
+  .h-screen {
+    min-height: 100vh;
+    height: auto;
+  }
+}
+
 /* Ensure proper layout for Next.js */
 #__next {
-  height: 100%;
+  min-height: 100%;
   width: 100%;
   position: relative;
 }
 
 /* Preload critical styles */
 .h-screen { height: 100vh; }
-.w-screen { width: 100vw; }
+.w-full { width: 100%; }
 .flex { display: flex; }
 .items-center { align-items: center; }
 .justify-center { justify-content: center; }

@@ -12,7 +12,7 @@ export default function Home() {
     setIsMounted(true)
   }, [])
   return (
-    <div className="h-screen w-screen bg-black flex items-center justify-center p-4">
+    <div className="h-screen w-full bg-black flex items-center justify-center p-4">
       <div className="flex flex-col items-center gap-6 w-full max-w-md">
         {/* Profile picture optimized with Next.js Image */}
         {isMounted ? (
