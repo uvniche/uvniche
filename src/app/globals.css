@@ -115,12 +115,13 @@
 /* Critical CSS for immediate rendering */
 html, body {
   background: #000000 !important;
-  min-height: 100%;
+  height: 100%;
   width: 100%;
   margin: 0;
   padding: 0;
   font-display: swap;
   overscroll-behavior: none;
+  overflow: hidden;
   position: relative;
 }
 
@@ -134,19 +135,21 @@ html {
 body {
   display: flex;
   flex-direction: column;
+  overflow: hidden !important;
 }
 
 /* Fallback for embedded/iframe contexts */
 .h-screen {
-  height: 100vh;
-  min-height: 500px; /* Fallback minimum height */
+  height: 100vh !important;
+  overflow: hidden;
 }
 
 /* Better iframe support */
 @supports (-webkit-appearance: none) {
   .h-screen {
-    height: 100vh;
-    height: -webkit-fill-available;
+    height: 100vh !important;
+    height: -webkit-fill-available !important;
+    overflow: hidden;
   }
 }
 
@@ -157,11 +160,11 @@ body[style*="height"] .h-screen {
   min-height: 100vh !important;
 }
 
-/* Twitter/social media iframe fixes */
+/* Twitter/social media iframe fixes - keep fixed height */
 @media screen and (max-height: 800px) {
   .h-screen {
-    min-height: 100vh;
-    height: auto;
+    height: 100vh;
+    overflow: hidden;
   }
 }
 
