@@ -3,38 +3,17 @@
 import { Search } from "@/components/Search"
 import Image from "next/image"
 import { motion } from "framer-motion"
-import { useState, useEffect } from "react"
 
 export default function Home() {
-  const [isMounted, setIsMounted] = useState(false)
-  
-  useEffect(() => {
-    setIsMounted(true)
-  }, [])
-
-  if (!isMounted) {
-    return (
-      <div className="h-screen w-full bg-black flex items-center justify-center p-4">
-        <div className="flex flex-col items-center gap-6 w-full max-w-md">
-          <div className="w-32 h-32 rounded-full bg-zinc-800 animate-pulse" />
-          <div className="flex flex-col items-center gap-2">
-            <div className="h-8 w-24 bg-zinc-800 rounded animate-pulse" />
-            <div className="h-6 w-20 bg-zinc-800 rounded animate-pulse" />
-          </div>
-          <div className="w-64 h-10 bg-zinc-800 rounded animate-pulse" />
-        </div>
-      </div>
-    )
-  }
-
   return (
-    <div className="h-screen w-full bg-black flex items-center justify-center p-4">
-      <div className="flex flex-col items-center gap-6 w-full max-w-md">
+    <div className="h-screen w-screen flex items-center justify-center bg-black overflow-hidden">
+      <div className="flex flex-col items-center gap-6">
         {/* Profile picture optimized with Next.js Image */}
         <motion.div
           whileHover={{ scale: 1.01 }}
           whileTap={{ scale: 1.01 }}
           transition={{ duration: 0.2, ease: [0.4, 0.0, 0.2, 1] }}
+          tabIndex={0}
         >
           <Image 
             src="/pfp.jpeg" 
