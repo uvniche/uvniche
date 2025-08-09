@@ -1,18 +1,22 @@
 import { Search } from "@/components/Search"
+import Image from "next/image"
+
+// Force static generation
+export const dynamic = 'force-static'
+export const revalidate = false
 
 export default function Home() {
   return (
     <div className="h-screen w-screen flex items-center justify-center bg-black overflow-hidden">
       <div className="flex flex-col items-center gap-6">
-        {/* Black profile picture */}
-        <img 
+        {/* Profile picture optimized with Next.js Image */}
+        <Image 
           src="/pfp.jpeg" 
           alt="pfp" 
           className="w-32 h-32 rounded-full object-cover border border-zinc-700"
-          loading="eager"
-          fetchPriority="high"
-          width="128"
-          height="128"
+          priority
+          width={128}
+          height={128}
         />
         {/* Name and username */}
         <div className="flex flex-col items-center">

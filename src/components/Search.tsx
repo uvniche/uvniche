@@ -5,8 +5,8 @@ import { Search as SearchIcon, Github, Instagram, Linkedin, Video, Twitter, Yout
 import { motion, AnimatePresence, LazyMotion, domAnimation } from "framer-motion"
 import { useKeyboardHeight } from "@/hooks/useKeyboardHeight"
 
+// Static social links - moved outside component to prevent re-creation
 const socialLinks = [
-
   {
     name: "GitHub",
     url: "https://github.com/uvniche",
@@ -22,7 +22,6 @@ const socialLinks = [
     url: "https://www.linkedin.com/in/uvniche/",
     icon: Linkedin
   },
-
   {
     name: "TikTok",
     url: "https://www.tiktok.com/@uvniche",
@@ -51,7 +50,7 @@ interface SearchProps {
   keyboardOptions?: Parameters<typeof useKeyboardHeight>[0]
 }
 
-export function Search({
+export const Search = React.memo(function Search({
   maxDropdownHeight = 256, // 16rem
   minDropdownHeight = 120,
   bottomBuffer = 20,
@@ -222,4 +221,4 @@ export function Search({
       </div>
     </LazyMotion>
   )
-}
+})
