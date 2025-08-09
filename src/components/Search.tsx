@@ -3,6 +3,7 @@
 import * as React from "react"
 import { Search as SearchIcon, Music, Github, Instagram, Linkedin, Music2, Video, Twitter, Youtube } from "lucide-react"
 import { motion, AnimatePresence } from "framer-motion"
+import { useKeyboardHeight } from "@/hooks/useKeyboardHeight"
 
 const socialLinks = [
 
@@ -39,13 +40,30 @@ const socialLinks = [
   },
 ]
 
-export function Search() {
+interface SearchProps {
+  /** Maximum height of the search dropdown in pixels (default: 256) */
+  maxDropdownHeight?: number
+  /** Minimum height of the search dropdown in pixels (default: 120) */
+  minDropdownHeight?: number
+  /** Buffer space from bottom of viewport in pixels (default: 20) */
+  bottomBuffer?: number
+  /** Keyboard detection options */
+  keyboardOptions?: Parameters<typeof useKeyboardHeight>[0]
+}
+
+export function Search({
+  maxDropdownHeight = 256, // 16rem
+  minDropdownHeight = 120,
+  bottomBuffer = 20,
+  keyboardOptions
+}: SearchProps = {}) {
   const [isOpen, setIsOpen] = React.useState(false)
   const [searchTerm, setSearchTerm] = React.useState("")
-  const [maxHeight, setMaxHeight] = React.useState(256) // 16rem default
+  const [maxHeight, setMaxHeight] = React.useState(maxDropdownHeight)
   const [selectedIndex, setSelectedIndex] = React.useState(0)
   const containerRef = React.useRef<HTMLDivElement>(null)
   const timeoutRef = React.useRef<NodeJS.Timeout | null>(null)
+  const { keyboardHeight, isKeyboardOpen } = useKeyboardHeight(keyboardOptions)
 
   const filteredLinks = socialLinks.filter(link =>
     link.name.toLowerCase().includes(searchTerm.toLowerCase())
@@ -91,10 +109,16 @@ export function Search() {
     const calculateMaxHeight = () => {
       if (containerRef.current) {
         const rect = containerRef.current.getBoundingClientRect()
-        const viewportHeight = window.innerHeight
-        const availableSpace = viewportHeight - rect.bottom - 20 // 20px buffer
-        const maxAllowed = Math.min(256, availableSpace) // Max 16rem (256px) or available space
-        setMaxHeight(Math.max(120, maxAllowed)) // Minimum 120px
+        let viewportHeight = window.innerHeight
+        
+        // If keyboard is open, subtract keyboard height from available space
+        if (isKeyboardOpen && keyboardHeight > 0) {
+          viewportHeight = viewportHeight - keyboardHeight
+        }
+        
+        const availableSpace = viewportHeight - rect.bottom - bottomBuffer
+        const maxAllowed = Math.min(maxDropdownHeight, availableSpace)
+        setMaxHeight(Math.max(minDropdownHeight, maxAllowed))
       }
     }
 
@@ -103,7 +127,23 @@ export function Search() {
       window.addEventListener('resize', calculateMaxHeight)
       return () => window.removeEventListener('resize', calculateMaxHeight)
     }
-  }, [isOpen])
+  }, [isOpen, isKeyboardOpen, keyboardHeight, maxDropdownHeight, minDropdownHeight, bottomBuffer])
+
+  // Recalculate height immediately when keyboard state changes
+  React.useEffect(() => {
+    if (isOpen && containerRef.current) {
+      const rect = containerRef.current.getBoundingClientRect()
+      let viewportHeight = window.innerHeight
+      
+      if (isKeyboardOpen && keyboardHeight > 0) {
+        viewportHeight = viewportHeight - keyboardHeight
+      }
+      
+      const availableSpace = viewportHeight - rect.bottom - bottomBuffer
+      const maxAllowed = Math.min(maxDropdownHeight, availableSpace)
+      setMaxHeight(Math.max(minDropdownHeight, maxAllowed))
+    }
+  }, [isKeyboardOpen, keyboardHeight, isOpen, maxDropdownHeight, minDropdownHeight, bottomBuffer])
 
   return (
     <div 
