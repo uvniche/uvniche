@@ -30,7 +30,14 @@ export default function RootLayout({
       </head>
       <body
         className={`${inter.variable} antialiased`}
-        style={{ fontFamily: 'var(--font-inter), sans-serif' }}
+        style={{ 
+          fontFamily: 'var(--font-inter), sans-serif',
+          overscrollBehavior: 'none',
+          overflow: 'hidden',
+          position: 'fixed',
+          width: '100%',
+          height: '100%'
+        }}
       >
         {children}
         {/* Vercel Speed Insights */}
