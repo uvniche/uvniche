@@ -133,23 +133,19 @@ html {
 
 /* Handle iframe constraints (for Twitter, etc.) */
 body {
-  display: flex;
-  flex-direction: column;
-  overflow: hidden !important;
+  overflow: hidden;
 }
 
 /* Fallback for embedded/iframe contexts */
 .h-screen {
-  height: 100vh !important;
-  overflow: hidden;
+  height: 100vh;
 }
 
 /* Better iframe support */
 @supports (-webkit-appearance: none) {
   .h-screen {
-    height: 100vh !important;
-    height: -webkit-fill-available !important;
-    overflow: hidden;
+    height: 100vh;
+    height: -webkit-fill-available;
   }
 }
 
@@ -164,7 +160,6 @@ body[style*="height"] .h-screen {
 @media screen and (max-height: 800px) {
   .h-screen {
     height: 100vh;
-    overflow: hidden;
   }
 }
 
@@ -175,17 +170,7 @@ body[style*="height"] .h-screen {
   position: relative;
 }
 
-/* Preload critical styles */
-.h-screen { height: 100vh; }
-.w-full { width: 100%; }
-.flex { display: flex; }
-.items-center { align-items: center; }
-.justify-center { justify-content: center; }
-.bg-black { background-color: #000000; }
-.text-white { color: #ffffff; }
-.w-32 { width: 8rem; }
-.h-32 { height: 8rem; }
-.rounded-full { border-radius: 9999px; }
+/* Let Tailwind handle all utility classes */
 
 @layer base {
   * {
