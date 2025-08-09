@@ -7,7 +7,11 @@
     "build": "next build",
     "postbuild": "next-sitemap",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "setup": "npm install && npm run build",
+    "dev:fresh": "npm install && npm run dev",
+    "clean": "rm -rf .next node_modules package-lock.json",
+    "fresh": "npm run clean && npm install && npm run dev"
   },
   "dependencies": {
     "@vercel/analytics": "^1.5.0",

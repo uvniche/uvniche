@@ -19,9 +19,26 @@ This ensures both branches stay synchronized and all changes flow through dev fi
 - Code suggestions should work with the user's existing API/setup rather than generic examples
 - When making changes, always test that the code works immediately
 
+## Commands & Shortcuts
+- When user says "run" or "run the app" → execute `npm run dev`
+- When user says "build" → execute `npm run build` 
+- When user says "fresh start" → execute `npm run fresh`
+- When user says "setup" → execute `npm run setup`
+
 ## Development Notes
 - This is a Next.js project with Tailwind CSS
 - Uses Framer Motion for animations
 - Main components: Search component with social links, profile page
 - Focus on mobile-first responsive design
 - Black background theme with zinc color palette
+- Development server runs with `npm run dev` (uses Turbopack)
+
+## Available npm Scripts
+- `npm run dev` - Start development server with Turbopack
+- `npm run build` - Build the application  
+- `npm run start` - Start production server
+- `npm run lint` - Run ESLint
+- `npm run setup` - Install dependencies and build
+- `npm run dev:fresh` - Fresh install and start dev server
+- `npm run clean` - Remove build files and dependencies
+- `npm run fresh` - Complete clean slate and start dev
