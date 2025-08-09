@@ -60,9 +60,14 @@ export const Search = React.memo(function Search({
   const [searchTerm, setSearchTerm] = React.useState("")
   const [maxHeight, setMaxHeight] = React.useState(maxDropdownHeight)
   const [selectedIndex, setSelectedIndex] = React.useState(0)
+  const [isMounted, setIsMounted] = React.useState(false)
   const containerRef = React.useRef<HTMLDivElement>(null)
   const timeoutRef = React.useRef<NodeJS.Timeout | null>(null)
   const { keyboardHeight, isKeyboardOpen } = useKeyboardHeight(keyboardOptions)
+
+  React.useEffect(() => {
+    setIsMounted(true)
+  }, [])
 
   const filteredLinks = socialLinks.filter(link =>
     link.name.toLowerCase().includes(searchTerm.toLowerCase())
@@ -153,13 +158,7 @@ export const Search = React.memo(function Search({
         onMouseLeave={handleMouseLeave}
       >
       {/* Search Input */}
-      <motion.div 
-        className="flex items-center gap-2 px-4 py-2 bg-zinc-900 border border-zinc-800 rounded-lg hover:border-zinc-700 transition-colors"
-        whileFocus={{ scale: 1.02 }}
-        whileHover={{ scale: 1.01 }}
-        whileTap={{ scale: 1.01 }}
-        transition={{ duration: 0.2, ease: [0.4, 0.0, 0.2, 1] }}
-      >
+      <div className="flex items-center gap-2 px-4 py-2 bg-zinc-900 border border-zinc-800 rounded-lg hover:border-zinc-700 transition-colors">
         <SearchIcon className="h-4 w-4 text-zinc-500" />
         <input
           type="text"
@@ -171,24 +170,25 @@ export const Search = React.memo(function Search({
           onKeyDown={handleKeyDown}
           className="flex-1 bg-transparent text-zinc-100 text-base placeholder-zinc-500 outline-none"
         />
-      </motion.div>
+      </div>
 
       {/* Links List - Only show when hovered, focused, or has search content AND there are results */}
-      <AnimatePresence>
-        {(isOpen || searchTerm) && filteredLinks.length > 0 && (
-          <motion.div 
-            initial={{ opacity: 0, y: -10, scale: 0.95 }}
-            animate={{ opacity: 1, y: 0, scale: 1 }}
-            exit={{ opacity: 0, y: -10, scale: 0.95 }}
-            transition={{ 
-              duration: 0.2, 
-              ease: [0.4, 0.0, 0.2, 1] // Custom easing for smooth feel
-            }}
-            className="absolute top-full left-0 right-0 bg-zinc-900 border border-zinc-800 rounded-lg shadow-xl z-50 overflow-hidden"
-            style={{ maxHeight: `${maxHeight}px` }}
-            onMouseEnter={handleMouseEnter}
-            onMouseLeave={handleMouseLeave}
-          >
+      {isMounted && (
+        <AnimatePresence>
+          {(isOpen || searchTerm) && filteredLinks.length > 0 && (
+            <motion.div 
+              initial={{ opacity: 0, y: -10, scale: 0.95 }}
+              animate={{ opacity: 1, y: 0, scale: 1 }}
+              exit={{ opacity: 0, y: -10, scale: 0.95 }}
+              transition={{ 
+                duration: 0.2, 
+                ease: [0.4, 0.0, 0.2, 1] // Custom easing for smooth feel
+              }}
+              className="absolute top-full left-0 right-0 bg-zinc-900 border border-zinc-800 rounded-lg shadow-xl z-50 overflow-hidden"
+              style={{ maxHeight: `${maxHeight}px` }}
+              onMouseEnter={handleMouseEnter}
+              onMouseLeave={handleMouseLeave}
+            >
             <motion.div 
               className="p-1 overflow-y-auto"
               style={{ maxHeight: `${maxHeight - 2}px` }} // Account for border
@@ -219,6 +219,7 @@ export const Search = React.memo(function Search({
           </motion.div>
         )}
       </AnimatePresence>
+      )}
       </div>
     </LazyMotion>
   )
