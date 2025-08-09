@@ -1,0 +1,27 @@
+# Cursor Rules for uvniche project
+
+## Git Workflow
+When the user says "commit & push" or similar variations:
+1. Stage all changes with `git add .`
+2. Commit to the current dev branch with a descriptive commit message
+3. Switch to main branch with `git checkout main`
+4. Merge dev into main with `git merge dev`
+5. Push main to remote with `git push origin main`
+6. Switch back to dev with `git checkout dev`
+7. Push dev to remote with `git push origin dev`
+
+This ensures both branches stay synchronized and all changes flow through dev first.
+
+## Project Preferences
+- User prefers concise summaries over detailed explanations
+- Use shadcn UI components for any UI elements
+- Use Inter font for all text elements
+- Code suggestions should work with the user's existing API/setup rather than generic examples
+- When making changes, always test that the code works immediately
+
+## Development Notes
+- This is a Next.js project with Tailwind CSS
+- Uses Framer Motion for animations
+- Main components: Search component with social links, profile page
+- Focus on mobile-first responsive design
+- Black background theme with zinc color palette
