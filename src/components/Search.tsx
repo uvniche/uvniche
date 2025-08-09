@@ -173,9 +173,8 @@ export const Search = React.memo(function Search({
       </div>
 
       {/* Links List - Only show when hovered, focused, or has search content AND there are results */}
-      {isMounted && (
-        <AnimatePresence>
-          {(isOpen || searchTerm) && filteredLinks.length > 0 && (
+      <AnimatePresence>
+        {isMounted && (isOpen || searchTerm) && filteredLinks.length > 0 && (
             <motion.div 
               initial={{ opacity: 0, y: -10, scale: 0.95 }}
               animate={{ opacity: 1, y: 0, scale: 1 }}
@@ -219,7 +218,6 @@ export const Search = React.memo(function Search({
           </motion.div>
         )}
       </AnimatePresence>
-      )}
       </div>
     </LazyMotion>
   )
