@@ -112,6 +112,7 @@
   --sidebar-ring: oklch(0.556 0 0);
 }
 
+/* Critical CSS for immediate rendering */
 html, body {
   background: #000000 !important;
   min-height: 100vh;
@@ -124,6 +125,7 @@ html, body {
   left: 0;
   right: 0;
   bottom: 0;
+  font-display: swap;
 }
 
 /* Additional mobile overscroll prevention */
@@ -137,6 +139,18 @@ html {
   height: 100vh;
   overflow: hidden;
 }
+
+/* Preload critical styles */
+.h-screen { height: 100vh; }
+.w-screen { width: 100vw; }
+.flex { display: flex; }
+.items-center { align-items: center; }
+.justify-center { justify-content: center; }
+.bg-black { background-color: #000000; }
+.text-white { color: #ffffff; }
+.w-32 { width: 8rem; }
+.h-32 { height: 8rem; }
+.rounded-full { border-radius: 9999px; }
 
 @layer base {
   * {

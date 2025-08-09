@@ -8,7 +8,11 @@ export default function Home() {
         <img 
           src="/pfp.jpeg" 
           alt="pfp" 
-          className="w-32 h-32 rounded-full object-cover border border-zinc-700" 
+          className="w-32 h-32 rounded-full object-cover border border-zinc-700"
+          loading="eager"
+          fetchPriority="high"
+          width="128"
+          height="128"
         />
         {/* Name and username */}
         <div className="flex flex-col items-center">

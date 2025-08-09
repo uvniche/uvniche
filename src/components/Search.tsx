@@ -2,7 +2,7 @@
 
 import * as React from "react"
 import { Search as SearchIcon, Github, Instagram, Linkedin, Video, Twitter, Youtube } from "lucide-react"
-import { motion, AnimatePresence } from "framer-motion"
+import { motion, AnimatePresence, LazyMotion, domAnimation } from "framer-motion"
 import { useKeyboardHeight } from "@/hooks/useKeyboardHeight"
 
 const socialLinks = [
@@ -146,12 +146,13 @@ export function Search({
   }, [isKeyboardOpen, keyboardHeight, isOpen, maxDropdownHeight, minDropdownHeight, bottomBuffer])
 
   return (
-    <div 
-      ref={containerRef}
-      className="w-64 relative"
-      onMouseEnter={handleMouseEnter}
-      onMouseLeave={handleMouseLeave}
-    >
+    <LazyMotion features={domAnimation}>
+      <div 
+        ref={containerRef}
+        className="w-64 relative"
+        onMouseEnter={handleMouseEnter}
+        onMouseLeave={handleMouseLeave}
+      >
       {/* Search Input */}
       <motion.div 
         className="flex items-center gap-2 px-4 py-2 bg-zinc-900 border border-zinc-800 rounded-lg hover:border-zinc-700 transition-colors"
@@ -218,6 +219,7 @@ export function Search({
           </motion.div>
         )}
       </AnimatePresence>
-    </div>
+      </div>
+    </LazyMotion>
   )
 }

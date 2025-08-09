@@ -7,6 +7,8 @@ import { Analytics } from "@vercel/analytics/react";
 const inter = Inter({
   variable: "--font-inter",
   subsets: ["latin"],
+  display: "swap",
+  preload: true,
 });
 
 export const metadata: Metadata = {
@@ -26,6 +28,10 @@ export default function RootLayout({
         <meta property="og:title" content="avaneesh" />
         <meta property="og:description" content="@uvniche" />
         <meta property="og:image" content="https://www.uvniche.com/pfp.jpeg" />
+        <link rel="preload" href="/pfp.jpeg" as="image" fetchPriority="high" />
+        <link rel="dns-prefetch" href="//fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.googleapis.com" crossOrigin="anonymous" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
         <link rel="icon" href="/favicon.ico" type="image/x-icon" />
         <link rel="apple-touch-icon" href="/window.svg" />
       </head>
