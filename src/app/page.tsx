@@ -6,7 +6,7 @@ import { motion } from "framer-motion";
 
 export default function Home() {
   return (
-    <div className="min-h-screen bg-black text-white flex items-center justify-center p-4">
+    <div className="h-screen overflow-hidden bg-black text-white flex items-center justify-center p-4">
       <div className="flex flex-col items-center space-y-6">
         {/* Profile Section */}
         <div className="flex flex-col items-center space-y-4">

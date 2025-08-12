@@ -1,6 +1,6 @@
 "use client"
 
-import { useState, useRef, useEffect } from "react"
+import { useState, useRef, useEffect, useCallback } from "react"
 import { motion, AnimatePresence, Variants } from "framer-motion"
 import {
   Github,
@@ -134,7 +134,7 @@ export function SocialLinksSearch() {
   const dropdownRef = useRef<HTMLDivElement>(null)
   const typingTimeoutRef = useRef<NodeJS.Timeout | null>(null)
 
-  const calculateDropdownPosition = () => {
+  const calculateDropdownPosition = useCallback(() => {
     if (!containerRef.current) return
 
     const container = containerRef.current
@@ -190,7 +190,7 @@ export function SocialLinksSearch() {
     }
     
     setDropdownPosition(position)
-  }
+  }, [])
 
   const handleLinkSelect = (url: string) => {
     window.open(url, '_blank', 'noopener,noreferrer')
