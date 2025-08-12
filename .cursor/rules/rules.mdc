@@ -1,6 +1,5 @@
 ---
-description: commit & push
-alwaysApply: false
+alwaysApply: true
 ---
 # Commit and Push Workflow
 
