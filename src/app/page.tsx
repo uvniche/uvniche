@@ -8,7 +8,7 @@ export default function Home() {
         {/* Profile Section */}
         <div className="flex flex-col items-center space-y-4">
           <Avatar className="w-24 h-24">
-            <AvatarImage src="/profile-picture.svg" alt="Profile Picture" />
+            <AvatarImage src="/pfp.jpeg" alt="Profile Picture" />
             <AvatarFallback className="bg-gray-800 text-white text-2xl">
               PF
             </AvatarFallback>
