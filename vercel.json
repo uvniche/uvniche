@@ -1,0 +1,34 @@
+{
+  "redirects": [
+    {
+      "source": "/github",
+      "destination": "https://github.com/uvniche",
+      "permanent": true
+    },
+    {
+      "source": "/instagram",
+      "destination": "https://instagram.com/uvniche", 
+      "permanent": true
+    },
+    {
+      "source": "/linkedin",
+      "destination": "https://linkedin.com/in/uvniche",
+      "permanent": true
+    },
+    {
+      "source": "/tiktok",
+      "destination": "https://tiktok.com/@uvniche",
+      "permanent": true
+    },
+    {
+      "source": "/twitter",
+      "destination": "https://twitter.com/uvniche",
+      "permanent": true
+    },
+    {
+      "source": "/youtube",
+      "destination": "https://youtube.com/@uvniche",
+      "permanent": true
+    }
+  ]
+}
