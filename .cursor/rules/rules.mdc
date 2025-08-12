@@ -1,7 +1,7 @@
 ---
+description: commit & push
 alwaysApply: false
 ---
-
 # Commit and Push Workflow
 
 When the user says "commit & push", follow this specific workflow:
