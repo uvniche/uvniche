@@ -270,6 +270,19 @@ export function SocialLinksSearch() {
     }
   }, [isExpanded, calculateDropdownPosition])
 
+  // Ensure body scroll is always locked
+  useEffect(() => {
+    // Always lock body scroll to prevent any page scrolling
+    document.body.style.overflow = 'hidden'
+    document.documentElement.style.overflow = 'hidden'
+    
+    return () => {
+      // Clean up on unmount
+      document.body.style.overflow = ''
+      document.documentElement.style.overflow = ''
+    }
+  }, [])
+
   // Cleanup typing timeout on unmount
   useEffect(() => {
     return () => {
@@ -345,12 +358,19 @@ export function SocialLinksSearch() {
                   bottom: dropdownPosition.bottom,
                   left: dropdownPosition.left,
                   right: dropdownPosition.right,
+                  touchAction: 'none' // Prevent default touch behaviors on the container
+                }}
+                onTouchStart={(e) => {
+                  // Prevent event bubbling to avoid interfering with body scroll
+                  e.stopPropagation()
                 }}
               >
                 <CommandList 
-                  className="overflow-y-auto scrollbar-thin scrollbar-thumb-muted-foreground/20 scrollbar-track-transparent"
+                  className="overflow-y-auto scrollbar-thin scrollbar-thumb-muted-foreground/20 scrollbar-track-transparent overscroll-contain"
                   style={{ 
-                    maxHeight: dropdownPosition.maxHeight || 300 
+                    maxHeight: dropdownPosition.maxHeight || 300,
+                    WebkitOverflowScrolling: 'touch', // Enable momentum scrolling on iOS
+                    touchAction: 'pan-y' // Allow vertical scrolling only
                   }}
                 >
                   <CommandGroup>
