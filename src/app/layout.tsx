@@ -17,6 +17,32 @@ const geistMono = Geist_Mono({
 export const metadata: Metadata = {
   title: "avaneesh",
   description: "@uvniche",
+  openGraph: {
+    title: "avaneesh",
+    description: "@uvniche",
+    url: "https://uvniche.com",
+    siteName: "avaneesh",
+    images: [
+      {
+        url: "/pfp.jpeg",
+        width: 400,
+        height: 400,
+        alt: "avaneesh profile picture",
+      },
+    ],
+    locale: "en_US",
+    type: "website",
+  },
+  twitter: {
+    card: "summary",
+    title: "avaneesh",
+    description: "@uvniche",
+    images: ["/pfp.jpeg"],
+  },
+  icons: {
+    icon: "/pfp.jpeg",
+    apple: "/pfp.jpeg",
+  },
 };
 
 export default function RootLayout({
