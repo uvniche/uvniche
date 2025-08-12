@@ -13,7 +13,6 @@ import {
 
 import {
   Command,
-  CommandEmpty,
   CommandGroup,
   CommandInput,
   CommandItem,
@@ -148,7 +147,7 @@ export function SocialLinksSearch() {
     const dropdownWidth = containerRect.width
     const padding = 16 // Safe padding from viewport edges
     
-    let position: typeof dropdownPosition = {}
+    const position: typeof dropdownPosition = {}
     
     // Calculate vertical position - always prefer below
     const spaceBelow = viewportHeight - containerRect.bottom
@@ -255,7 +254,7 @@ export function SocialLinksSearch() {
       // Recalculate position when expanding
       setTimeout(calculateDropdownPosition, 0)
     }
-  }, [shouldShowDropdown])
+  }, [shouldShowDropdown, calculateDropdownPosition])
 
   // Handle window resize to recalculate position
   useEffect(() => {
@@ -269,7 +268,7 @@ export function SocialLinksSearch() {
     return () => {
       window.removeEventListener('resize', handleResize)
     }
-  }, [isExpanded])
+  }, [isExpanded, calculateDropdownPosition])
 
   // Cleanup typing timeout on unmount
   useEffect(() => {
