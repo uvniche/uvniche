@@ -1,6 +1,6 @@
 "use client"
 
-import { useState } from "react"
+import { useState, useRef, useEffect } from "react"
 import { motion, AnimatePresence, Variants } from "framer-motion"
 import {
   Github,
@@ -121,23 +121,123 @@ const itemVariants: Variants = {
 
 export function SocialLinksSearch() {
   const [isExpanded, setIsExpanded] = useState(false)
+  const [isFocused, setIsFocused] = useState(false)
+  const [inputValue, setInputValue] = useState("")
+  const [isTyping, setIsTyping] = useState(false)
+  const containerRef = useRef<HTMLDivElement>(null)
+  const typingTimeoutRef = useRef<NodeJS.Timeout | null>(null)
+
+  const handleLinkSelect = (url: string) => {
+    window.open(url, '_blank', 'noopener,noreferrer')
+    setIsExpanded(false) // Close dropdown after selection
+  }
+
+  const handleInputChange = (value: string) => {
+    setInputValue(value)
+    setIsTyping(true)
+    
+    // Clear existing timeout
+    if (typingTimeoutRef.current) {
+      clearTimeout(typingTimeoutRef.current)
+    }
+    
+    // Set typing indicator to false after 500ms of no typing
+    typingTimeoutRef.current = setTimeout(() => {
+      setIsTyping(false)
+    }, 500)
+  }
+
+  const handleInputFocus = () => {
+    setIsFocused(true)
+    setIsExpanded(true)
+  }
+
+  const handleInputBlur = () => {
+    setIsFocused(false)
+    // Don't immediately close - let the click outside handler manage it
+  }
+
+  // Determine if dropdown should be visible
+  const shouldShowDropdown = isFocused || isTyping || inputValue.length > 0 || isExpanded
+
+  // Handle click outside to close dropdown
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent | TouchEvent) => {
+      if (containerRef.current && !containerRef.current.contains(event.target as Node)) {
+        setIsExpanded(false)
+        setIsFocused(false)
+      }
+    }
+
+    if (isExpanded) {
+      document.addEventListener('mousedown', handleClickOutside)
+      document.addEventListener('touchstart', handleClickOutside)
+    }
+
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside)
+      document.removeEventListener('touchstart', handleClickOutside)
+    }
+  }, [isExpanded])
+
+  // Update isExpanded based on shouldShowDropdown
+  useEffect(() => {
+    setIsExpanded(shouldShowDropdown)
+  }, [shouldShowDropdown])
+
+  // Cleanup typing timeout on unmount
+  useEffect(() => {
+    return () => {
+      if (typingTimeoutRef.current) {
+        clearTimeout(typingTimeoutRef.current)
+      }
+    }
+  }, [])
 
   return (
-    <div className="relative w-full">
-      <motion.div
-        className="group w-full"
-        onMouseEnter={() => setIsExpanded(true)}
-        onMouseLeave={() => setIsExpanded(false)}
-        onTouchStart={() => setIsExpanded(true)}
-        variants={containerVariants}
-        animate={isExpanded ? "expanded" : "collapsed"}
-        initial="collapsed"
-      >
+    <div className="relative w-full" ref={containerRef}>
+              <motion.div
+          className="group w-full cursor-pointer"
+          variants={containerVariants}
+          animate={isExpanded ? "expanded" : "collapsed"}
+          initial="collapsed"
+          onMouseEnter={() => setIsExpanded(true)}
+          onMouseLeave={() => {
+            // Only close on mouse leave if not focused and no input value
+            if (!isFocused && !inputValue.length && !isTyping) {
+              setIsExpanded(false)
+            }
+          }}
+          whileHover={{ 
+            scale: 1.01,
+            y: -1,
+            transition: { 
+              type: "spring", 
+              stiffness: 300, 
+              damping: 25,
+              duration: 0.2
+            }
+          }}
+          whileTap={{ 
+            scale: 0.99,
+            y: 0,
+            transition: { 
+              type: "spring", 
+              stiffness: 300, 
+              damping: 25,
+              duration: 0.1
+            }
+          }}
+        >
         <Command className="rounded-lg border shadow-md w-full">
           {/* Search Input - Always visible and maintains layout */}
           <CommandInput 
             placeholder="Search" 
-            onFocus={() => setIsExpanded(true)}
+            value={inputValue}
+            onValueChange={handleInputChange}
+            onFocus={handleInputFocus}
+            onBlur={handleInputBlur}
+            onTouchStart={handleInputFocus}
             className="transition-all duration-300 ease-out"
           />
           
@@ -161,7 +261,7 @@ export function SocialLinksSearch() {
                         custom={index}
                       >
                         <CommandItem 
-                          onSelect={() => window.open(link.url, '_blank', 'noopener,noreferrer')}
+                          onSelect={() => handleLinkSelect(link.url)}
                           className="cursor-pointer"
                         >
                           <link.icon />
