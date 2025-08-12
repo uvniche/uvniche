@@ -124,8 +124,74 @@ export function SocialLinksSearch() {
   const [isFocused, setIsFocused] = useState(false)
   const [inputValue, setInputValue] = useState("")
   const [isTyping, setIsTyping] = useState(false)
+  const [dropdownPosition, setDropdownPosition] = useState<{
+    top?: number;
+    bottom?: number;
+    left?: number;
+    right?: number;
+    maxHeight?: number;
+  }>({})
   const containerRef = useRef<HTMLDivElement>(null)
+  const dropdownRef = useRef<HTMLDivElement>(null)
   const typingTimeoutRef = useRef<NodeJS.Timeout | null>(null)
+
+  const calculateDropdownPosition = () => {
+    if (!containerRef.current) return
+
+    const container = containerRef.current
+    const containerRect = container.getBoundingClientRect()
+    const viewportHeight = window.innerHeight
+    const viewportWidth = window.innerWidth
+    
+    // Dropdown dimensions (estimated)
+    const dropdownHeight = 300 // max-h-[300px]
+    const dropdownWidth = containerRect.width
+    const padding = 16 // Safe padding from viewport edges
+    
+    let position: typeof dropdownPosition = {}
+    
+    // Calculate vertical position - always prefer below
+    const spaceBelow = viewportHeight - containerRect.bottom
+    const spaceAbove = containerRect.top
+    const minItemHeight = 48 // Approximate height of a single search item
+    
+    if (spaceBelow >= dropdownHeight + padding) {
+      // Enough space below for full dropdown - position normally
+      position.top = containerRect.height + 4 // mt-1 equivalent
+    } else if (spaceBelow >= minItemHeight + padding) {
+      // Not enough space for full dropdown, but enough for at least one item - position below with scroll
+      position.top = containerRect.height + 4
+      position.maxHeight = Math.max(spaceBelow - padding, minItemHeight)
+    } else if (spaceAbove >= dropdownHeight + padding) {
+      // No space below even for one item, but full space above - position above
+      position.bottom = containerRect.height + 4
+    } else {
+      // Not enough space anywhere for full dropdown - use the larger available space
+      if (spaceBelow > spaceAbove) {
+        // More space below (even if minimal)
+        position.top = containerRect.height + 4
+        position.maxHeight = Math.max(spaceBelow - padding, minItemHeight)
+      } else {
+        // More space above
+        position.bottom = containerRect.height + 4
+        position.maxHeight = Math.max(spaceAbove - padding, minItemHeight)
+      }
+    }
+    
+    // Calculate horizontal position
+    if (containerRect.left + dropdownWidth > viewportWidth - padding) {
+      // Would overflow right edge
+      position.right = 0
+    } else if (containerRect.left < padding) {
+      // Would overflow left edge
+      position.left = 0
+    } else {
+      // Normal positioning
+      position.left = 0
+    }
+    
+    setDropdownPosition(position)
+  }
 
   const handleLinkSelect = (url: string) => {
     window.open(url, '_blank', 'noopener,noreferrer')
@@ -150,6 +216,8 @@ export function SocialLinksSearch() {
   const handleInputFocus = () => {
     setIsFocused(true)
     setIsExpanded(true)
+    // Calculate position when opening
+    setTimeout(calculateDropdownPosition, 0)
   }
 
   const handleInputBlur = () => {
@@ -183,7 +251,25 @@ export function SocialLinksSearch() {
   // Update isExpanded based on shouldShowDropdown
   useEffect(() => {
     setIsExpanded(shouldShowDropdown)
+    if (shouldShowDropdown) {
+      // Recalculate position when expanding
+      setTimeout(calculateDropdownPosition, 0)
+    }
   }, [shouldShowDropdown])
+
+  // Handle window resize to recalculate position
+  useEffect(() => {
+    const handleResize = () => {
+      if (isExpanded) {
+        calculateDropdownPosition()
+      }
+    }
+
+    window.addEventListener('resize', handleResize)
+    return () => {
+      window.removeEventListener('resize', handleResize)
+    }
+  }, [isExpanded])
 
   // Cleanup typing timeout on unmount
   useEffect(() => {
@@ -201,7 +287,10 @@ export function SocialLinksSearch() {
           variants={containerVariants}
           animate={isExpanded ? "expanded" : "collapsed"}
           initial="collapsed"
-          onMouseEnter={() => setIsExpanded(true)}
+          onMouseEnter={() => {
+            setIsExpanded(true)
+            setTimeout(calculateDropdownPosition, 0)
+          }}
           onMouseLeave={() => {
             // Only close on mouse leave if not focused and no input value
             if (!isFocused && !inputValue.length && !isTyping) {
@@ -245,14 +334,26 @@ export function SocialLinksSearch() {
           <AnimatePresence>
             {isExpanded && (
               <motion.div
+                ref={dropdownRef}
                 variants={listVariants}
                 initial="collapsed"
                 animate="expanded"
                 exit="collapsed"
-                className="absolute top-full left-0 w-full z-50 mt-1 bg-popover rounded-lg border shadow-md overflow-hidden"
-                style={{ transformOrigin: "top" }}
+                className="absolute w-full z-50 bg-popover rounded-lg border shadow-md overflow-hidden"
+                style={{ 
+                  transformOrigin: dropdownPosition.bottom !== undefined ? "bottom" : "top",
+                  top: dropdownPosition.top,
+                  bottom: dropdownPosition.bottom,
+                  left: dropdownPosition.left,
+                  right: dropdownPosition.right,
+                }}
               >
-                <CommandList className="max-h-[300px] overflow-y-auto scrollbar-thin scrollbar-thumb-muted-foreground/20 scrollbar-track-transparent">
+                <CommandList 
+                  className="overflow-y-auto scrollbar-thin scrollbar-thumb-muted-foreground/20 scrollbar-track-transparent"
+                  style={{ 
+                    maxHeight: dropdownPosition.maxHeight || 300 
+                  }}
+                >
                   <CommandGroup>
                     {socialLinks.map((link, index) => (
                       <motion.div
