@@ -5,7 +5,8 @@ alwaysApply: true
 
 When the user says "commit & push", follow this specific workflow:
 
-1. **Commit all changes to dev branch**
+1. **Add all files and commit to dev branch**
+   - Add all files (including untracked files) using `git add .`
    - Stage and commit all current changes to the dev branch
    - Use a descriptive commit message
 
@@ -16,5 +17,8 @@ When the user says "commit & push", follow this specific workflow:
 3. **Push both branches**
    - Push the dev branch
    - Push the main branch
+
+4. **Switch back to dev branch**
+   - Switch back to the dev branch for continued development
 
 This ensures both branches stay in sync and all changes are properly versioned across both development and main branches.
