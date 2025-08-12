@@ -15,6 +15,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
+  metadataBase: new URL(process.env.NODE_ENV === 'production' ? "https://uvniche.com" : "http://localhost:3000"),
   title: "avaneesh",
   description: "@uvniche",
   openGraph: {
@@ -51,9 +52,9 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className="dark bg-black">
+    <html lang="en" className="dark bg-black h-full overflow-hidden">
       <body
-        className={`${inter.variable} ${geistMono.variable} font-sans antialiased bg-black`}
+        className={`${inter.variable} ${geistMono.variable} font-sans antialiased bg-black h-full overflow-hidden`}
       >
         {children}
         <Analytics />
