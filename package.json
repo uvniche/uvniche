@@ -6,7 +6,9 @@
     "dev": "next dev --turbopack",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "auto-start": "./auto-start.sh",
+    "postinstall": "echo '🎯 Ready to start! Run: npm run dev'"
   },
   "dependencies": {
     "@radix-ui/react-avatar": "^1.1.10",

@@ -56,21 +56,17 @@ const socialLinks = [
 // Animation variants for smooth transitions
 const containerVariants: Variants = {
   expanded: {
-    width: "100%",
-    scaleX: 1,
-    transformOrigin: "left",
+    scale: 1,
     transition: {
-      duration: 0.5,
-      ease: [0.25, 0.46, 0.45, 0.94], // Custom bezier curve for smooth animation
+      duration: 0.15,
+      ease: [0.4, 0.0, 0.2, 1], // Apple's standard easing
     }
   },
   collapsed: {
-    width: "100%",
-    scaleX: 0.95,
-    transformOrigin: "left",
+    scale: 1,
     transition: {
-      duration: 0.4,
-      ease: [0.25, 0.46, 0.45, 0.94],
+      duration: 0.1,
+      ease: [0.4, 0.0, 0.2, 1],
     }
   }
 }
@@ -102,23 +98,23 @@ const listVariants: Variants = {
 
 const itemVariants: Variants = {
   expanded: {
-    x: 0,
-    y: 0,
     opacity: 1,
     scale: 1,
+    y: 0,
     transition: {
-      duration: 0.4,
-      ease: [0.25, 0.46, 0.45, 0.94],
+      type: "spring",
+      damping: 30,
+      stiffness: 600,
+      mass: 0.6,
     }
   },
   collapsed: {
-    x: -20,
-    y: -5,
     opacity: 0,
-    scale: 0.95,
+    scale: 0.88,
+    y: 12,
     transition: {
-      duration: 0.25,
-      ease: [0.25, 0.46, 0.45, 0.94],
+      duration: 0.08,
+      ease: [0.4, 0.0, 1, 1], // Apple's ease-out
     }
   }
 }
@@ -140,7 +136,7 @@ export function SocialLinksSearch() {
         <Command className="rounded-lg border shadow-md w-full">
           {/* Search Input - Always visible and maintains layout */}
           <CommandInput 
-            placeholder="Type a command or search..." 
+            placeholder="Search" 
             onFocus={() => setIsExpanded(true)}
             className="transition-all duration-300 ease-out"
           />
@@ -158,7 +154,7 @@ export function SocialLinksSearch() {
               >
                 <CommandList className="max-h-[300px]">
                   <CommandEmpty>No results found.</CommandEmpty>
-                  <CommandGroup heading="Social Links">
+                  <CommandGroup>
                     {socialLinks.map((link, index) => (
                       <motion.div
                         key={link.name}

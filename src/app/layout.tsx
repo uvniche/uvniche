@@ -15,8 +15,8 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Linktree",
-  description: "My personal linktree page",
+  title: "avaneesh",
+  description: "@uvniche",
 };
 
 export default function RootLayout({
