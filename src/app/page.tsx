@@ -7,7 +7,7 @@ export default function Home() {
       <div className="flex flex-col items-center space-y-6">
         {/* Profile Section */}
         <div className="flex flex-col items-center space-y-4">
-          <Avatar className="w-24 h-24 border border-border">
+          <Avatar className="w-24 h-24 border-2 border-border">
             <AvatarImage src="/pfp.jpeg" alt="Profile Picture" />
             <AvatarFallback className="bg-transparent text-transparent">
               PF
@@ -16,7 +16,7 @@ export default function Home() {
           
           <div className="text-center space-y-1">
             <h1 className="text-2xl font-bold">avaneesh</h1>
-            <p className="text-gray-400">@uvniche</p>
+            <p className="text-primary">@uvniche</p>
           </div>
         </div>
 

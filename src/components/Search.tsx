@@ -152,8 +152,7 @@ export function SocialLinksSearch() {
                 className="absolute top-full left-0 w-full z-50 mt-1 bg-popover rounded-lg border shadow-md overflow-hidden"
                 style={{ transformOrigin: "top" }}
               >
-                <CommandList className="max-h-[300px]">
-                  <CommandEmpty>No results found.</CommandEmpty>
+                <CommandList className="max-h-[300px] overflow-y-auto scrollbar-thin scrollbar-thumb-muted-foreground/20 scrollbar-track-transparent">
                   <CommandGroup>
                     {socialLinks.map((link, index) => (
                       <motion.div

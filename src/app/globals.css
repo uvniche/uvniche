@@ -115,7 +115,26 @@
   * {
     @apply border-border outline-ring/50;
   }
+  
+  html {
+    @apply bg-black;
+    /* Prevent overscroll bounce showing default background */
+    overscroll-behavior: none;
+  }
+  
   body {
-    @apply bg-background text-foreground;
+    @apply bg-black text-foreground;
+    /* Ensure black background extends beyond viewport */
+    min-height: 100vh;
+    min-height: 100dvh;
+    /* Additional overscroll prevention */
+    overscroll-behavior: none;
+  }
+  
+  /* Ensure root element also has black background */
+  #__next {
+    @apply bg-black;
+    min-height: 100vh;
+    min-height: 100dvh;
   }
 }
