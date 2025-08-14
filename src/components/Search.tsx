@@ -270,18 +270,62 @@ export function SocialLinksSearch() {
     }
   }, [isExpanded, calculateDropdownPosition])
 
-  // Ensure body scroll is always locked
+  // Completely lock page scroll when dropdown is open
   useEffect(() => {
-    // Always lock body scroll to prevent any page scrolling
-    document.body.style.overflow = 'hidden'
-    document.documentElement.style.overflow = 'hidden'
+    if (isExpanded) {
+      // Get current scroll position
+      const scrollY = window.scrollY
+      
+      // Apply comprehensive body lock
+      document.body.style.position = 'fixed'
+      document.body.style.top = `-${scrollY}px`
+      document.body.style.left = '0'
+      document.body.style.right = '0'
+      document.body.style.overflow = 'hidden'
+      document.body.style.height = '100vh'
+      document.body.style.width = '100vw'
+      
+      // Also lock html element for extra security
+      document.documentElement.style.overflow = 'hidden'
+      document.documentElement.style.height = '100vh'
+      
+      // Store scroll position for restoration
+      document.body.setAttribute('data-scroll-y', scrollY.toString())
+    } else {
+      // Restore everything
+      const scrollY = document.body.getAttribute('data-scroll-y')
+      
+      document.body.style.position = ''
+      document.body.style.top = ''
+      document.body.style.left = ''
+      document.body.style.right = ''
+      document.body.style.overflow = ''
+      document.body.style.height = ''
+      document.body.style.width = ''
+      
+      document.documentElement.style.overflow = ''
+      document.documentElement.style.height = ''
+      
+      if (scrollY) {
+        window.scrollTo(0, parseInt(scrollY))
+        document.body.removeAttribute('data-scroll-y')
+      }
+    }
     
     return () => {
-      // Clean up on unmount
+      // Cleanup on unmount
+      document.body.style.position = ''
+      document.body.style.top = ''
+      document.body.style.left = ''
+      document.body.style.right = ''
       document.body.style.overflow = ''
+      document.body.style.height = ''
+      document.body.style.width = ''
       document.documentElement.style.overflow = ''
+      document.documentElement.style.height = ''
+      document.body.removeAttribute('data-scroll-y')
     }
-  }, [])
+  }, [isExpanded])
 
   // Cleanup typing timeout on unmount
   useEffect(() => {
@@ -295,7 +339,7 @@ export function SocialLinksSearch() {
   return (
     <div className="relative w-full" ref={containerRef}>
               <motion.div
-          className="group w-full cursor-pointer"
+          className={`group w-full ${isExpanded ? '' : 'cursor-pointer'}`}
           variants={containerVariants}
           animate={isExpanded ? "expanded" : "collapsed"}
           initial="collapsed"
@@ -317,16 +361,6 @@ export function SocialLinksSearch() {
               stiffness: 300, 
               damping: 25,
               duration: 0.2
-            }
-          }}
-          whileTap={{ 
-            scale: 0.99,
-            y: 0,
-            transition: { 
-              type: "spring", 
-              stiffness: 300, 
-              damping: 25,
-              duration: 0.1
             }
           }}
         >
@@ -358,20 +392,22 @@ export function SocialLinksSearch() {
                   bottom: dropdownPosition.bottom,
                   left: dropdownPosition.left,
                   right: dropdownPosition.right,
-                  touchAction: 'none' // Prevent default touch behaviors on the container
+                  touchAction: 'pan-y',
                 }}
-                onTouchStart={(e) => {
-                  // Prevent event bubbling to avoid interfering with body scroll
-                  e.stopPropagation()
-                }}
+
               >
-                <CommandList 
-                  className="overflow-y-auto scrollbar-thin scrollbar-thumb-muted-foreground/20 scrollbar-track-transparent overscroll-contain"
-                  style={{ 
+                <CommandList
+                  className="overflow-y-scroll scrollbar-thin scrollbar-thumb-muted-foreground/20 scrollbar-track-transparent"
+                  style={{
                     maxHeight: dropdownPosition.maxHeight || 300,
-                    WebkitOverflowScrolling: 'touch', // Enable momentum scrolling on iOS
-                    touchAction: 'pan-y' // Allow vertical scrolling only
+                    WebkitOverflowScrolling: 'touch',
+                    overscrollBehavior: 'contain',
+                    overscrollBehaviorY: 'contain',
+                    touchAction: 'pan-y',
+                    scrollbarWidth: 'thin',
+                    msOverflowStyle: 'auto',
                   }}
+
                 >
                   <CommandGroup>
                     {socialLinks.map((link, index) => (
