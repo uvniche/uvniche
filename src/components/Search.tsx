@@ -1,7 +1,7 @@
 "use client"
 
 import { useState, useRef, useEffect, useCallback } from "react"
-import { motion, AnimatePresence, Variants } from "framer-motion"
+import { motion, AnimatePresence, type Variants } from "framer-motion"
 import {
   Github,
   Instagram,
@@ -337,7 +337,7 @@ export function SocialLinksSearch() {
   }, [])
 
   return (
-    <div className="relative w-full" ref={containerRef}>
+    <div className="relative w-full search-container" ref={containerRef}>
               <motion.div
           className={`group w-full ${isExpanded ? '' : 'cursor-pointer'}`}
           variants={containerVariants}
@@ -354,15 +354,24 @@ export function SocialLinksSearch() {
             }
           }}
           whileHover={{ 
-            scale: 1.01,
-            y: -1,
+            scale: 1.005,
             transition: { 
               type: "spring", 
-              stiffness: 300, 
-              damping: 25,
-              duration: 0.2
+              stiffness: 400, 
+              damping: 30,
+              duration: 0.15
             }
           }}
+          whileTap={{ 
+            scale: 0.995,
+            transition: { 
+              type: "spring", 
+              stiffness: 400, 
+              damping: 25,
+              duration: 0.1
+            }
+          }}
+          style={{ willChange: 'transform' }}
         >
         <Command className="rounded-lg border shadow-md w-full">
           {/* Search Input - Always visible and maintains layout */}

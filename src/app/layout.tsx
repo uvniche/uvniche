@@ -7,11 +7,14 @@ import "./globals.css";
 const inter = Inter({
   variable: "--font-inter",
   subsets: ["latin"],
+  display: "swap",
+  preload: true,
 });
 
 const geistMono = Geist_Mono({
   variable: "--font-geist-mono",
   subsets: ["latin"],
+  display: "swap",
 });
 
 export const metadata: Metadata = {
@@ -53,6 +56,9 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className="dark bg-black h-full overflow-hidden">
+      <head>
+        <link rel="preload" as="image" href="/pfp.jpeg" />
+      </head>
       <body
         className={`${inter.variable} ${geistMono.variable} font-sans antialiased bg-black h-full overflow-hidden`}
       >

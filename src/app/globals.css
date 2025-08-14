@@ -120,6 +120,9 @@
     @apply bg-black;
     /* Prevent overscroll bounce showing default background */
     overscroll-behavior: none;
+    /* Prevent font size adjustments on mobile */
+    -webkit-text-size-adjust: 100%;
+    text-size-adjust: 100%;
   }
   
   body {
@@ -129,6 +132,8 @@
     min-height: 100dvh;
     /* Additional overscroll prevention */
     overscroll-behavior: none;
+    /* Prevent layout shifts during font loading */
+    font-display: swap;
   }
   
   /* Ensure root element also has black background */
@@ -136,5 +141,45 @@
     @apply bg-black;
     min-height: 100vh;
     min-height: 100dvh;
+  }
+  
+  /* Prevent layout shifts from text content */
+  h1, h2, h3, h4, h5, h6, p {
+    /* Reserve space for text to prevent CLS */
+    min-height: 1em;
+  }
+  
+  /* Ensure consistent sizing for profile text */
+  .profile-title {
+    line-height: 1.2;
+    height: 2.4rem; /* Reserve exact space for text-2xl */
+  }
+  
+  .profile-subtitle {
+    line-height: 1.5;
+    height: 1.5rem; /* Reserve exact space for text-base */
+  }
+  
+  /* Prevent layout shifts from animations */
+  [data-framer-motion] {
+    contain: layout style;
+  }
+  
+  /* Optimize performance for animated elements */
+  .cursor-pointer {
+    transform: translateZ(0); /* Create a new stacking context */
+    backface-visibility: hidden;
+  }
+  
+  /* Prevent layout shifts from search component */
+  .search-container {
+    contain: layout;
+  }
+  
+  /* Ensure images don't cause layout shifts */
+  img {
+    max-width: 100%;
+    height: auto;
+    display: block;
   }
 }
