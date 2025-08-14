@@ -4,6 +4,9 @@ import { Analytics } from "@vercel/analytics/react";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import "./globals.css";
 
+// Use edge runtime for faster responses
+export const runtime = 'edge';
+
 const inter = Inter({
   variable: "--font-inter",
   subsets: ["latin"],
