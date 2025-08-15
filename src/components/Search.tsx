@@ -123,74 +123,8 @@ export function SocialLinksSearch() {
   const [isFocused, setIsFocused] = useState(false)
   const [inputValue, setInputValue] = useState("")
   const [isTyping, setIsTyping] = useState(false)
-  const [dropdownPosition, setDropdownPosition] = useState<{
-    top?: number;
-    bottom?: number;
-    left?: number;
-    right?: number;
-    maxHeight?: number;
-  }>({})
   const containerRef = useRef<HTMLDivElement>(null)
-  const dropdownRef = useRef<HTMLDivElement>(null)
   const typingTimeoutRef = useRef<NodeJS.Timeout | null>(null)
-
-  const calculateDropdownPosition = useCallback(() => {
-    if (!containerRef.current) return
-
-    const container = containerRef.current
-    const containerRect = container.getBoundingClientRect()
-    const viewportHeight = window.innerHeight
-    const viewportWidth = window.innerWidth
-    
-    // Dropdown dimensions (estimated)
-    const dropdownHeight = 300 // max-h-[300px]
-    const dropdownWidth = containerRect.width
-    const padding = 16 // Safe padding from viewport edges
-    
-    const position: typeof dropdownPosition = {}
-    
-    // Calculate vertical position - always prefer below
-    const spaceBelow = viewportHeight - containerRect.bottom
-    const spaceAbove = containerRect.top
-    const minItemHeight = 48 // Approximate height of a single search item
-    
-    if (spaceBelow >= dropdownHeight + padding) {
-      // Enough space below for full dropdown - position normally
-      position.top = containerRect.height + 4 // mt-1 equivalent
-    } else if (spaceBelow >= minItemHeight + padding) {
-      // Not enough space for full dropdown, but enough for at least one item - position below with scroll
-      position.top = containerRect.height + 4
-      position.maxHeight = Math.max(spaceBelow - padding, minItemHeight)
-    } else if (spaceAbove >= dropdownHeight + padding) {
-      // No space below even for one item, but full space above - position above
-      position.bottom = containerRect.height + 4
-    } else {
-      // Not enough space anywhere for full dropdown - use the larger available space
-      if (spaceBelow > spaceAbove) {
-        // More space below (even if minimal)
-        position.top = containerRect.height + 4
-        position.maxHeight = Math.max(spaceBelow - padding, minItemHeight)
-      } else {
-        // More space above
-        position.bottom = containerRect.height + 4
-        position.maxHeight = Math.max(spaceAbove - padding, minItemHeight)
-      }
-    }
-    
-    // Calculate horizontal position
-    if (containerRect.left + dropdownWidth > viewportWidth - padding) {
-      // Would overflow right edge
-      position.right = 0
-    } else if (containerRect.left < padding) {
-      // Would overflow left edge
-      position.left = 0
-    } else {
-      // Normal positioning
-      position.left = 0
-    }
-    
-    setDropdownPosition(position)
-  }, [])
 
   const handleLinkSelect = (url: string) => {
     window.open(url, '_blank', 'noopener,noreferrer')
@@ -215,8 +149,6 @@ export function SocialLinksSearch() {
   const handleInputFocus = () => {
     setIsFocused(true)
     setIsExpanded(true)
-    // Calculate position when opening
-    setTimeout(calculateDropdownPosition, 0)
   }
 
   const handleInputBlur = () => {
@@ -250,82 +182,7 @@ export function SocialLinksSearch() {
   // Update isExpanded based on shouldShowDropdown
   useEffect(() => {
     setIsExpanded(shouldShowDropdown)
-    if (shouldShowDropdown) {
-      // Recalculate position when expanding
-      setTimeout(calculateDropdownPosition, 0)
-    }
-  }, [shouldShowDropdown, calculateDropdownPosition])
-
-  // Handle window resize to recalculate position
-  useEffect(() => {
-    const handleResize = () => {
-      if (isExpanded) {
-        calculateDropdownPosition()
-      }
-    }
-
-    window.addEventListener('resize', handleResize)
-    return () => {
-      window.removeEventListener('resize', handleResize)
-    }
-  }, [isExpanded, calculateDropdownPosition])
-
-  // Completely lock page scroll when dropdown is open
-  useEffect(() => {
-    if (isExpanded) {
-      // Get current scroll position
-      const scrollY = window.scrollY
-      
-      // Apply comprehensive body lock
-      document.body.style.position = 'fixed'
-      document.body.style.top = `-${scrollY}px`
-      document.body.style.left = '0'
-      document.body.style.right = '0'
-      document.body.style.overflow = 'hidden'
-      document.body.style.height = '100vh'
-      document.body.style.width = '100vw'
-      
-      // Also lock html element for extra security
-      document.documentElement.style.overflow = 'hidden'
-      document.documentElement.style.height = '100vh'
-      
-      // Store scroll position for restoration
-      document.body.setAttribute('data-scroll-y', scrollY.toString())
-    } else {
-      // Restore everything
-      const scrollY = document.body.getAttribute('data-scroll-y')
-      
-      document.body.style.position = ''
-      document.body.style.top = ''
-      document.body.style.left = ''
-      document.body.style.right = ''
-      document.body.style.overflow = ''
-      document.body.style.height = ''
-      document.body.style.width = ''
-      
-      document.documentElement.style.overflow = ''
-      document.documentElement.style.height = ''
-      
-      if (scrollY) {
-        window.scrollTo(0, parseInt(scrollY))
-        document.body.removeAttribute('data-scroll-y')
-      }
-    }
-    
-    return () => {
-      // Cleanup on unmount
-      document.body.style.position = ''
-      document.body.style.top = ''
-      document.body.style.left = ''
-      document.body.style.right = ''
-      document.body.style.overflow = ''
-      document.body.style.height = ''
-      document.body.style.width = ''
-      document.documentElement.style.overflow = ''
-      document.documentElement.style.height = ''
-      document.body.removeAttribute('data-scroll-y')
-    }
-  }, [isExpanded])
+  }, [shouldShowDropdown])
 
   // Cleanup typing timeout on unmount
   useEffect(() => {
@@ -338,41 +195,39 @@ export function SocialLinksSearch() {
 
   return (
     <div className="relative w-full search-container" ref={containerRef}>
-              <motion.div
-          className={`group w-full ${isExpanded ? '' : 'cursor-pointer'}`}
-          variants={containerVariants}
-          animate={isExpanded ? "expanded" : "collapsed"}
-          initial="collapsed"
-          onMouseEnter={() => {
-            setIsExpanded(true)
-            setTimeout(calculateDropdownPosition, 0)
-          }}
-          onMouseLeave={() => {
-            // Only close on mouse leave if not focused and no input value
-            if (!isFocused && !inputValue.length && !isTyping) {
-              setIsExpanded(false)
-            }
-          }}
-          whileHover={{ 
-            scale: 1.005,
-            transition: { 
-              type: "spring", 
-              stiffness: 400, 
-              damping: 30,
-              duration: 0.15
-            }
-          }}
-          whileTap={{ 
-            scale: 0.995,
-            transition: { 
-              type: "spring", 
-              stiffness: 400, 
-              damping: 25,
-              duration: 0.1
-            }
-          }}
-          style={{ willChange: 'transform' }}
-        >
+      <motion.div
+        className={`group w-full ${isExpanded ? '' : 'cursor-pointer'}`}
+        variants={containerVariants}
+        animate={isExpanded ? "expanded" : "collapsed"}
+        initial="collapsed"
+        onMouseEnter={() => {
+          setIsExpanded(true)
+        }}
+        onMouseLeave={() => {
+          // Only close on mouse leave if not focused and no input value
+          if (!isFocused && !inputValue.length && !isTyping) {
+            setIsExpanded(false)
+          }
+        }}
+        whileHover={{ 
+          scale: 1.005,
+          transition: { 
+            type: "spring", 
+            stiffness: 400, 
+            damping: 30,
+            duration: 0.15
+          }
+        }}
+        whileTap={{ 
+          scale: 0.995,
+          transition: { 
+            type: "spring", 
+            stiffness: 400, 
+            damping: 25,
+            duration: 0.1
+          }
+        }}
+      >
         <Command className="rounded-lg border shadow-md w-full">
           {/* Search Input - Always visible and maintains layout */}
           <CommandInput 
@@ -389,35 +244,13 @@ export function SocialLinksSearch() {
           <AnimatePresence>
             {isExpanded && (
               <motion.div
-                ref={dropdownRef}
                 variants={listVariants}
                 initial="collapsed"
                 animate="expanded"
                 exit="collapsed"
-                className="absolute w-full z-50 bg-popover rounded-lg border shadow-md overflow-hidden"
-                style={{ 
-                  transformOrigin: dropdownPosition.bottom !== undefined ? "bottom" : "top",
-                  top: dropdownPosition.top,
-                  bottom: dropdownPosition.bottom,
-                  left: dropdownPosition.left,
-                  right: dropdownPosition.right,
-                  touchAction: 'pan-y',
-                }}
-
+                className="absolute w-full z-50 bg-popover rounded-lg border shadow-md overflow-hidden top-full mt-1"
               >
-                <CommandList
-                  className="overflow-y-scroll scrollbar-thin scrollbar-thumb-muted-foreground/20 scrollbar-track-transparent"
-                  style={{
-                    maxHeight: dropdownPosition.maxHeight || 300,
-                    WebkitOverflowScrolling: 'touch',
-                    overscrollBehavior: 'contain',
-                    overscrollBehaviorY: 'contain',
-                    touchAction: 'pan-y',
-                    scrollbarWidth: 'thin',
-                    msOverflowStyle: 'auto',
-                  }}
-
-                >
+                <CommandList className="max-h-[300px] overflow-y-auto">
                   <CommandGroup>
                     {socialLinks.map((link, index) => (
                       <motion.div
