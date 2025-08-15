@@ -427,9 +427,9 @@ export function SocialLinksSearch() {
                       >
                         <CommandItem 
                           onSelect={() => handleLinkSelect(link.url)}
-                          className="cursor-pointer"
+                          className="cursor-pointer h-9 flex items-center"
                         >
-                          <link.icon />
+                          <link.icon className="size-4" />
                           <span>{link.name}</span>
                         </CommandItem>
                       </motion.div>

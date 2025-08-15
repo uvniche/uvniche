@@ -114,6 +114,7 @@
 @layer base {
   * {
     @apply border-border outline-ring/50;
+    box-sizing: border-box;
   }
   
   html {
@@ -123,6 +124,10 @@
     /* Prevent font size adjustments on mobile */
     -webkit-text-size-adjust: 100%;
     text-size-adjust: 100%;
+    /* Ensure full height on all devices */
+    height: 100%;
+    height: 100vh;
+    height: 100dvh;
   }
   
   body {
@@ -130,10 +135,20 @@
     /* Ensure black background extends beyond viewport */
     min-height: 100vh;
     min-height: 100dvh;
+    height: 100vh;
+    height: 100dvh;
     /* Additional overscroll prevention */
     overscroll-behavior: none;
     /* Prevent layout shifts during font loading */
     font-display: swap;
+    /* Ensure perfect centering */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    /* Prevent horizontal scrolling */
+    overflow-x: hidden;
+    /* Ensure consistent behavior across platforms */
+    -webkit-overflow-scrolling: touch;
   }
   
   /* Ensure root element also has black background */
@@ -141,23 +156,32 @@
     @apply bg-black;
     min-height: 100vh;
     min-height: 100dvh;
+    height: 100vh;
+    height: 100dvh;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
   }
   
   /* Prevent layout shifts from text content */
   h1, h2, h3, h4, h5, h6, p {
     /* Reserve space for text to prevent CLS */
     min-height: 1em;
+    margin: 0;
   }
   
   /* Ensure consistent sizing for profile text */
   .profile-title {
     line-height: 1.2;
     height: 2.4rem; /* Reserve exact space for text-2xl */
+    margin: 0;
   }
   
   .profile-subtitle {
     line-height: 1.5;
     height: 1.5rem; /* Reserve exact space for text-base */
+    margin: 0;
   }
   
   /* Prevent layout shifts from animations */
@@ -181,5 +205,56 @@
     max-width: 100%;
     height: auto;
     display: block;
+  }
+  
+  /* Ensure search items match search bar height perfectly */
+  [data-slot="command-item"] {
+    height: 2.25rem; /* h-9 equivalent */
+    min-height: 2.25rem;
+    max-height: 2.25rem;
+    display: flex;
+    align-items: center;
+    padding: 0 0.5rem; /* px-2 equivalent */
+  }
+  
+  /* Ensure search input wrapper has consistent height */
+  [data-slot="command-input-wrapper"] {
+    height: 2.25rem; /* h-9 equivalent */
+    min-height: 2.25rem;
+    max-height: 2.25rem;
+  }
+  
+  /* Ensure perfect centering on all platforms */
+  .centered-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+    min-height: 100vh;
+    min-height: 100dvh;
+  }
+  
+  /* Prevent any unwanted margins or padding */
+  body, html, #__next {
+    margin: 0;
+    padding: 0;
+  }
+  
+  /* Ensure compatibility with social media embeds */
+  @media (max-width: 480px) {
+    html, body, #__next {
+      height: 100vh;
+      height: 100dvh;
+      overflow: hidden;
+    }
+  }
+  
+  /* Ensure compatibility with iframe embeds */
+  @media (max-height: 600px) {
+    .centered-container {
+      min-height: 100vh;
+      min-height: 100dvh;
+    }
   }
 }
