@@ -382,7 +382,7 @@ export function SocialLinksSearch() {
             onFocus={handleInputFocus}
             onBlur={handleInputBlur}
             onTouchStart={handleInputFocus}
-            className="transition-all duration-300 ease-out"
+            className="transition-all duration-300 ease-out h-9"
           />
           
           {/* Dropdown - Absolutely positioned to not affect layout */}
@@ -427,7 +427,7 @@ export function SocialLinksSearch() {
                       >
                         <CommandItem 
                           onSelect={() => handleLinkSelect(link.url)}
-                          className="cursor-pointer h-9 flex items-center"
+                          className="cursor-pointer h-9 flex items-center py-0"
                         >
                           <link.icon className="size-4" />
                           <span>{link.name}</span>
