@@ -34,6 +34,7 @@ export default function Home() {
               }
             }}
             className="cursor-pointer"
+            style={{ willChange: 'transform' }}
           >
             <div className="relative w-24 h-24 rounded-full overflow-hidden border-2 border-border bg-muted">
               <Image
