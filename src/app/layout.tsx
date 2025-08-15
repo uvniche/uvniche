@@ -50,6 +50,13 @@ export const metadata: Metadata = {
     icon: "/pfp.jpeg",
     apple: "/pfp.jpeg",
   },
+  viewport: {
+    width: 'device-width',
+    initialScale: 1,
+    maximumScale: 1,
+    userScalable: false,
+    viewportFit: 'cover',
+  },
 };
 
 export default function RootLayout({
@@ -61,9 +68,20 @@ export default function RootLayout({
     <html lang="en" className="dark bg-black h-full overflow-hidden">
       <head>
         <link rel="preload" as="image" href="/pfp.jpeg" />
+        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover" />
+        <meta name="format-detection" content="telephone=no" />
+        <meta name="mobile-web-app-capable" content="yes" />
+        <meta name="apple-mobile-web-app-capable" content="yes" />
+        <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+        <meta name="theme-color" content="#000000" />
+        <meta name="msapplication-TileColor" content="#000000" />
+        <meta name="msapplication-config" content="none" />
+        <meta name="robots" content="noindex, nofollow" />
+        <meta name="referrer" content="no-referrer" />
+        <meta name="X-UA-Compatible" content="IE=edge" />
       </head>
       <body
-        className={`${inter.variable} ${geistMono.variable} font-sans antialiased bg-black h-full overflow-hidden`}
+        className={`${inter.variable} ${geistMono.variable} font-sans antialiased bg-black h-full overflow-hidden flex items-center justify-center`}
       >
         {children}
         <Analytics />

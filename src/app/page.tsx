@@ -10,8 +10,8 @@ export const runtime = 'edge';
 
 export default function Home() {
   return (
-    <div className="h-screen overflow-hidden bg-black text-white flex items-center justify-center p-4">
-      <div className="flex flex-col items-center space-y-6">
+    <div className="w-full h-full flex items-center justify-center p-4">
+      <div className="flex flex-col items-center space-y-6 max-w-md mx-auto">
         {/* Profile Section */}
         <div className="flex flex-col items-center space-y-4">
           <motion.div
@@ -58,7 +58,7 @@ export default function Home() {
         </div>
 
         {/* Search Links Section */}
-        <div className="w-full max-w-md min-h-[3rem]">
+        <div className="w-full min-h-[3rem]">
           <SocialLinksSearch />
         </div>
       </div>
