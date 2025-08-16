@@ -270,3 +270,37 @@
     }
   }
 }
+
+/* Performance optimizations */
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeSpeed;
+}
+
+/* Optimize image rendering */
+img {
+  image-rendering: -webkit-optimize-contrast;
+  image-rendering: crisp-edges;
+}
+
+/* Reduce paint operations */
+.profile-title,
+.profile-subtitle {
+  will-change: transform;
+  backface-visibility: hidden;
+}
+
+/* Optimize animations */
+.search-container {
+  will-change: transform;
+  backface-visibility: hidden;
+}
