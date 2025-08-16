@@ -1,6 +1,11 @@
 "use client"
 
-import { SocialLinksSearch } from "@/components/Search";
+import nextDynamic from "next/dynamic";
+
+const SocialLinksSearch = nextDynamic(
+  () => import("@/components/Search").then(m => ({ default: m.SocialLinksSearch })),
+  { ssr: false }
+);
 import { motion } from "framer-motion";
 import Image from "next/image";
 
