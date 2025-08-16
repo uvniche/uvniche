@@ -64,7 +64,7 @@ export default function Home() {
         </div>
 
         {/* Search Links Section */}
-        <div className="w-full min-h-[3rem]">
+        <div className="w-full">
           <SocialLinksSearch />
         </div>
       </div>
