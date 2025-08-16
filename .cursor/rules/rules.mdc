@@ -46,3 +46,12 @@ When the user says "pull latest" or "sync with remote", follow this specific wor
    - Ensure you're on dev branch for continued development
 
 This ensures both branches are fully synced with the remote repository and you're ready to continue development.
+
+# CRITICAL: Never Commit & Push Without Permission
+
+**NEVER commit and push code changes without explicit user permission.** 
+
+- Only execute git operations when the user specifically requests them
+- Always ask for permission before making any commits or pushes
+- This rule overrides all other workflow rules
+- The user must explicitly say "commit & push" or similar command
