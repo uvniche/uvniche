@@ -343,6 +343,7 @@ export function SocialLinksSearch() {
           variants={containerVariants}
           animate={isExpanded ? "expanded" : "collapsed"}
           initial="collapsed"
+          layout
           onMouseEnter={() => {
             setIsExpanded(true)
             setTimeout(calculateDropdownPosition, 0)
@@ -394,6 +395,7 @@ export function SocialLinksSearch() {
                 initial="collapsed"
                 animate="expanded"
                 exit="collapsed"
+                layout
                 className="absolute w-full z-50 bg-popover rounded-lg border shadow-md overflow-hidden"
                 style={{ 
                   transformOrigin: dropdownPosition.bottom !== undefined ? "bottom" : "top",
@@ -403,6 +405,7 @@ export function SocialLinksSearch() {
                   right: dropdownPosition.right,
                   touchAction: 'pan-y',
                 }}
+                suppressHydrationWarning
 
               >
                 <CommandList
@@ -424,6 +427,7 @@ export function SocialLinksSearch() {
                         key={link.name}
                         variants={itemVariants}
                         custom={index}
+                        layout
                       >
                         <CommandItem 
                           onSelect={() => handleLinkSelect(link.url)}
