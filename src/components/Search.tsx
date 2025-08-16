@@ -224,6 +224,14 @@ export function SocialLinksSearch() {
     // Don't immediately close - let the click outside handler manage it
   }
 
+  const handleInputClick = () => {
+    // Ensure input is focused and dropdown stays open when clicking
+    setIsFocused(true)
+    setIsExpanded(true)
+    // Calculate position when opening
+    setTimeout(calculateDropdownPosition, 0)
+  }
+
   // Determine if dropdown should be visible
   const shouldShowDropdown = isFocused || isTyping || inputValue.length > 0 || isExpanded
 
@@ -272,7 +280,10 @@ export function SocialLinksSearch() {
 
   // Completely lock page scroll when dropdown is open
   useEffect(() => {
-    if (isExpanded) {
+    // Skip scroll locking on mobile devices to prevent layout issues
+    const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent)
+    
+    if (isExpanded && !isMobile) {
       // Get current scroll position
       const scrollY = window.scrollY
       
@@ -291,7 +302,7 @@ export function SocialLinksSearch() {
       
       // Store scroll position for restoration
       document.body.setAttribute('data-scroll-y', scrollY.toString())
-    } else {
+    } else if (!isExpanded && !isMobile) {
       // Restore everything
       const scrollY = document.body.getAttribute('data-scroll-y')
       
@@ -314,16 +325,18 @@ export function SocialLinksSearch() {
     
     return () => {
       // Cleanup on unmount
-      document.body.style.position = ''
-      document.body.style.top = ''
-      document.body.style.left = ''
-      document.body.style.right = ''
-      document.body.style.overflow = ''
-      document.body.style.height = ''
-      document.body.style.width = ''
-      document.documentElement.style.overflow = ''
-      document.documentElement.style.height = ''
-      document.body.removeAttribute('data-scroll-y')
+      if (!isMobile) {
+        document.body.style.position = ''
+        document.body.style.top = ''
+        document.body.style.left = ''
+        document.body.style.right = ''
+        document.body.style.overflow = ''
+        document.body.style.height = ''
+        document.body.style.width = ''
+        document.documentElement.style.overflow = ''
+        document.documentElement.style.height = ''
+        document.body.removeAttribute('data-scroll-y')
+      }
     }
   }, [isExpanded])
 
@@ -382,6 +395,7 @@ export function SocialLinksSearch() {
             onValueChange={handleInputChange}
             onFocus={handleInputFocus}
             onBlur={handleInputBlur}
+            onClick={handleInputClick}
             onTouchStart={handleInputFocus}
             className="transition-all duration-300 ease-out h-9"
           />
