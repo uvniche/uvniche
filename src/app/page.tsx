@@ -11,7 +11,6 @@ import Image from "next/image";
 
 // Force static generation for better performance
 export const dynamic = 'force-static';
-export const runtime = 'edge';
 
 export default function Home() {
   return (
