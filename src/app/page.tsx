@@ -1,6 +1,6 @@
 "use client"
 
-thisimport { Search } from "@/components/Search";
+import { Search } from "@/components/Search";
 import { motion } from "framer-motion";
 import Image from "next/image";
 
