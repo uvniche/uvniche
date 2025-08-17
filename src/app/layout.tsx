@@ -2,6 +2,7 @@ import type { Metadata, Viewport } from "next";
 import { Inter, Geist_Mono } from "next/font/google";
 import { Analytics } from "@vercel/analytics/react";
 import { SpeedInsights } from "@vercel/speed-insights/next";
+import { config } from "@/lib/config";
 import "./globals.css";
 
 // Use edge runtime for faster responses
@@ -24,7 +25,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  metadataBase: new URL(process.env.NODE_ENV === 'production' ? "https://uvniche.com" : "http://localhost:3000"),
+  metadataBase: new URL(config.baseUrl),
   title: "avaneesh",
   description: "@uvniche",
   openGraph: {
@@ -99,7 +100,7 @@ export default function RootLayout({
         <meta name="theme-color" content="#000000" />
         <meta name="msapplication-TileColor" content="#000000" />
         <meta name="msapplication-config" content="none" />
-        <meta name="robots" content="noindex, nofollow" />
+        <meta name="robots" content="index, follow" />
         <meta name="referrer" content="no-referrer" />
         <meta name="X-UA-Compatible" content="IE=edge" />
       </head>
