@@ -118,11 +118,12 @@ const itemVariants: Variants = {
   }
 }
 
-export function SocialLinksSearch() {
+export function Search() {
   const [isExpanded, setIsExpanded] = useState(false)
   const [isFocused, setIsFocused] = useState(false)
   const [inputValue, setInputValue] = useState("")
   const [isTyping, setIsTyping] = useState(false)
+  const [isMounted, setIsMounted] = useState(false)
   const [dropdownPosition, setDropdownPosition] = useState<{
     top?: number;
     bottom?: number;
@@ -134,8 +135,13 @@ export function SocialLinksSearch() {
   const dropdownRef = useRef<HTMLDivElement>(null)
   const typingTimeoutRef = useRef<NodeJS.Timeout | null>(null)
 
+  // Ensure component is mounted before running browser-specific code
+  useEffect(() => {
+    setIsMounted(true)
+  }, [])
+
   const calculateDropdownPosition = useCallback(() => {
-    if (!containerRef.current) return
+    if (!containerRef.current || !isMounted) return
 
     const container = containerRef.current
     const containerRect = container.getBoundingClientRect()
@@ -190,10 +196,12 @@ export function SocialLinksSearch() {
     }
     
     setDropdownPosition(position)
-  }, [])
+  }, [isMounted])
 
   const handleLinkSelect = (url: string) => {
-    window.open(url, '_blank', 'noopener,noreferrer')
+    if (typeof window !== 'undefined') {
+      window.open(url, '_blank', 'noopener,noreferrer')
+    }
     setIsExpanded(false) // Close dropdown after selection
   }
 
@@ -237,6 +245,8 @@ export function SocialLinksSearch() {
 
   // Handle click outside to close dropdown
   useEffect(() => {
+    if (!isMounted) return
+
     const handleClickOutside = (event: MouseEvent | TouchEvent) => {
       if (containerRef.current && !containerRef.current.contains(event.target as Node)) {
         setIsExpanded(false)
@@ -253,19 +263,23 @@ export function SocialLinksSearch() {
       document.removeEventListener('mousedown', handleClickOutside)
       document.removeEventListener('touchstart', handleClickOutside)
     }
-  }, [isExpanded])
+  }, [isExpanded, isMounted])
 
   // Update isExpanded based on shouldShowDropdown
   useEffect(() => {
+    if (!isMounted) return
+    
     setIsExpanded(shouldShowDropdown)
     if (shouldShowDropdown) {
       // Recalculate position when expanding
       setTimeout(calculateDropdownPosition, 0)
     }
-  }, [shouldShowDropdown, calculateDropdownPosition])
+  }, [shouldShowDropdown, calculateDropdownPosition, isMounted])
 
   // Handle window resize to recalculate position
   useEffect(() => {
+    if (!isMounted) return
+
     const handleResize = () => {
       if (isExpanded) {
         calculateDropdownPosition()
@@ -276,10 +290,12 @@ export function SocialLinksSearch() {
     return () => {
       window.removeEventListener('resize', handleResize)
     }
-  }, [isExpanded, calculateDropdownPosition])
+  }, [isExpanded, calculateDropdownPosition, isMounted])
 
   // Completely lock page scroll when dropdown is open
   useEffect(() => {
+    if (!isMounted) return
+
     // Skip scroll locking on mobile devices to prevent layout issues
     const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent)
     
@@ -338,7 +354,7 @@ export function SocialLinksSearch() {
         document.body.removeAttribute('data-scroll-y')
       }
     }
-  }, [isExpanded])
+  }, [isExpanded, isMounted])
 
   // Cleanup typing timeout on unmount
   useEffect(() => {
@@ -349,44 +365,60 @@ export function SocialLinksSearch() {
     }
   }, [])
 
+  // Don't render anything until mounted to prevent hydration mismatch
+  if (!isMounted) {
+    return (
+      <div className="relative w-full search-container">
+        <div className="w-full">
+          <Command className="rounded-lg border shadow-md w-full">
+            <CommandInput 
+              placeholder="Search" 
+              className="transition-all duration-300 ease-out h-9"
+            />
+          </Command>
+        </div>
+      </div>
+    )
+  }
+
   return (
     <div className="relative w-full search-container" ref={containerRef}>
-              <motion.div
-          className={`group w-full ${isExpanded ? '' : 'cursor-pointer'}`}
-          variants={containerVariants}
-          animate={isExpanded ? "expanded" : "collapsed"}
-          initial="collapsed"
-          layout
-          onMouseEnter={() => {
-            setIsExpanded(true)
-            setTimeout(calculateDropdownPosition, 0)
-          }}
-          onMouseLeave={() => {
-            // Only close on mouse leave if not focused and no input value
-            if (!isFocused && !inputValue.length && !isTyping) {
-              setIsExpanded(false)
-            }
-          }}
-          whileHover={{ 
-            scale: 1.005,
-            transition: { 
-              type: "spring", 
-              stiffness: 400, 
-              damping: 30,
-              duration: 0.15
-            }
-          }}
-          whileTap={{ 
-            scale: 0.995,
-            transition: { 
-              type: "spring", 
-              stiffness: 400, 
-              damping: 25,
-              duration: 0.1
-            }
-          }}
-          style={{ willChange: 'transform' }}
-        >
+      <motion.div
+        className={`group w-full ${isExpanded ? '' : 'cursor-pointer'}`}
+        variants={containerVariants}
+        animate={isExpanded ? "expanded" : "collapsed"}
+        initial="collapsed"
+        layout
+        onMouseEnter={() => {
+          setIsExpanded(true)
+          setTimeout(calculateDropdownPosition, 0)
+        }}
+        onMouseLeave={() => {
+          // Only close on mouse leave if not focused and no input value
+          if (!isFocused && !inputValue.length && !isTyping) {
+            setIsExpanded(false)
+          }
+        }}
+        whileHover={{ 
+          scale: 1.005,
+          transition: { 
+            type: "spring", 
+            stiffness: 400, 
+            damping: 30,
+            duration: 0.15
+          }
+        }}
+        whileTap={{ 
+          scale: 0.995,
+          transition: { 
+            type: "spring", 
+            stiffness: 400, 
+            damping: 25,
+            duration: 0.1
+          }
+        }}
+        style={{ willChange: 'transform' }}
+      >
         <Command className="rounded-lg border shadow-md w-full">
           {/* Search Input - Always visible and maintains layout */}
           <CommandInput 
@@ -419,8 +451,6 @@ export function SocialLinksSearch() {
                   right: dropdownPosition.right,
                   touchAction: 'pan-y',
                 }}
-                suppressHydrationWarning
-
               >
                 <CommandList
                   className="overflow-y-scroll scrollbar-thin scrollbar-thumb-muted-foreground/20 scrollbar-track-transparent"
@@ -433,7 +463,6 @@ export function SocialLinksSearch() {
                     scrollbarWidth: 'thin',
                     msOverflowStyle: 'auto',
                   }}
-
                 >
                   <CommandGroup>
                     {socialLinks.map((link, index) => (

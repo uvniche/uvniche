@@ -1,6 +1,3 @@
----
-alwaysApply: true
----
 
 # Commit and Push Workflow
 
@@ -53,5 +50,13 @@ This ensures both branches are fully synced with the remote repository and you'r
 
 - Only execute git operations when the user specifically requests them
 - Always ask for permission before making any commits or pushes
+- This rule overrides all other workflow rules
+- The user must explicitly say "commit & push" or similar command
+- **IMPORTANT: When user says "commit & push" once, that is sufficient permission - no need to ask again**
+
+# User Permission Rule
+
+**User permission is granted when they say "commit & push" - no additional confirmation needed.**
+
 - This rule overrides all other workflow rules
 - The user must explicitly say "commit & push" or similar command
