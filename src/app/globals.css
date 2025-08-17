@@ -125,17 +125,13 @@
     -webkit-text-size-adjust: 100%;
     text-size-adjust: 100%;
     /* Ensure full height on all devices */
-    height: 100%;
-    height: 100vh;
     height: 100dvh;
   }
   
   body {
     @apply bg-black text-foreground;
     /* Ensure black background extends beyond viewport */
-    min-height: 100vh;
     min-height: 100dvh;
-    height: 100vh;
     height: 100dvh;
     /* Additional overscroll prevention */
     overscroll-behavior: none;
@@ -154,9 +150,7 @@
   /* Ensure root element also has black background */
   #__next {
     @apply bg-black;
-    min-height: 100vh;
     min-height: 100dvh;
-    height: 100vh;
     height: 100dvh;
     width: 100%;
     display: flex;
@@ -238,16 +232,7 @@
     padding-bottom: 0 !important;
   }
   
-  /* Ensure perfect centering on all platforms */
-  .centered-container {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 100%;
-    height: 100%;
-    min-height: 100vh;
-    min-height: 100dvh;
-  }
+
   
   /* Prevent any unwanted margins or padding */
   body, html, #__next {
@@ -264,19 +249,10 @@
     }
   }
   
-  /* Ensure compatibility with iframe embeds */
-  @media (max-height: 600px) {
-    .centered-container {
-      min-height: 100vh;
-      min-height: 100dvh;
-    }
-  }
+
 }
 
-/* Performance optimizations */
-* {
-  box-sizing: border-box;
-}
+
 
 html {
   scroll-behavior: smooth;
