@@ -51,8 +51,8 @@ export const metadata: Metadata = {
     images: ["/pfp.jpeg"],
   },
   icons: {
-    icon: "/pfp.jpeg",
-    apple: "/pfp.jpeg",
+    icon: "/favicon.ico",
+    apple: "/favicon.ico",
   },
 };
 
