@@ -38,7 +38,6 @@ export const metadata: Metadata = {
         url: "/pfp.jpeg",
         width: 400,
         height: 400,
-        alt: "avaneesh profile picture",
       },
     ],
     locale: "en_US",
@@ -103,6 +102,29 @@ export default function RootLayout({
         <meta name="robots" content="index, follow" />
         <meta name="referrer" content="no-referrer" />
         <meta name="X-UA-Compatible" content="IE=edge" />
+        
+        {/* Structured Data for Google Search */}
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              "@context": "https://schema.org",
+              "@type": "Person",
+              "name": "avaneesh",
+              "url": "https://uvniche.com",
+              "image": "https://uvniche.com/pfp.jpeg",
+              "description": "@uvniche",
+              "sameAs": [
+                "https://github.com/uvniche",
+                "https://instagram.com/uvniche",
+                "https://linkedin.com/in/uvniche",
+                "https://tiktok.com/@uvniche",
+                "https://twitter.com/uvniche",
+                "https://youtube.com/@uvniche"
+              ]
+            })
+          }}
+        />
       </head>
       <body
         className={`${inter.variable} ${geistMono.variable} font-sans antialiased bg-black h-full overflow-hidden flex items-center justify-center`}
