@@ -8,7 +8,6 @@ import {
   Twitter,
   Music,
   Linkedin,
-  Youtube,
 } from "lucide-react"
 
 import {
@@ -19,7 +18,7 @@ import {
   CommandList,
 } from "@/components/ui/command"
 
-const socialLinks = [
+const searchLinks = [
   {
     name: "GitHub",
     icon: Github,
@@ -44,11 +43,6 @@ const socialLinks = [
     name: "Twitter",
     icon: Twitter,
     url: "https://twitter.com/uvniche",
-  },
-  {
-    name: "YouTube",
-    icon: Youtube,
-    url: "https://youtube.com/@uvniche",
   },
 ]
 
@@ -465,7 +459,7 @@ export function Search() {
                   }}
                 >
                   <CommandGroup>
-                    {socialLinks.map((link, index) => (
+                    {searchLinks.map((link, index) => (
                       <motion.div
                         key={link.name}
                         variants={itemVariants}
