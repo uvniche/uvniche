@@ -1,0 +1,16 @@
+{
+  "name": "avaneesh",
+  "short_name": "avaneesh",
+  "description": "@uvniche",
+  "icons": [
+    {
+      "src": "/favicon.png",
+      "sizes": "any",
+      "type": "image/png"
+    }
+  ],
+  "theme_color": "#000000",
+  "background_color": "#000000",
+  "display": "standalone",
+  "start_url": "/"
+}

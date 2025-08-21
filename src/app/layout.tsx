@@ -50,8 +50,8 @@ export const metadata: Metadata = {
     images: ["/pfp.jpeg"],
   },
   icons: {
-    icon: "/favicon.ico",
-    apple: "/favicon.ico",
+    icon: "/favicon.png",
+    apple: "/favicon.png",
   },
 };
 
@@ -71,6 +71,11 @@ export default function RootLayout({
   return (
     <html lang="en" className="dark bg-black h-full overflow-hidden">
       <head>
+        {/* Favicon configuration */}
+        <link rel="icon" type="image/png" href="/favicon.png" />
+        <link rel="icon" type="image/x-icon" href="/favicon.ico" />
+        <link rel="manifest" href="/site.webmanifest" />
+        
         {/* Performance optimizations */}
         <link rel="preload" as="image" href="/pfp.jpeg" fetchPriority="high" />
         <link rel="preload" href="/pfp.jpeg" as="image" type="image/jpeg" />
@@ -98,7 +103,7 @@ export default function RootLayout({
         <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
         <meta name="theme-color" content="#000000" />
         <meta name="msapplication-TileColor" content="#000000" />
-        <meta name="msapplication-config" content="none" />
+        <meta name="msapplication-config" content="/browserconfig.xml" />
         <meta name="robots" content="index, follow" />
         <meta name="referrer" content="no-referrer" />
         <meta name="X-UA-Compatible" content="IE=edge" />
