@@ -72,8 +72,9 @@ export default function RootLayout({
     <html lang="en" className="dark bg-black h-full overflow-hidden">
       <head>
         {/* Favicon configuration */}
-        <link rel="icon" type="image/png" href="/favicon.png" />
+        <link rel="shortcut icon" href="/favicon.ico" />
         <link rel="icon" type="image/x-icon" href="/favicon.ico" />
+        <link rel="icon" type="image/png" href="/favicon.png" />
         <link rel="manifest" href="/site.webmanifest" />
         
         {/* Performance optimizations */}
@@ -104,6 +105,7 @@ export default function RootLayout({
         <meta name="theme-color" content="#000000" />
         <meta name="msapplication-TileColor" content="#000000" />
         <meta name="msapplication-config" content="/browserconfig.xml" />
+        <meta name="msapplication-TileImage" content="/favicon.png" />
         <meta name="robots" content="index, follow" />
         <meta name="referrer" content="no-referrer" />
         <meta name="X-UA-Compatible" content="IE=edge" />
