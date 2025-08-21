@@ -27,10 +27,10 @@ const geistMono = Geist_Mono({
 export const metadata: Metadata = {
   metadataBase: new URL(config.baseUrl),
   title: "avaneesh",
-  description: "@uvniche",
+  description: "\n@uvniche",
   openGraph: {
     title: "avaneesh",
-    description: "@uvniche",
+    description: "\n@uvniche",
     url: "https://uvniche.com",
     siteName: "avaneesh",
     images: [
@@ -46,7 +46,7 @@ export const metadata: Metadata = {
   twitter: {
     card: "summary",
     title: "avaneesh",
-    description: "@uvniche",
+    description: "\n@uvniche",
     images: ["/pfp.jpeg"],
   },
   icons: {
