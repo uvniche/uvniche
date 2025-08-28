@@ -8,6 +8,10 @@ import {
   Twitter,
   Music,
   Linkedin,
+  Youtube,
+  Headphones,
+  Play,
+  Radio,
 } from "lucide-react"
 
 import {
@@ -19,6 +23,11 @@ import {
 } from "@/components/ui/command"
 
 const searchLinks = [
+  {
+    name: "Apple Music",
+    icon: Play,
+    url: "https://music.apple.com/us/artist/avaneesh/1832229432",
+  },
   {
     name: "GitHub",
     icon: Github,
@@ -35,6 +44,16 @@ const searchLinks = [
     url: "https://linkedin.com/in/uvniche",
   },
   {
+    name: "SoundCloud",
+    icon: Radio,
+    url: "https://soundcloud.com/uvniche",
+  },
+  {
+    name: "Spotify",
+    icon: Headphones,
+    url: "https://open.spotify.com/artist/2WZKTiJucQd5UTC5LICRZ6",
+  },
+  {
     name: "TikTok",
     icon: Music,
     url: "https://tiktok.com/@uvniche",
@@ -43,6 +62,11 @@ const searchLinks = [
     name: "Twitter",
     icon: Twitter,
     url: "https://twitter.com/uvniche",
+  },
+  {
+    name: "YouTube",
+    icon: Youtube,
+    url: "https://www.youtube.com/@uvniche",
   },
 ]
 
