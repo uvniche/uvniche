@@ -138,6 +138,21 @@
       "permanent": true
     },
     {
+      "source": "/spotify",
+      "destination": "https://open.spotify.com/artist/2WZKTiJucQd5UTC5LICRZ6",
+      "permanent": true
+    },
+    {
+      "source": "/apple-music",
+      "destination": "https://music.apple.com/us/artist/avaneesh/1832229432",
+      "permanent": true
+    },
+    {
+      "source": "/soundcloud",
+      "destination": "https://soundcloud.com/uvniche",
+      "permanent": true
+    },
+    {
       "source": "/dev",
       "destination": "https://uvniche-git-dev-avaneeshteam.vercel.app",
       "permanent": false
