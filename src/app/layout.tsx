@@ -120,19 +120,17 @@ export default function RootLayout({
           dangerouslySetInnerHTML={{
             __html: JSON.stringify({
               "@context": "https://schema.org",
-              "@type": "Person",
-              "name": "avaneesh",
+              "@type": "Organization",
+              "name": "@uvniche",
               "url": "https://uvniche.com",
-              "image": "https://uvniche.com/pfp.jpeg",
-              "description": "@uvniche",
-              "alternateName": "@uvniche",
+              "logo": "https://uvniche.com/favicon.png",
               "sameAs": [
-                "https://github.com/uvniche",
                 "https://instagram.com/uvniche",
-                "https://linkedin.com/in/uvniche",
-                "https://tiktok.com/@uvniche",
                 "https://twitter.com/uvniche",
-                "https://youtube.com/@uvniche"
+                "https://github.com/uvniche",
+                "https://linkedin.com/in/uvniche",
+                "https://youtube.com/@uvniche",
+                "https://tiktok.com/@uvniche"
               ]
             })
           }}
