@@ -76,9 +76,8 @@ export default function RootLayout({
     <html lang="en" className="dark bg-black h-full overflow-hidden">
       <head>
         {/* Favicon configuration */}
-        <link rel="icon" type="image/x-icon" href="/favicon.ico" />
-        <link rel="icon" type="image/png" href="/favicon.png" />
-        <link rel="shortcut icon" href="/favicon.ico" />
+        <link rel="icon" href="/favicon.ico" sizes="any" />
+        <link rel="icon" href="/favicon.png" type="image/png" />
         <link rel="manifest" href="/site.webmanifest" />
         
         {/* Performance optimizations */}
