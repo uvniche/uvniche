@@ -4,8 +4,13 @@
   "description": "@uvniche",
   "icons": [
     {
+      "src": "/favicon.ico",
+      "sizes": "16x16 24x24 32x32 48x48 64x64 128x128 256x256",
+      "type": "image/x-icon"
+    },
+    {
       "src": "/favicon.png",
-      "sizes": "any",
+      "sizes": "320x320",
       "type": "image/png"
     }
   ],

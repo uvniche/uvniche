@@ -50,8 +50,12 @@ export const metadata: Metadata = {
     images: ["/pfp.jpeg"],
   },
   icons: {
-    icon: "/favicon.png",
+    icon: [
+      { url: "/favicon.ico", sizes: "16x16 24x24 32x32 48x48 64x64 128x128 256x256", type: "image/x-icon" },
+      { url: "/favicon.png", sizes: "320x320", type: "image/png" }
+    ],
     apple: "/favicon.png",
+    shortcut: "/favicon.ico",
   },
 };
 
@@ -72,9 +76,9 @@ export default function RootLayout({
     <html lang="en" className="dark bg-black h-full overflow-hidden">
       <head>
         {/* Favicon configuration */}
-        <link rel="shortcut icon" href="/favicon.ico" />
         <link rel="icon" type="image/x-icon" href="/favicon.ico" />
         <link rel="icon" type="image/png" href="/favicon.png" />
+        <link rel="shortcut icon" href="/favicon.ico" />
         <link rel="manifest" href="/site.webmanifest" />
         
         {/* Performance optimizations */}
