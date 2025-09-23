@@ -13,7 +13,8 @@ const inter = Inter({
   subsets: ["latin"],
   display: "swap",
   preload: true,
-  fallback: ['system-ui', 'arial'],
+  fallback: ['system-ui', '-apple-system', 'BlinkMacSystemFont', 'Segoe UI', 'arial'],
+  adjustFontFallback: true,
 });
 
 const geistMono = Geist_Mono({

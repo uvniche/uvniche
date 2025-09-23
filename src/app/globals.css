@@ -126,6 +126,11 @@
     text-size-adjust: 100%;
     /* Ensure full height on all devices */
     height: 100dvh;
+    /* Critical CSS for faster rendering */
+    font-display: swap;
+    /* Prevent invisible text during font load */
+    font-feature-settings: "kern" 1;
+    text-rendering: optimizeSpeed;
   }
   
   body {
@@ -262,6 +267,10 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-rendering: optimizeSpeed;
+  /* Improve paint performance */
+  contain: layout style paint;
+  /* Prevent layout thrashing */
+  will-change: auto;
 }
 
 /* Optimize image rendering */
