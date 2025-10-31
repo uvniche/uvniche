@@ -135,11 +135,9 @@
   
   body {
     @apply bg-black text-foreground;
-    /* Use --vh technique for better mobile browser compatibility */
-    height: calc(var(--vh, 1vh) * 100);
-    min-height: calc(var(--vh, 1vh) * 100);
-    min-height: 100vh;
-    min-height: 100dvh;
+    /* Use 100dvh for dynamic viewport height (handles keyboard) */
+    height: 100dvh;
+    width: 100vw;
     margin: 0;
     /* Additional overscroll prevention */
     overscroll-behavior: none;
@@ -149,7 +147,9 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    position: relative;
+    position: fixed;
+    top: 0;
+    left: 0;
     /* Prevent all scrolling */
     overflow: hidden;
     /* Ensure consistent behavior across platforms */
@@ -164,10 +164,7 @@
   /* Ensure root element also has black background */
   #__next {
     @apply bg-black;
-    height: calc(var(--vh, 1vh) * 100);
-    min-height: calc(var(--vh, 1vh) * 100);
-    min-height: 100vh;
-    min-height: 100dvh;
+    height: 100%;
     width: 100%;
     display: flex;
     align-items: center;
@@ -262,58 +259,27 @@
     padding: 0;
   }
   
-  /* Ensure compatibility with social media embeds */
-  @media (max-width: 480px) {
-    html, body, #__next {
-      height: calc(var(--vh, 1vh) * 100);
-      min-height: calc(var(--vh, 1vh) * 100);
+  /* Ensure compatibility with social media embeds and mobile keyboards */
+  @media (max-width: 768px) {
+    html {
+      height: 100dvh;
       overflow: hidden;
     }
-  }
-  
-  /* Fix centering for Instagram in-app browser and other iframes */
-  @supports (-webkit-touch-callout: none) {
-    /* iOS-specific fixes for Instagram */
-    html {
-      height: calc(var(--vh, 1vh) * 100);
-      min-height: 100vh;
-      min-height: 100dvh;
-    }
+    
     body {
-      height: calc(var(--vh, 1vh) * 100);
-      min-height: calc(var(--vh, 1vh) * 100);
-      min-height: 100vh;
-      min-height: 100dvh;
-      position: relative;
-      width: 100%;
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      width: 100vw;
+      height: 100dvh;
+      overflow: hidden;
     }
+    
     #__next {
-      min-height: 100vh;
-      min-height: 100dvh;
-    }
-  }
-  
-  /* Instagram webview specific - force centering even in partial screens */
-  @media (max-width: 768px) {
-    body {
-      position: relative;
+      height: 100%;
       width: 100%;
-      min-height: 100vh;
-      min-height: 100dvh;
-    }
-    #__next {
-      min-height: 100vh;
-      min-height: 100dvh;
-    }
-  }
-  
-  /* Additional Instagram in-app browser fixes */
-  @media (max-height: 600px) and (max-width: 768px) {
-    /* For small viewports like Instagram web view */
-    body, #__next {
-      min-height: 100vh;
-      min-height: 100dvh;
-      height: auto;
+      overflow: hidden;
     }
   }
   
