@@ -163,8 +163,10 @@ export function Search() {
 
     const container = containerRef.current
     const containerRect = container.getBoundingClientRect()
-    const viewportHeight = window.innerHeight
-    const viewportWidth = window.innerWidth
+    
+    // Use visualViewport for accurate viewport height that accounts for keyboard
+    const viewportHeight = window.visualViewport?.height || window.innerHeight
+    const viewportWidth = window.visualViewport?.width || window.innerWidth
     
     // Dropdown dimensions (estimated)
     const dropdownHeight = 300 // max-h-[300px]
@@ -241,8 +243,10 @@ export function Search() {
   const handleInputFocus = () => {
     setIsFocused(true)
     setIsExpanded(true)
-    // Calculate position when opening
+    // Calculate position when opening, with delay for keyboard animation
     setTimeout(calculateDropdownPosition, 0)
+    setTimeout(calculateDropdownPosition, 100)
+    setTimeout(calculateDropdownPosition, 300)
   }
 
   const handleInputBlur = () => {
@@ -294,7 +298,7 @@ export function Search() {
     }
   }, [shouldShowDropdown, calculateDropdownPosition, isMounted])
 
-  // Handle window resize to recalculate position
+  // Handle window resize and visualViewport changes (keyboard) to recalculate position
   useEffect(() => {
     if (!isMounted) return
 
@@ -304,9 +308,27 @@ export function Search() {
       }
     }
 
+    const handleVisualViewportResize = () => {
+      if (isExpanded) {
+        // Recalculate immediately when keyboard shows/hides
+        calculateDropdownPosition()
+      }
+    }
+
     window.addEventListener('resize', handleResize)
+    
+    // Listen for visualViewport changes (keyboard show/hide on mobile)
+    if (window.visualViewport) {
+      window.visualViewport.addEventListener('resize', handleVisualViewportResize)
+      window.visualViewport.addEventListener('scroll', handleVisualViewportResize)
+    }
+
     return () => {
       window.removeEventListener('resize', handleResize)
+      if (window.visualViewport) {
+        window.visualViewport.removeEventListener('resize', handleVisualViewportResize)
+        window.visualViewport.removeEventListener('scroll', handleVisualViewportResize)
+      }
     }
   }, [isExpanded, calculateDropdownPosition, isMounted])
 
