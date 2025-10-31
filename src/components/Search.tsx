@@ -327,12 +327,12 @@ export function Search() {
       document.body.style.left = '0'
       document.body.style.right = '0'
       document.body.style.overflow = 'hidden'
-      document.body.style.height = '100vh'
+      document.body.style.height = '100dvh'
       document.body.style.width = '100vw'
       
       // Also lock html element for extra security
       document.documentElement.style.overflow = 'hidden'
-      document.documentElement.style.height = '100vh'
+      document.documentElement.style.height = '100dvh'
       
       // Store scroll position for restoration
       document.body.setAttribute('data-scroll-y', scrollY.toString())
