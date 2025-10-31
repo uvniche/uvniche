@@ -125,8 +125,7 @@
     -webkit-text-size-adjust: 100%;
     text-size-adjust: 100%;
     /* Use --vh technique for better mobile browser compatibility */
-    height: 100vh; /* fallback */
-    height: 100dvh;
+    height: calc(var(--vh, 1vh) * 100);
     /* Critical CSS for faster rendering */
     font-display: swap;
     /* Prevent invisible text during font load */
@@ -137,8 +136,7 @@
   body {
     @apply bg-black text-foreground;
     /* Use --vh technique for better mobile browser compatibility */
-    height: 100vh; /* fallback */
-    height: 100dvh;
+    height: calc(var(--vh, 1vh) * 100);
     min-height: calc(var(--vh, 1vh) * 100);
     margin: 0;
     /* Additional overscroll prevention */
@@ -163,9 +161,8 @@
   /* Ensure root element also has black background */
   #__next {
     @apply bg-black;
+    height: calc(var(--vh, 1vh) * 100);
     min-height: calc(var(--vh, 1vh) * 100);
-    height: 100vh; /* fallback */
-    height: 100dvh;
     width: 100%;
     display: flex;
     align-items: center;
@@ -262,8 +259,7 @@
   /* Ensure compatibility with social media embeds */
   @media (max-width: 480px) {
     html, body, #__next {
-      height: 100vh; /* fallback */
-      height: 100dvh;
+      height: calc(var(--vh, 1vh) * 100);
       min-height: calc(var(--vh, 1vh) * 100);
       overflow: hidden;
     }
@@ -273,12 +269,10 @@
   @supports (-webkit-touch-callout: none) {
     /* iOS-specific fixes for Instagram */
     html {
-      height: 100vh; /* fallback */
-      height: 100dvh;
+      height: calc(var(--vh, 1vh) * 100);
     }
     body {
-      height: 100vh; /* fallback */
-      height: 100dvh;
+      height: calc(var(--vh, 1vh) * 100);
       min-height: calc(var(--vh, 1vh) * 100);
       position: fixed;
       width: 100%;
