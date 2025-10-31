@@ -1,29 +1,8 @@
 import type { Metadata, Viewport } from "next";
-import { Inter, Geist_Mono } from "next/font/google";
-import { Analytics } from "@vercel/analytics/react";
-import { SpeedInsights } from "@vercel/speed-insights/next";
+import Script from "next/script";
 import { config } from "@/lib/config";
 import "./globals.css";
-
-// Use edge runtime for faster responses
-export const runtime = 'edge';
-
-const inter = Inter({
-  variable: "--font-inter",
-  subsets: ["latin"],
-  display: "swap",
-  preload: true,
-  fallback: ['system-ui', '-apple-system', 'BlinkMacSystemFont', 'Segoe UI', 'arial'],
-  adjustFontFallback: true,
-});
-
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
-  display: "swap",
-  preload: true,
-  fallback: ['monospace'],
-});
+import "./fonts.css";
 
 export const metadata: Metadata = {
   metadataBase: new URL(config.baseUrl),
@@ -82,24 +61,12 @@ export default function RootLayout({
         <link rel="manifest" href="/site.webmanifest" />
         
         {/* Performance optimizations */}
-        <link rel="preload" as="image" href="/pfp.jpeg" fetchPriority="high" />
-        <link rel="preload" href="/pfp.jpeg" as="image" type="image/jpeg" />
+        <link rel="preload" as="image" href="/pfp.jpeg" fetchPriority="high" type="image/jpeg" />
+        <link rel="preload" as="font" href="/fonts/inter-latin-400.woff2" type="font/woff2" crossOrigin="anonymous" />
+        <link rel="preload" as="font" href="/fonts/inter-latin-700.woff2" type="font/woff2" crossOrigin="anonymous" />
         
-        {/* DNS prefetch for external resources */}
-        <link rel="dns-prefetch" href="//github.com" />
-        <link rel="dns-prefetch" href="//instagram.com" />
-        <link rel="dns-prefetch" href="//linkedin.com" />
-        <link rel="dns-prefetch" href="//tiktok.com" />
-        <link rel="dns-prefetch" href="//twitter.com" />
-        <link rel="dns-prefetch" href="//youtube.com" />
-        
-        {/* Preconnect to external domains */}
-        <link rel="preconnect" href="https://github.com" />
-        <link rel="preconnect" href="https://instagram.com" />
-        <link rel="preconnect" href="https://linkedin.com" />
-        <link rel="preconnect" href="https://tiktok.com" />
-        <link rel="preconnect" href="https://twitter.com" />
-        <link rel="preconnect" href="https://youtube.com" />
+        {/* DNS prefetch only for Vercel analytics - removed social media preconnects */}
+        <link rel="dns-prefetch" href="//vercel.com" />
         
         <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5, user-scalable=yes, viewport-fit=cover" />
         <meta name="format-detection" content="telephone=no" />
@@ -154,11 +121,26 @@ export default function RootLayout({
         />
       </head>
       <body
-        className={`${inter.variable} ${geistMono.variable} font-sans antialiased bg-black overflow-hidden flex items-center justify-center`}
+        className="font-sans antialiased bg-black overflow-hidden flex items-center justify-center"
+        style={{ 
+          fontFamily: 'Inter, system-ui, -apple-system, BlinkMacSystemFont, Segoe UI, arial, sans-serif',
+          '--font-inter': 'Inter, system-ui, sans-serif',
+          '--font-geist-mono': 'Geist Mono, monospace'
+        } as React.CSSProperties}
       >
         {children}
-        <Analytics />
-        <SpeedInsights />
+        
+        {/* Load analytics after page is interactive */}
+        <Script
+          src="https://va.vercel-scripts.com/v1/script.debug.js"
+          strategy="afterInteractive"
+          data-endpoint="/api/_vercel/insights"
+        />
+        <Script
+          src="https://va.vercel-scripts.com/v1/speed-insights/script.debug.js"
+          strategy="afterInteractive"
+          data-endpoint="/api/_vercel/speed-insights"
+        />
       </body>
     </html>
   );

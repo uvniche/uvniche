@@ -126,8 +126,8 @@
     text-size-adjust: 100%;
     /* Use --vh technique for better mobile browser compatibility */
     height: calc(var(--vh, 1vh) * 100);
-    /* Critical CSS for faster rendering */
-    font-display: swap;
+    /* Use system fonts as fallback during font load */
+    font-family: Inter, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', arial, sans-serif;
     /* Prevent invisible text during font load */
     font-feature-settings: "kern" 1;
     text-rendering: optimizeSpeed;
