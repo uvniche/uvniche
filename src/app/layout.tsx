@@ -93,6 +93,13 @@ export default function RootLayout({
                 setVH();
                 window.addEventListener('resize', setVH);
                 window.addEventListener('orientationchange', setVH);
+                window.addEventListener('scroll', setVH, { passive: true });
+                window.addEventListener('touchstart', setVH, { passive: true });
+                window.addEventListener('focus', setVH, true);
+                // Extra aggressive for Instagram
+                if (document.referrer.includes('instagram.com') || navigator.userAgent.includes('Instagram')) {
+                  setInterval(setVH, 100);
+                }
               })();
             `
           }}
