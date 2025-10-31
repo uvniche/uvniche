@@ -135,9 +135,10 @@
   
   body {
     @apply bg-black text-foreground;
-    /* Use 100dvh for dynamic viewport height (handles keyboard) */
-    height: 100dvh;
-    width: 100vw;
+    /* Use min-height instead of fixed height for Instagram compatibility */
+    min-height: 100vh;
+    min-height: 100dvh;
+    width: 100%;
     margin: 0;
     /* Additional overscroll prevention */
     overscroll-behavior: none;
@@ -147,11 +148,9 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    position: fixed;
-    top: 0;
-    left: 0;
     /* Prevent all scrolling */
-    overflow: hidden;
+    overflow-x: hidden;
+    overflow-y: auto;
     /* Ensure consistent behavior across platforms */
     -webkit-overflow-scrolling: touch;
     /* iOS safe area support */
@@ -164,14 +163,12 @@
   /* Ensure root element also has black background */
   #__next {
     @apply bg-black;
-    height: 100%;
+    min-height: 100%;
     width: 100%;
     display: flex;
     align-items: center;
     justify-content: center;
     position: relative;
-    /* Prevent scrolling */
-    overflow: hidden;
   }
   
   /* Prevent layout shifts from text content */
@@ -262,24 +259,21 @@
   /* Ensure compatibility with social media embeds and mobile keyboards */
   @media (max-width: 768px) {
     html {
-      height: 100dvh;
-      overflow: hidden;
+      min-height: 100vh;
+      min-height: 100dvh;
     }
     
     body {
-      position: fixed;
-      top: 0;
-      left: 0;
-      right: 0;
-      width: 100vw;
-      height: 100dvh;
-      overflow: hidden;
+      min-height: 100vh;
+      min-height: 100dvh;
+      width: 100%;
+      overflow-x: hidden;
+      overflow-y: auto;
     }
     
     #__next {
-      height: 100%;
+      min-height: 100%;
       width: 100%;
-      overflow: hidden;
     }
   }
   
