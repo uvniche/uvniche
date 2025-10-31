@@ -74,7 +74,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className="dark bg-black h-full overflow-hidden">
+    <html lang="en" className="dark bg-black h-svh overflow-hidden">
       <head>
         {/* Favicon configuration */}
         <link rel="icon" href="/favicon.ico" sizes="any" />
@@ -137,7 +137,7 @@ export default function RootLayout({
         />
       </head>
       <body
-        className={`${inter.variable} ${geistMono.variable} font-sans antialiased bg-black h-full overflow-hidden flex items-center justify-center`}
+        className={`${inter.variable} ${geistMono.variable} font-sans antialiased bg-black h-svh overflow-hidden flex items-center justify-center`}
       >
         {children}
         <Analytics />
