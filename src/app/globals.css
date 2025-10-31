@@ -124,8 +124,9 @@
     /* Prevent font size adjustments on mobile */
     -webkit-text-size-adjust: 100%;
     text-size-adjust: 100%;
-    /* Ensure full height on all devices */
-    height: 100dvh;
+    /* Use svh for better compatibility with Instagram/in-app browsers */
+    height: 100svh;
+    height: 100vh;
     /* Critical CSS for faster rendering */
     font-display: swap;
     /* Prevent invisible text during font load */
@@ -135,9 +136,11 @@
   
   body {
     @apply bg-black text-foreground;
-    /* Ensure black background extends beyond viewport */
-    min-height: 100dvh;
-    height: 100dvh;
+    /* Use svh for better compatibility with Instagram/in-app browsers */
+    min-height: 100svh;
+    height: 100svh;
+    min-height: 100vh;
+    height: 100vh;
     /* Additional overscroll prevention */
     overscroll-behavior: none;
     /* Prevent layout shifts during font loading */
@@ -155,8 +158,10 @@
   /* Ensure root element also has black background */
   #__next {
     @apply bg-black;
-    min-height: 100dvh;
-    height: 100dvh;
+    min-height: 100svh;
+    height: 100svh;
+    min-height: 100vh;
+    height: 100vh;
     width: 100%;
     display: flex;
     align-items: center;
@@ -248,9 +253,24 @@
   /* Ensure compatibility with social media embeds */
   @media (max-width: 480px) {
     html, body, #__next {
+      height: 100svh;
       height: 100vh;
-      height: 100dvh;
       overflow: hidden;
+    }
+  }
+  
+  /* Fix centering for Instagram in-app browser and other iframes */
+  @supports (-webkit-touch-callout: none) {
+    /* iOS-specific fixes for Instagram */
+    html {
+      height: 100svh;
+    }
+    body {
+      height: 100svh;
+      position: fixed;
+      width: 100%;
+      top: 0;
+      left: 0;
     }
   }
   
