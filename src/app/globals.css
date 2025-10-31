@@ -138,15 +138,18 @@
     /* Use --vh technique for better mobile browser compatibility */
     height: calc(var(--vh, 1vh) * 100);
     min-height: calc(var(--vh, 1vh) * 100);
+    min-height: 100vh;
+    min-height: 100dvh;
     margin: 0;
     /* Additional overscroll prevention */
     overscroll-behavior: none;
     /* Prevent layout shifts during font loading */
     font-display: swap;
-    /* Ensure perfect centering */
+    /* Ensure perfect centering - critical for Instagram web view */
     display: flex;
     align-items: center;
     justify-content: center;
+    position: relative;
     /* Prevent all scrolling */
     overflow: hidden;
     /* Ensure consistent behavior across platforms */
@@ -163,10 +166,13 @@
     @apply bg-black;
     height: calc(var(--vh, 1vh) * 100);
     min-height: calc(var(--vh, 1vh) * 100);
+    min-height: 100vh;
+    min-height: 100dvh;
     width: 100%;
     display: flex;
     align-items: center;
     justify-content: center;
+    position: relative;
     /* Prevent scrolling */
     overflow: hidden;
   }
@@ -270,24 +276,44 @@
     /* iOS-specific fixes for Instagram */
     html {
       height: calc(var(--vh, 1vh) * 100);
+      min-height: 100vh;
+      min-height: 100dvh;
     }
     body {
       height: calc(var(--vh, 1vh) * 100);
       min-height: calc(var(--vh, 1vh) * 100);
-      position: fixed;
+      min-height: 100vh;
+      min-height: 100dvh;
+      position: relative;
       width: 100%;
-      top: 0;
-      left: 0;
+    }
+    #__next {
+      min-height: 100vh;
+      min-height: 100dvh;
     }
   }
   
-  /* Android Instagram webview fix */
+  /* Instagram webview specific - force centering even in partial screens */
   @media (max-width: 768px) {
     body {
-      position: fixed;
+      position: relative;
       width: 100%;
-      top: 0;
-      left: 0;
+      min-height: 100vh;
+      min-height: 100dvh;
+    }
+    #__next {
+      min-height: 100vh;
+      min-height: 100dvh;
+    }
+  }
+  
+  /* Additional Instagram in-app browser fixes */
+  @media (max-height: 600px) and (max-width: 768px) {
+    /* For small viewports like Instagram web view */
+    body, #__next {
+      min-height: 100vh;
+      min-height: 100dvh;
+      height: auto;
     }
   }
   
