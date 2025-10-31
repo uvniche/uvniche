@@ -6,7 +6,15 @@ import Image from "next/image";
 
 export default function Home() {
   return (
-    <div className="fixed inset-0 flex items-center justify-center p-4">
+    <div 
+      className="flex items-center justify-center p-4"
+      style={{
+        minHeight: '100vh',
+        minHeight: '100dvh',
+        width: '100%',
+        position: 'relative'
+      }}
+    >
       <div className="flex flex-col items-center space-y-6 max-w-md mx-auto">
         {/* Profile Section */}
         <div className="flex flex-col items-center space-y-4">
