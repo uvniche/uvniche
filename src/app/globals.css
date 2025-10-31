@@ -281,6 +281,16 @@
     }
   }
   
+  /* Android Instagram webview fix */
+  @media (max-width: 768px) {
+    body {
+      position: fixed;
+      width: 100%;
+      top: 0;
+      left: 0;
+    }
+  }
+  
 
 }
 
