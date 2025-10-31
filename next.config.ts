@@ -5,8 +5,13 @@ const nextConfig: NextConfig = {
   
   // Performance optimizations
   experimental: {
-    optimizePackageImports: ['framer-motion', 'lucide-react'],
+    optimizePackageImports: ['framer-motion', 'lucide-react', '@vercel/analytics', '@vercel/speed-insights'],
     scrollRestoration: true,
+  },
+  
+  // Enable compiler optimizations
+  compiler: {
+    removeConsole: process.env.NODE_ENV === 'production' ? { exclude: ['error', 'warn'] } : false,
   },
   
   // Turbopack configuration (moved from deprecated experimental.turbo)
@@ -40,8 +45,8 @@ const nextConfig: NextConfig = {
   compress: true,
   poweredByHeader: false,
   
-  // Static optimization
-  output: 'standalone',
+  // Static optimization - removed 'standalone' for better static generation
+  // output: 'standalone',
   
   // Optimize for edge deployment
   trailingSlash: false,
@@ -70,7 +75,7 @@ const nextConfig: NextConfig = {
           },
           {
             key: 'Cache-Control',
-            value: 'public, max-age=31536000, immutable'
+            value: 'public, max-age=3600, s-maxage=86400, stale-while-revalidate=86400'
           },
         ],
       },

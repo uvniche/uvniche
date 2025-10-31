@@ -48,8 +48,8 @@ export default function Home() {
           </motion.div>
           
           <div className="text-center space-y-1">
-            <h1 className="text-2xl font-bold profile-title">avaneesh</h1>
-            <p className="text-primary profile-subtitle">@uvniche</p>
+            <h1 className="text-2xl profile-title" style={{ fontWeight: 700 }}>avaneesh</h1>
+            <p className="text-primary profile-subtitle" style={{ fontWeight: 400 }}>@uvniche</p>
           </div>
         </div>
 
