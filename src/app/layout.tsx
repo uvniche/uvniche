@@ -1,5 +1,6 @@
 import type { Metadata, Viewport } from "next";
-import Script from "next/script";
+import { Analytics } from "@vercel/analytics/react";
+import { SpeedInsights } from "@vercel/speed-insights/react";
 import { config } from "@/lib/config";
 import "./globals.css";
 import "./fonts.css";
@@ -61,12 +62,9 @@ export default function RootLayout({
         <link rel="manifest" href="/site.webmanifest" />
         
         {/* Performance optimizations */}
-        <link rel="preload" as="image" href="/pfp.jpeg" fetchPriority="high" type="image/jpeg" />
         <link rel="preload" as="font" href="/fonts/inter-latin-400.woff2" type="font/woff2" crossOrigin="anonymous" />
         <link rel="preload" as="font" href="/fonts/inter-latin-700.woff2" type="font/woff2" crossOrigin="anonymous" />
-        
-        {/* DNS prefetch only for Vercel analytics - removed social media preconnects */}
-        <link rel="dns-prefetch" href="//vercel.com" />
+        <link rel="preload" as="image" href="/pfp.jpeg" fetchPriority="high" type="image/jpeg" />
         
         <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5, user-scalable=yes, viewport-fit=cover" />
         <meta name="format-detection" content="telephone=no" />
@@ -86,20 +84,21 @@ export default function RootLayout({
           dangerouslySetInnerHTML={{
             __html: `
               (function() {
+                let ticking = false;
                 function setVH() {
                   const vh = window.innerHeight * 0.01;
                   document.documentElement.style.setProperty('--vh', vh + 'px');
+                  ticking = false;
+                }
+                function requestSetVH() {
+                  if (!ticking) {
+                    ticking = true;
+                    requestAnimationFrame(setVH);
+                  }
                 }
                 setVH();
-                window.addEventListener('resize', setVH);
-                window.addEventListener('orientationchange', setVH);
-                window.addEventListener('scroll', setVH, { passive: true });
-                window.addEventListener('touchstart', setVH, { passive: true });
-                window.addEventListener('focus', setVH, true);
-                // Extra aggressive for Instagram
-                if (document.referrer.includes('instagram.com') || navigator.userAgent.includes('Instagram')) {
-                  setInterval(setVH, 100);
-                }
+                window.addEventListener('resize', requestSetVH, { passive: true });
+                window.addEventListener('orientationchange', requestSetVH, { passive: true });
               })();
             `
           }}
@@ -136,18 +135,8 @@ export default function RootLayout({
         } as React.CSSProperties}
       >
         {children}
-        
-        {/* Load analytics after page is interactive */}
-        <Script
-          src="https://va.vercel-scripts.com/v1/script.debug.js"
-          strategy="afterInteractive"
-          data-endpoint="/api/_vercel/insights"
-        />
-        <Script
-          src="https://va.vercel-scripts.com/v1/speed-insights/script.debug.js"
-          strategy="afterInteractive"
-          data-endpoint="/api/_vercel/speed-insights"
-        />
+        <Analytics />
+        <SpeedInsights />
       </body>
     </html>
   );
