@@ -131,6 +131,8 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    /* Instagram webview centering fix */
+    margin: 0 auto;
   }
   
   /* Ensure root element also has black background */
