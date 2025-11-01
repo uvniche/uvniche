@@ -6,7 +6,7 @@ import Image from "next/image";
 
 export default function Home() {
   return (
-    <div className="w-full min-h-dvh relative flex items-center justify-center p-4">
+    <div className="w-full min-h-screen relative flex items-center justify-center p-4">
       <div className="flex flex-col items-center space-y-6 max-w-md mx-auto">
         {/* Profile Section */}
         <div className="flex flex-col items-center space-y-4">
