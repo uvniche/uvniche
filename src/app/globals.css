@@ -119,45 +119,32 @@
   
   html {
     @apply bg-black;
-    /* Prevent overscroll bounce showing default background */
     overscroll-behavior: none;
-    /* Prevent font size adjustments on mobile */
     -webkit-text-size-adjust: 100%;
-    text-size-adjust: 100%;
-    /* Use --vh technique for better mobile browser compatibility */
     height: calc(var(--vh, 1vh) * 100);
-    /* Use system fonts as fallback during font load */
     font-family: Inter, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', arial, sans-serif;
-    /* Prevent invisible text during font load */
     font-feature-settings: "kern" 1;
     text-rendering: optimizeSpeed;
+    margin: 0;
+    padding: 0;
   }
   
   body {
     @apply bg-black text-foreground;
-    /* Use min-height instead of fixed height for Instagram compatibility */
     min-height: 100vh;
     min-height: 100dvh;
     width: 100%;
     margin: 0;
-    /* Additional overscroll prevention */
     overscroll-behavior: none;
-    /* Prevent layout shifts during font loading */
-    font-display: swap;
-    /* Ensure perfect centering - critical for Instagram web view */
     display: flex;
     align-items: center;
     justify-content: center;
-    /* Prevent all scrolling */
     overflow-x: hidden;
     overflow-y: auto;
-    /* Ensure consistent behavior across platforms */
     -webkit-overflow-scrolling: touch;
-    /* iOS safe area support */
-    padding-left: env(safe-area-inset-left);
-    padding-right: env(safe-area-inset-right);
-    padding-top: env(safe-area-inset-top);
-    padding-bottom: env(safe-area-inset-bottom);
+    padding: env(safe-area-inset-top) env(safe-area-inset-right) env(safe-area-inset-bottom) env(safe-area-inset-left);
+    contain: layout style;
+    touch-action: manipulation;
   }
   
   /* Ensure root element also has black background */
@@ -173,7 +160,6 @@
   
   /* Prevent layout shifts from text content */
   h1, h2, h3, h4, h5, h6, p {
-    /* Reserve space for text to prevent CLS */
     min-height: 1em;
     margin: 0;
   }
@@ -181,25 +167,14 @@
   /* Ensure consistent sizing for profile text */
   .profile-title {
     line-height: 1.2;
-    height: 2.4rem; /* Reserve exact space for text-2xl */
+    height: 2.4rem;
     margin: 0;
   }
   
   .profile-subtitle {
     line-height: 1.5;
-    height: 1.5rem; /* Reserve exact space for text-base */
+    height: 1.5rem;
     margin: 0;
-  }
-  
-  /* Prevent layout shifts from animations */
-  [data-framer-motion] {
-    contain: layout style;
-  }
-  
-  /* Optimize performance for animated elements */
-  .cursor-pointer {
-    transform: translateZ(0); /* Create a new stacking context */
-    backface-visibility: hidden;
   }
   
   /* Prevent layout shifts from search component */
@@ -244,43 +219,7 @@
   }
   
 
-  
-  /* Prevent any unwanted margins or padding */
-  html {
-    margin: 0;
-    padding: 0;
-  }
-  
-  #__next {
-    margin: 0;
-    padding: 0;
-  }
-  
-  /* Ensure compatibility with social media embeds and mobile keyboards */
-  @media (max-width: 768px) {
-    html {
-      min-height: 100vh;
-      min-height: 100dvh;
-    }
-    
-    body {
-      min-height: 100vh;
-      min-height: 100dvh;
-      width: 100%;
-      overflow-x: hidden;
-      overflow-y: auto;
-    }
-    
-    #__next {
-      min-height: 100%;
-      width: 100%;
-    }
-  }
-  
-
 }
-
-
 
 html {
   scroll-behavior: smooth;
@@ -289,28 +228,9 @@ html {
 body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  text-rendering: optimizeSpeed;
-  /* Improve paint performance */
-  contain: layout style paint;
-  /* Prevent layout thrashing */
-  will-change: auto;
 }
 
 /* Optimize image rendering */
 img {
   image-rendering: -webkit-optimize-contrast;
-  image-rendering: crisp-edges;
-}
-
-/* Reduce paint operations */
-.profile-title,
-.profile-subtitle {
-  will-change: transform;
-  backface-visibility: hidden;
-}
-
-/* Optimize animations */
-.search-container {
-  will-change: transform;
-  backface-visibility: hidden;
 }
