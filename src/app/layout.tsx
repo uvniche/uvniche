@@ -54,7 +54,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className="dark bg-black overflow-hidden" suppressHydrationWarning>
+    <html lang="en" className="dark bg-black" suppressHydrationWarning>
       <head>
         {/* Favicon configuration */}
         <link rel="icon" href="/favicon.ico" sizes="any" />
@@ -99,7 +99,7 @@ export default function RootLayout({
         />
       </head>
       <body
-        className="font-sans antialiased bg-black overflow-hidden flex items-center justify-center"
+        className="font-sans antialiased bg-black"
         style={{ 
           fontFamily: 'Inter, system-ui, -apple-system, BlinkMacSystemFont, Segoe UI, arial, sans-serif',
           '--font-inter': 'Inter, system-ui, sans-serif',
