@@ -6,14 +6,7 @@ import Image from "next/image";
 
 export default function Home() {
   return (
-    <div 
-      className="flex items-center justify-center p-4"
-      style={{
-        minHeight: '100dvh',
-        width: '100%',
-        position: 'relative'
-      }}
-    >
+    <div className="w-full min-h-dvh relative flex items-center justify-center p-4">
       <div className="flex flex-col items-center space-y-6 max-w-md mx-auto">
         {/* Profile Section */}
         <div className="flex flex-col items-center space-y-4">
@@ -55,8 +48,8 @@ export default function Home() {
           </motion.div>
           
           <div className="text-center space-y-1">
-            <h1 className="text-2xl profile-title" style={{ fontWeight: 700 }}>avaneesh</h1>
-            <p className="text-primary profile-subtitle" style={{ fontWeight: 400 }}>@uvniche</p>
+            <h1 className="text-2xl font-bold profile-title">avaneesh</h1>
+            <p className="text-primary profile-subtitle">@uvniche</p>
           </div>
         </div>
 

@@ -5,13 +5,15 @@ const nextConfig: NextConfig = {
   
   // Performance optimizations
   experimental: {
-    optimizePackageImports: ['framer-motion', 'lucide-react', '@vercel/analytics', '@vercel/speed-insights'],
+    optimizePackageImports: ['framer-motion', 'lucide-react', '@vercel/analytics', '@vercel/speed-insights', 'cmdk'],
     scrollRestoration: true,
+    optimizeServerReact: true,
   },
   
   // Enable compiler optimizations
   compiler: {
     removeConsole: process.env.NODE_ENV === 'production' ? { exclude: ['error', 'warn'] } : false,
+    reactRemoveProperties: process.env.NODE_ENV === 'production' ? { properties: ['^data-testid$'] } : false,
   },
   
   // Turbopack configuration (moved from deprecated experimental.turbo)
@@ -45,11 +47,11 @@ const nextConfig: NextConfig = {
   compress: true,
   poweredByHeader: false,
   
-  // Static optimization - removed 'standalone' for better static generation
-  // output: 'standalone',
-  
   // Optimize for edge deployment
   trailingSlash: false,
+  
+  // Enable React optimizations
+  reactStrictMode: true,
   
   // Performance headers
   async headers() {
