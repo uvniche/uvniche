@@ -9,7 +9,6 @@ export default function Home() {
     <div 
       className="flex items-center justify-center p-4"
       style={{
-        minHeight: '100vh',
         minHeight: '100dvh',
         width: '100%',
         position: 'relative'
