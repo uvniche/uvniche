@@ -119,32 +119,18 @@
   
   html {
     @apply bg-black;
-    overscroll-behavior: none;
-    -webkit-text-size-adjust: 100%;
-    height: calc(var(--vh, 1vh) * 100);
-    font-family: Inter, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', arial, sans-serif;
-    font-feature-settings: "kern" 1;
-    text-rendering: optimizeSpeed;
+    height: 100%;
     margin: 0;
     padding: 0;
   }
   
   body {
     @apply bg-black text-foreground;
-    min-height: 100vh;
     min-height: 100dvh;
-    width: 100%;
-    margin: 0;
-    overscroll-behavior: none;
+    min-height: -webkit-fill-available;
     display: flex;
-    align-items: center;
     justify-content: center;
-    overflow-x: hidden;
-    overflow-y: auto;
-    -webkit-overflow-scrolling: touch;
-    padding: env(safe-area-inset-top) env(safe-area-inset-right) env(safe-area-inset-bottom) env(safe-area-inset-left);
-    contain: layout style;
-    touch-action: manipulation;
+    align-items: center;
   }
   
   /* Ensure root element also has black background */

@@ -66,41 +66,13 @@ export default function RootLayout({
         <link rel="preload" as="font" href="/fonts/inter-latin-700.woff2" type="font/woff2" crossOrigin="anonymous" />
         <link rel="preload" as="image" href="/pfp.jpeg" fetchPriority="high" type="image/jpeg" />
         
-        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5, user-scalable=yes, viewport-fit=cover" />
         <meta name="format-detection" content="telephone=no" />
-        <meta name="mobile-web-app-capable" content="yes" />
-        <meta name="apple-mobile-web-app-capable" content="yes" />
-        <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
         <meta name="theme-color" content="#000000" />
-        <meta name="msapplication-TileColor" content="#000000" />
-        <meta name="msapplication-config" content="/browserconfig.xml" />
-        <meta name="msapplication-TileImage" content="/favicon.png" />
-        <meta name="robots" content="index, follow" />
-        <meta name="referrer" content="no-referrer" />
-        <meta name="X-UA-Compatible" content="IE=edge" />
         
         {/* Viewport height calculation for mobile browsers */}
         <script
           dangerouslySetInnerHTML={{
-            __html: `
-              (function() {
-                let ticking = false;
-                function setVH() {
-                  const vh = window.innerHeight * 0.01;
-                  document.documentElement.style.setProperty('--vh', vh + 'px');
-                  ticking = false;
-                }
-                function requestSetVH() {
-                  if (!ticking) {
-                    ticking = true;
-                    requestAnimationFrame(setVH);
-                  }
-                }
-                setVH();
-                window.addEventListener('resize', requestSetVH, { passive: true });
-                window.addEventListener('orientationchange', requestSetVH, { passive: true });
-              })();
-            `
+            __html: `document.documentElement.style.setProperty('--vh',\`\${window.innerHeight*0.01}px\`);window.addEventListener('resize',()=>document.documentElement.style.setProperty('--vh',\`\${window.innerHeight*0.01}px\`));`
           }}
         />
         
