@@ -29,7 +29,11 @@
         },
         {
           "key": "Link",
-          "value": "</pfp.jpeg>; rel=preload; as=image; fetchpriority=high, </fonts/inter-latin-400.woff2>; rel=preload; as=font; type=font/woff2; crossorigin, </fonts/inter-latin-700.woff2>; rel=preload; as=font; type=font/woff2; crossorigin"
+          "value": "</fonts/inter-latin-400.woff2>; rel=preload; as=font; type=font/woff2; crossorigin, </fonts/inter-latin-700.woff2>; rel=preload; as=font; type=font/woff2; crossorigin, </pfp.jpeg>; rel=preload; as=image; fetchpriority=high"
+        },
+        {
+          "key": "X-Frame-Options",
+          "value": "SAMEORIGIN"
         }
       ]
     },
