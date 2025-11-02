@@ -15,13 +15,16 @@ export function middleware(request: NextRequest) {
       request.nextUrl.pathname.endsWith('.jpg') ||
       request.nextUrl.pathname.endsWith('.png') ||
       request.nextUrl.pathname.endsWith('.webp') ||
-      request.nextUrl.pathname.endsWith('.avif')) {
+      request.nextUrl.pathname.endsWith('.avif') ||
+      request.nextUrl.pathname.startsWith('/fonts/')) {
     response.headers.set('Cache-Control', 'public, max-age=31536000, immutable')
   }
   
-  // Optimize main page caching
+  // Optimize main page caching with stale-while-revalidate
   if (request.nextUrl.pathname === '/') {
     response.headers.set('Cache-Control', 'public, max-age=0, s-maxage=86400, stale-while-revalidate=86400')
+    // Add Early Hints for critical resources
+    response.headers.set('Link', '</fonts/inter-latin-400.woff2>; rel=preload; as=font; type=font/woff2; crossorigin, </pfp.jpeg>; rel=preload; as=image; fetchpriority=high')
   }
   
   return response
