@@ -1,9 +1,11 @@
 import type { Metadata, Viewport } from "next";
-import { Analytics } from "@vercel/analytics/react";
-import { SpeedInsights } from "@vercel/speed-insights/react";
+import { Analytics } from "@/components/Analytics";
 import { config } from "@/lib/config";
 import "./globals.css";
 import "./fonts.css";
+
+// Enable edge runtime for better TTFB
+export const runtime = 'edge';
 
 export const metadata: Metadata = {
   metadataBase: new URL(config.baseUrl),
@@ -66,18 +68,33 @@ export default function RootLayout({
         <link rel="preload" as="font" href="/fonts/inter-latin-700.woff2" type="font/woff2" crossOrigin="anonymous" />
         <link rel="preload" as="image" href="/pfp.jpeg" fetchPriority="high" type="image/jpeg" />
         
+        {/* DNS prefetch for external resources */}
+        <link rel="dns-prefetch" href="https://vercel.live" />
+        <link rel="preconnect" href="https://vercel.live" crossOrigin="anonymous" />
+        
         <meta name="format-detection" content="telephone=no" />
         <meta name="theme-color" content="#000000" />
         
-        {/* Viewport height calculation for mobile browsers */}
+        {/* Inline critical CSS for instant rendering */}
+        <style dangerouslySetInnerHTML={{
+          __html: `
+            html{background:#000;height:100%;margin:0;padding:0;overflow:hidden}
+            body{background:#000;color:#fafafa;min-height:100vh;display:flex;justify-content:center;align-items:center;overflow:hidden;position:fixed;width:100%;height:100%;font-family:Inter,system-ui,sans-serif;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale}
+            *{box-sizing:border-box}
+          `
+        }} />
+        
+        {/* Viewport height calculation for mobile browsers - defer to after paint */}
         <script
+          defer
           dangerouslySetInnerHTML={{
             __html: `document.documentElement.style.setProperty('--vh',\`\${window.innerHeight*0.01}px\`);window.addEventListener('resize',()=>document.documentElement.style.setProperty('--vh',\`\${window.innerHeight*0.01}px\`));`
           }}
         />
         
-        {/* Service Worker registration */}
+        {/* Service Worker registration - defer to after load */}
         <script
+          defer
           dangerouslySetInnerHTML={{
             __html: `if('serviceWorker'in navigator){window.addEventListener('load',()=>{navigator.serviceWorker.register('/sw.js').then(reg=>console.log('SW registered:',reg)).catch(err=>console.log('SW registration failed:',err))})}`
           }}
@@ -115,7 +132,6 @@ export default function RootLayout({
       >
         {children}
         <Analytics />
-        <SpeedInsights />
       </body>
     </html>
   );
