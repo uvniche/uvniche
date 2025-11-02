@@ -8,6 +8,9 @@ const nextConfig: NextConfig = {
     optimizePackageImports: ['framer-motion', 'lucide-react', '@vercel/analytics', '@vercel/speed-insights', 'cmdk'],
     scrollRestoration: true,
     optimizeServerReact: true,
+    webpackBuildWorker: true,
+    parallelServerCompiles: true,
+    parallelServerBuildTraces: true,
   },
   
   // Enable compiler optimizations
@@ -31,9 +34,9 @@ const nextConfig: NextConfig = {
   
   // Image optimization
   images: {
-    formats: ['image/webp', 'image/avif'],
-    deviceSizes: [640, 750, 828, 1080, 1200, 1920, 2048, 3840],
-    imageSizes: [16, 32, 48, 64, 96, 128, 256, 384],
+    formats: ['image/avif', 'image/webp'],
+    deviceSizes: [96, 128, 256, 384, 640, 750, 828],
+    imageSizes: [16, 32, 48, 64, 96],
     // Optimize for faster loading
     minimumCacheTTL: 31536000, // 1 year
     dangerouslyAllowSVG: true,
@@ -41,6 +44,7 @@ const nextConfig: NextConfig = {
     contentSecurityPolicy: "default-src 'self'; script-src 'none'; sandbox;",
     unoptimized: false,
     loader: 'default',
+    remotePatterns: [],
   },
   
   // Compression and caching
