@@ -32,6 +32,10 @@
           "value": "</fonts/inter-latin-400.woff2>; rel=preload; as=font; type=font/woff2; crossorigin, </fonts/inter-latin-700.woff2>; rel=preload; as=font; type=font/woff2; crossorigin, </pfp.jpeg>; rel=preload; as=image; fetchpriority=high"
         },
         {
+          "key": "X-Content-Encoding",
+          "value": "br"
+        },
+        {
           "key": "X-Frame-Options",
           "value": "SAMEORIGIN"
         }
