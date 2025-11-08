@@ -34,7 +34,7 @@ export default function Home() {
           >
             <div className="relative w-24 h-24 rounded-full overflow-hidden border-2 border-border bg-muted">
               <Image
-                src="/pfp.jpeg"
+                src="/pfp.avif"
                 alt=""
                 width={96}
                 height={96}
