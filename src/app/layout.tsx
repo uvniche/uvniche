@@ -4,9 +4,6 @@ import { config } from "@/lib/config";
 import "./globals.css";
 import "./fonts.css";
 
-// Enable edge runtime for better TTFB
-export const runtime = 'edge';
-
 export const metadata: Metadata = {
   metadataBase: new URL(config.baseUrl),
   title: "avaneesh",
@@ -18,7 +15,7 @@ export const metadata: Metadata = {
     siteName: "avaneesh",
     images: [
       {
-        url: "/pfp.jpeg",
+        url: "/pfp.webp",
         width: 400,
         height: 400,
       },
@@ -30,7 +27,7 @@ export const metadata: Metadata = {
     card: "summary",
     title: "avaneesh",
     description: "@uvniche",
-    images: ["/pfp.jpeg"],
+    images: ["/pfp.webp"],
   },
   icons: {
     icon: [
@@ -66,37 +63,16 @@ export default function RootLayout({
         {/* Performance optimizations */}
         <link rel="preload" as="font" href="/fonts/inter-latin-400.woff2" type="font/woff2" crossOrigin="anonymous" />
         <link rel="preload" as="font" href="/fonts/inter-latin-700.woff2" type="font/woff2" crossOrigin="anonymous" />
-        <link rel="preload" as="image" href="/pfp.jpeg" fetchPriority="high" type="image/jpeg" />
-        
-        {/* DNS prefetch for external resources */}
-        <link rel="dns-prefetch" href="https://vercel.live" />
-        <link rel="preconnect" href="https://vercel.live" crossOrigin="anonymous" />
+        <link rel="preload" as="image" href="/pfp.avif" fetchPriority="high" type="image/avif" />
         
         <meta name="format-detection" content="telephone=no" />
         <meta name="theme-color" content="#000000" />
-        
-        {/* Inline critical CSS for instant rendering */}
-        <style dangerouslySetInnerHTML={{
-          __html: `
-            html{background:#000;height:100%;margin:0;padding:0;overflow:hidden}
-            body{background:#000;color:#fafafa;min-height:100vh;display:flex;justify-content:center;align-items:center;overflow:hidden;position:fixed;width:100%;height:100%;font-family:Inter,system-ui,sans-serif;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale}
-            *{box-sizing:border-box}
-          `
-        }} />
         
         {/* Viewport height calculation for mobile browsers - defer to after paint */}
         <script
           defer
           dangerouslySetInnerHTML={{
             __html: `document.documentElement.style.setProperty('--vh',\`\${window.innerHeight*0.01}px\`);window.addEventListener('resize',()=>document.documentElement.style.setProperty('--vh',\`\${window.innerHeight*0.01}px\`));`
-          }}
-        />
-        
-        {/* Service Worker registration - defer to after load */}
-        <script
-          defer
-          dangerouslySetInnerHTML={{
-            __html: `if('serviceWorker'in navigator){window.addEventListener('load',()=>{navigator.serviceWorker.register('/sw.js').then(reg=>console.log('SW registered:',reg)).catch(err=>console.log('SW registration failed:',err))})}`
           }}
         />
         
@@ -132,6 +108,13 @@ export default function RootLayout({
       >
         {children}
         <Analytics />
+        
+        {/* Service Worker registration - load after everything else */}
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `if('serviceWorker'in navigator){window.addEventListener('load',()=>{navigator.serviceWorker.register('/sw.js').then(reg=>console.log('SW registered:',reg)).catch(err=>console.log('SW registration failed:',err))})}`
+          }}
+        />
       </body>
     </html>
   );
