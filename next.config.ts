@@ -37,6 +37,7 @@ const nextConfig: NextConfig = {
     formats: ['image/avif', 'image/webp'],
     deviceSizes: [96, 128, 256, 384, 640, 750, 828],
     imageSizes: [16, 32, 48, 64, 96],
+    qualities: [75, 90], // Configure allowed quality values
     // Optimize for faster loading
     minimumCacheTTL: 31536000, // 1 year
     dangerouslyAllowSVG: true,
