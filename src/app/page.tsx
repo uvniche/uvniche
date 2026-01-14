@@ -1,37 +1,8 @@
-import dynamic from "next/dynamic";
-import Image from "next/image";
+import { Search } from "@/components/Search";
+import ProfileImage from "@/components/ProfileImage";
 
-// Lazy load Search component - it's not needed for initial render
-const Search = dynamic(() => import("@/components/Search").then(mod => ({ default: mod.Search })), {
-  ssr: false,
-  loading: () => (
-    <div className="w-full">
-      <div className="rounded-lg border shadow-md w-full h-9 animate-pulse bg-muted/50" />
-    </div>
-  )
-});
-
-// Lazy load motion components for profile animation - defer heavy animation library
-const ProfileImage = dynamic(() => import("@/components/ProfileImage"), {
-  ssr: true,
-  loading: () => (
-    <div className="relative w-24 h-24 rounded-full overflow-hidden border-2 border-border bg-muted">
-      <Image
-        src="/pfp.avif"
-        alt=""
-        width={96}
-        height={96}
-        sizes="96px"
-        quality={90}
-        priority={true}
-      />
-    </div>
-  )
-});
-
-// Enable static generation for better performance
-export const dynamic = 'force-static';
-export const revalidate = 3600; // Revalidate every hour
+// Enable ISR with 1-hour revalidation for optimal performance
+export const revalidate = 3600;
 
 export default function Home() {
   return (
