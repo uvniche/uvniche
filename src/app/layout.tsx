@@ -65,16 +65,12 @@ export default function RootLayout({
         <link rel="preload" as="font" href="/fonts/inter-latin-700.woff2" type="font/woff2" crossOrigin="anonymous" />
         <link rel="preload" as="image" href="/pfp.avif" fetchPriority="high" type="image/avif" />
         
+        {/* Resource hints for external domains */}
+        <link rel="preconnect" href="https://vercel.live" crossOrigin="anonymous" />
+        <link rel="dns-prefetch" href="https://vercel.live" />
+        
         <meta name="format-detection" content="telephone=no" />
         <meta name="theme-color" content="#000000" />
-        
-        {/* Viewport height calculation for mobile browsers - defer to after paint */}
-        <script
-          defer
-          dangerouslySetInnerHTML={{
-            __html: `document.documentElement.style.setProperty('--vh',\`\${window.innerHeight*0.01}px\`);window.addEventListener('resize',()=>document.documentElement.style.setProperty('--vh',\`\${window.innerHeight*0.01}px\`));`
-          }}
-        />
         
         {/* Structured Data for Google Search */}
         <script
@@ -109,10 +105,16 @@ export default function RootLayout({
         {children}
         <Analytics />
         
-        {/* Service Worker registration - load after everything else */}
+        {/* Deferred scripts - load after page is interactive */}
         <script
           dangerouslySetInnerHTML={{
-            __html: `if('serviceWorker'in navigator){window.addEventListener('load',()=>{navigator.serviceWorker.register('/sw.js').then(reg=>console.log('SW registered:',reg)).catch(err=>console.log('SW registration failed:',err))})}`
+            __html: `
+              (function(){
+                function initVH(){document.documentElement.style.setProperty('--vh',window.innerHeight*0.01+'px')}
+                function initSW(){if('serviceWorker'in navigator){navigator.serviceWorker.register('/sw.js').catch(function(){})}}
+                if(document.readyState==='complete'){initVH();initSW()}else{window.addEventListener('load',function(){initVH();initSW();window.addEventListener('resize',initVH)})}
+              })();
+            `
           }}
         />
       </body>
