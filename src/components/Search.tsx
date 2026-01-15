@@ -12,6 +12,7 @@ import {
   Headphones,
   Play,
   Radio,
+  PenSquare,
 } from "lucide-react"
 
 import {
@@ -52,6 +53,11 @@ const searchLinks = [
     name: "Spotify",
     icon: Headphones,
     url: "https://open.spotify.com/artist/2WZKTiJucQd5UTC5LICRZ6",
+  },
+  {
+    name: "Substack",
+    icon: PenSquare,
+    url: "https://substack.com/@uvniche",
   },
   {
     name: "TikTok",
