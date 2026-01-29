@@ -1,5 +1,15 @@
-import { Search } from "@/components/Search";
+import dynamic from "next/dynamic";
 import ProfileImage from "@/components/ProfileImage";
+
+// Lazy-load Search (framer-motion, cmdk, lucide) so initial JS bundle is smaller
+const Search = dynamic(() => import("@/components/Search").then((m) => ({ default: m.Search })), {
+  ssr: true,
+  loading: () => (
+    <div className="relative w-full search-container">
+      <div className="w-full rounded-lg border shadow-md h-9 bg-popover/50 animate-pulse" />
+    </div>
+  ),
+});
 
 // Enable ISR with 1-hour revalidation for optimal performance
 export const revalidate = 3600;
