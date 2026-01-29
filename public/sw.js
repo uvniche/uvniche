@@ -1,8 +1,7 @@
 // Service Worker for uvniche.com
 const CACHE_NAME = 'uvniche-v1';
 const urlsToCache = [
-  '/',
-  '/pfp.jpeg',
+  '/pfp.avif',
   '/fonts/inter-latin-400.woff2',
   '/fonts/inter-latin-700.woff2',
 ];
