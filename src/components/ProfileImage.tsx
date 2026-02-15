@@ -27,13 +27,13 @@ export default function ProfileImage() {
       className="cursor-pointer"
       style={{ willChange: 'transform' }}
     >
-      <div className="relative w-24 h-24 rounded-full overflow-hidden border-2 border-border bg-muted">
+      <div className="relative w-28 h-28 rounded-full overflow-hidden border-2 border-border bg-muted">
         <Image
           src="/pfp.avif"
           alt=""
-          width={96}
-          height={96}
-          sizes="96px"
+          width={112}
+          height={112}
+          sizes="112px"
           quality={75}
           priority={true}
           placeholder="blur"
