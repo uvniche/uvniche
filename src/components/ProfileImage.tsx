@@ -9,23 +9,18 @@ export default function ProfileImage() {
       whileHover={{ 
         scale: 1.01,
         transition: { 
-          type: "spring", 
-          stiffness: 400, 
-          damping: 25,
-          duration: 0.15
+          duration: 0.15,
+          ease: "easeOut"
         }
       }}
       whileTap={{ 
         scale: 0.99,
         transition: { 
-          type: "spring", 
-          stiffness: 400, 
-          damping: 25,
-          duration: 0.1
+          duration: 0.1,
+          ease: "easeOut"
         }
       }}
       className="cursor-pointer"
-      style={{ willChange: 'transform' }}
     >
       <div className="relative w-28 h-28 rounded-full overflow-hidden border-2 border-border bg-muted">
         <Image
@@ -34,6 +29,7 @@ export default function ProfileImage() {
           width={112}
           height={112}
           sizes="112px"
+          srcSet="/pfp.avif 1x, /pfp.webp 1x"
           quality={75}
           priority={true}
           placeholder="blur"

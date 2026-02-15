@@ -81,15 +81,15 @@ const containerVariants: Variants = {
   expanded: {
     scale: 1,
     transition: {
-      duration: 0.15,
-      ease: [0.4, 0.0, 0.2, 1], // Apple's standard easing
+      duration: 0.25,
+      ease: "easeOut"
     }
   },
   collapsed: {
     scale: 1,
     transition: {
-      duration: 0.1,
-      ease: [0.4, 0.0, 0.2, 1],
+      duration: 0.25,
+      ease: "easeOut"
     }
   }
 }
@@ -100,10 +100,8 @@ const listVariants: Variants = {
     opacity: 1,
     marginTop: 0,
     transition: {
-      duration: 0.6,
-      ease: [0.25, 0.46, 0.45, 0.94],
-      staggerChildren: 0.08, // Slower stagger for better visual effect
-      delayChildren: 0.1, // Delay children until container animation starts
+      duration: 0.25,
+      ease: "easeOut"
     }
   },
   collapsed: {
@@ -111,10 +109,8 @@ const listVariants: Variants = {
     opacity: 0,
     marginTop: 0,
     transition: {
-      duration: 0.4,
-      ease: [0.25, 0.46, 0.45, 0.94],
-      staggerChildren: 0.03,
-      staggerDirection: -1, // Reverse stagger on collapse
+      duration: 0.25,
+      ease: "easeIn"
     }
   }
 }
@@ -125,19 +121,17 @@ const itemVariants: Variants = {
     scale: 1,
     y: 0,
     transition: {
-      type: "spring",
-      damping: 30,
-      stiffness: 600,
-      mass: 0.6,
+      duration: 0.25,
+      ease: "easeOut"
     }
   },
   collapsed: {
     opacity: 0,
-    scale: 0.88,
-    y: 12,
+    scale: 0.95,
+    y: 8,
     transition: {
-      duration: 0.08,
-      ease: [0.4, 0.0, 1, 1], // Apple's ease-out
+      duration: 0.25,
+      ease: "easeIn"
     }
   }
 }
@@ -434,7 +428,6 @@ export function Search() {
         variants={containerVariants}
         animate={isExpanded ? "expanded" : "collapsed"}
         initial="collapsed"
-        layout
         onMouseEnter={() => {
           setIsExpanded(true)
           setTimeout(calculateDropdownPosition, 0)
@@ -448,22 +441,17 @@ export function Search() {
         whileHover={{ 
           scale: 1.005,
           transition: { 
-            type: "spring", 
-            stiffness: 400, 
-            damping: 30,
-            duration: 0.15
+            duration: 0.15,
+            ease: "easeOut"
           }
         }}
         whileTap={{ 
           scale: 0.995,
           transition: { 
-            type: "spring", 
-            stiffness: 400, 
-            damping: 25,
-            duration: 0.1
+            duration: 0.1,
+            ease: "easeOut"
           }
         }}
-        style={{ willChange: 'transform' }}
       >
         <Command className="rounded-lg border shadow-md w-full">
           {/* Search Input - Always visible and maintains layout */}
@@ -487,7 +475,6 @@ export function Search() {
                 initial="collapsed"
                 animate="expanded"
                 exit="collapsed"
-                layout
                 className="absolute w-full z-50 bg-popover rounded-lg border shadow-md overflow-hidden"
                 style={{ 
                   transformOrigin: dropdownPosition.bottom !== undefined ? "bottom" : "top",
@@ -511,12 +498,10 @@ export function Search() {
                   }}
                 >
                   <CommandGroup>
-                    {searchLinks.map((link, index) => (
+                    {searchLinks.map((link) => (
                       <motion.div
                         key={link.name}
                         variants={itemVariants}
-                        custom={index}
-                        layout
                       >
                         <CommandItem 
                           onSelect={() => handleLinkSelect(link.url)}

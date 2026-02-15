@@ -68,6 +68,16 @@ export default function RootLayout({
         {/* Resource hints for external domains */}
         <link rel="preconnect" href="https://vercel.live" crossOrigin="anonymous" />
         <link rel="dns-prefetch" href="https://vercel.live" />
+        <link rel="preconnect" href="https://music.apple.com" />
+        <link rel="preconnect" href="https://github.com" />
+        <link rel="preconnect" href="https://instagram.com" />
+        <link rel="preconnect" href="https://linkedin.com" />
+        <link rel="preconnect" href="https://soundcloud.com" />
+        <link rel="preconnect" href="https://open.spotify.com" />
+        <link rel="preconnect" href="https://substack.com" />
+        <link rel="preconnect" href="https://tiktok.com" />
+        <link rel="preconnect" href="https://twitter.com" />
+        <link rel="preconnect" href="https://youtube.com" />
         
         <meta name="format-detection" content="telephone=no" />
         <meta name="theme-color" content="#000000" />
