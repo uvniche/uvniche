@@ -29,7 +29,6 @@ export default function ProfileImage() {
           width={112}
           height={112}
           sizes="112px"
-          srcSet="/pfp.avif 1x, /pfp.webp 1x"
           quality={75}
           priority={true}
           placeholder="blur"
