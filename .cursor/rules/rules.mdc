@@ -28,8 +28,9 @@ This ensures both branches stay in sync and all changes are properly versioned a
 
 When the user says "pull latest" or "sync with remote", follow this specific workflow:
 
-1. **Stash local changes**
-   - Stash any uncommitted work using `git stash`
+1. **Discard local changes**
+   - Discard all uncommitted changes in tracked files using `git restore .`
+   - Do not stash; changes are discarded permanently
 
 2. **Clean untracked files**
    - Remove untracked files using `git clean -fd`
@@ -45,7 +46,7 @@ When the user says "pull latest" or "sync with remote", follow this specific wor
 5. **Switch back to dev branch**
    - Ensure you're on dev branch for continued development
 
-This ensures both branches are fully synced with the remote repository and you're ready to continue development.
+This ensures both branches are fully synced with the remote repository and your working directory is clean (local changes are discarded).
 
 # CRITICAL: Never Commit & Push Without Permission
 
