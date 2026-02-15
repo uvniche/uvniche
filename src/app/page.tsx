@@ -11,8 +11,8 @@ const Search = dynamic(() => import("@/components/Search").then((m) => ({ defaul
   ),
 });
 
-// Enable ISR with 1-hour revalidation for optimal performance
-export const revalidate = 3600;
+// Use Edge Runtime for faster response times
+export const runtime = 'edge';
 
 export default function Home() {
   return (
