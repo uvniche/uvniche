@@ -115,26 +115,7 @@ const listVariants: Variants = {
   }
 }
 
-const itemVariants: Variants = {
-  expanded: {
-    opacity: 1,
-    scale: 1,
-    y: 0,
-    transition: {
-      duration: 0.25,
-      ease: "easeOut"
-    }
-  },
-  collapsed: {
-    opacity: 0,
-    scale: 0.95,
-    y: 8,
-    transition: {
-      duration: 0.25,
-      ease: "easeIn"
-    }
-  }
-}
+// Removed itemVariants to prevent touch scroll interference on mobile
 
 export function Search() {
   const [isExpanded, setIsExpanded] = useState(false)
@@ -438,20 +419,6 @@ export function Search() {
             setIsExpanded(false)
           }
         }}
-        whileHover={{ 
-          scale: 1.005,
-          transition: { 
-            duration: 0.15,
-            ease: "easeOut"
-          }
-        }}
-        whileTap={{ 
-          scale: 0.995,
-          transition: { 
-            duration: 0.1,
-            ease: "easeOut"
-          }
-        }}
       >
         <Command className="rounded-lg border shadow-md w-full">
           {/* Search Input - Always visible and maintains layout */}
@@ -499,18 +466,14 @@ export function Search() {
                 >
                   <CommandGroup>
                     {searchLinks.map((link) => (
-                      <motion.div
+                      <CommandItem 
                         key={link.name}
-                        variants={itemVariants}
+                        onSelect={() => handleLinkSelect(link.url)}
+                        className="cursor-pointer h-9 flex items-center py-0"
                       >
-                        <CommandItem 
-                          onSelect={() => handleLinkSelect(link.url)}
-                          className="cursor-pointer h-9 flex items-center py-0"
-                        >
-                          <link.icon className="size-4" />
-                          <span>{link.name}</span>
-                        </CommandItem>
-                      </motion.div>
+                        <link.icon className="size-4" />
+                        <span>{link.name}</span>
+                      </CommandItem>
                     ))}
                   </CommandGroup>
                 </CommandList>
