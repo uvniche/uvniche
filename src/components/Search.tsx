@@ -419,6 +419,20 @@ export function Search() {
             setIsExpanded(false)
           }
         }}
+        whileHover={{ 
+          scale: 1.01,
+          transition: { 
+            duration: 0.15,
+            ease: "easeOut"
+          }
+        }}
+        whileTap={{ 
+          scale: 0.99,
+          transition: { 
+            duration: 0.1,
+            ease: "easeOut"
+          }
+        }}
       >
         <Command className="rounded-lg border shadow-md w-full">
           {/* Search Input - Always visible and maintains layout */}
