@@ -422,16 +422,35 @@ export function Search() {
       >
         <Command className="rounded-lg border shadow-md w-full">
           {/* Search Input - Always visible and maintains layout */}
-          <CommandInput 
-            placeholder="Search" 
-            value={inputValue}
-            onValueChange={handleInputChange}
-            onFocus={handleInputFocus}
-            onBlur={handleInputBlur}
-            onClick={handleInputClick}
-            onTouchStart={handleInputFocus}
-            className="transition-all duration-300 ease-out h-9"
-          />
+          <div 
+            onClick={(e) => {
+              // Force expansion and focus for in-app browsers
+              setIsExpanded(true)
+              setIsFocused(true)
+              setTimeout(calculateDropdownPosition, 0)
+              // Try to focus the actual input element
+              const input = e.currentTarget.querySelector('input')
+              if (input) {
+                input.focus()
+              }
+            }}
+            onPointerDown={(e) => {
+              // Additional pointer event handler for better compatibility
+              setIsExpanded(true)
+              setIsFocused(true)
+              setTimeout(calculateDropdownPosition, 0)
+            }}
+          >
+            <CommandInput 
+              placeholder="Search" 
+              value={inputValue}
+              onValueChange={handleInputChange}
+              onFocus={handleInputFocus}
+              onBlur={handleInputBlur}
+              onTouchStart={handleInputFocus}
+              className="transition-all duration-300 ease-out h-9"
+            />
+          </div>
           
           {/* Dropdown - Absolutely positioned to not affect layout */}
           <AnimatePresence>
