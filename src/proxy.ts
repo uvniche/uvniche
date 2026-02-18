@@ -24,7 +24,7 @@ export function proxy(request: NextRequest) {
   if (request.nextUrl.pathname === '/') {
     response.headers.set('Cache-Control', 'public, max-age=0, s-maxage=86400, stale-while-revalidate=86400')
     // Add Early Hints for critical resources
-    response.headers.set('Link', '</fonts/inter-latin-400.woff2>; rel=preload; as=font; type=font/woff2; crossorigin, </pfp.jpeg>; rel=preload; as=image; fetchpriority=high')
+    response.headers.set('Link', '</fonts/inter-latin-400.woff2>; rel=preload; as=font; type=font/woff2; crossorigin, </pfp.avif>; rel=preload; as=image; fetchpriority=high')
   }
   
   return response
