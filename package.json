@@ -14,12 +14,8 @@
     "postinstall": "echo '🎯 Ready to start! Run: npm run dev'"
   },
   "dependencies": {
-    "@radix-ui/react-avatar": "^1.1.10",
-    "@radix-ui/react-dialog": "^1.1.14",
-    "@radix-ui/react-slot": "^1.2.3",
     "@vercel/analytics": "^1.5.0",
     "@vercel/speed-insights": "^1.2.0",
-    "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
     "cmdk": "^1.1.1",
     "framer-motion": "^12.23.12",
