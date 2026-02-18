@@ -4,7 +4,7 @@ import Image from "next/image";
 
 export default function ProfileImage() {
   return (
-    <div className="cursor-pointer">
+    <div>
       <div className="relative w-28 h-28 rounded-full overflow-hidden border-2 border-border bg-muted">
         <Image
           src="/pfp.avif"
