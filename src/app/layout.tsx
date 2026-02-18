@@ -60,24 +60,24 @@ export default function RootLayout({
         <link rel="icon" href="/favicon.png" type="image/png" />
         <link rel="manifest" href="/site.webmanifest" />
         
-        {/* Performance optimizations */}
-        <link rel="preload" as="font" href="/fonts/inter-latin-400.woff2" type="font/woff2" crossOrigin="anonymous" />
-        <link rel="preload" as="font" href="/fonts/inter-latin-700.woff2" type="font/woff2" crossOrigin="anonymous" />
+        {/* Performance optimizations - fonts with high priority */}
+        <link rel="preload" as="font" href="/fonts/inter-latin-400.woff2" type="font/woff2" crossOrigin="anonymous" fetchPriority="high" />
+        <link rel="preload" as="font" href="/fonts/inter-latin-700.woff2" type="font/woff2" crossOrigin="anonymous" fetchPriority="high" />
         <link rel="preload" as="image" href="/pfp.avif" fetchPriority="high" type="image/avif" />
         
-        {/* Resource hints for external domains */}
+        {/* Resource hints for external domains - lower priority */}
         <link rel="preconnect" href="https://vercel.live" crossOrigin="anonymous" />
         <link rel="dns-prefetch" href="https://vercel.live" />
-        <link rel="preconnect" href="https://music.apple.com" />
-        <link rel="preconnect" href="https://github.com" />
-        <link rel="preconnect" href="https://instagram.com" />
-        <link rel="preconnect" href="https://linkedin.com" />
-        <link rel="preconnect" href="https://soundcloud.com" />
-        <link rel="preconnect" href="https://open.spotify.com" />
-        <link rel="preconnect" href="https://substack.com" />
-        <link rel="preconnect" href="https://tiktok.com" />
-        <link rel="preconnect" href="https://twitter.com" />
-        <link rel="preconnect" href="https://youtube.com" />
+        <link rel="dns-prefetch" href="https://music.apple.com" />
+        <link rel="dns-prefetch" href="https://github.com" />
+        <link rel="dns-prefetch" href="https://instagram.com" />
+        <link rel="dns-prefetch" href="https://linkedin.com" />
+        <link rel="dns-prefetch" href="https://soundcloud.com" />
+        <link rel="dns-prefetch" href="https://open.spotify.com" />
+        <link rel="dns-prefetch" href="https://substack.com" />
+        <link rel="dns-prefetch" href="https://tiktok.com" />
+        <link rel="dns-prefetch" href="https://twitter.com" />
+        <link rel="dns-prefetch" href="https://youtube.com" />
         
         <meta name="format-detection" content="telephone=no" />
         <meta name="theme-color" content="#000000" />

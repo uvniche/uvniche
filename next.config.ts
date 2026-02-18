@@ -5,12 +5,19 @@ const nextConfig: NextConfig = {
   
   // Performance optimizations
   experimental: {
-    optimizePackageImports: ['framer-motion', 'lucide-react', '@vercel/analytics', '@vercel/speed-insights', 'cmdk'],
+    optimizePackageImports: [
+      'framer-motion',
+      'lucide-react',
+      '@vercel/analytics',
+      '@vercel/speed-insights',
+      'cmdk'
+    ],
     scrollRestoration: true,
     optimizeServerReact: true,
     webpackBuildWorker: true,
     parallelServerCompiles: true,
     parallelServerBuildTraces: true,
+    optimizeCss: true,
   },
   
   // Enable compiler optimizations
