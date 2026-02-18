@@ -76,24 +76,7 @@ const searchLinks = [
   },
 ]
 
-// Animation variants for smooth transitions
-const containerVariants: Variants = {
-  expanded: {
-    scale: 1,
-    transition: {
-      duration: 0.25,
-      ease: "easeOut"
-    }
-  },
-  collapsed: {
-    scale: 1,
-    transition: {
-      duration: 0.25,
-      ease: "easeOut"
-    }
-  }
-}
-
+// Animation variants for dropdown transitions
 const listVariants: Variants = {
   expanded: {
     height: "auto",
@@ -406,9 +389,6 @@ export function Search() {
     <div className="relative w-full search-container" ref={containerRef}>
       <motion.div
         className={`group w-full ${isExpanded ? '' : 'cursor-pointer'}`}
-        variants={containerVariants}
-        animate={isExpanded ? "expanded" : "collapsed"}
-        initial="collapsed"
         onMouseEnter={() => {
           setIsExpanded(true)
           setTimeout(calculateDropdownPosition, 0)
