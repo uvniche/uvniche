@@ -1,4 +1,7 @@
 {
+  "files.associations": {
+    "*.md": "markdown"
+  },
   "terminal.integrated.automationProfile.osx": {
     "path": "/bin/zsh"
   },
