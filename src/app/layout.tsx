@@ -4,6 +4,9 @@ import { config } from "@/lib/config";
 import "./globals.css";
 import "./fonts.css";
 
+// Run entire app on Edge to avoid Node cold starts and reduce TTFB
+export const runtime = "edge";
+
 export const metadata: Metadata = {
   metadataBase: new URL(config.baseUrl),
   title: "avaneesh",
