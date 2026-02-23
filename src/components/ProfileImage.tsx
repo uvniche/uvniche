@@ -1,22 +1,20 @@
-"use client"
-
-import Image from "next/image";
-
+/**
+ * Server-rendered LCP image so it's in the initial HTML and matches the
+ * preload in layout. Native <img> avoids client hydration delay and
+ * Next/Image redirect so LCP happens sooner.
+ */
 export default function ProfileImage() {
   return (
     <div>
       <div className="relative w-28 h-28 rounded-full overflow-hidden border-2 border-border bg-muted">
-        <Image
+        <img
           src="/pfp.avif"
           alt=""
           width={112}
           height={112}
-          sizes="112px"
-          quality={75}
-          priority={true}
           fetchPriority="high"
-          placeholder="blur"
-          blurDataURL="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAYEBQYFBAYGBQYHBwYIChAKCgkJChQODwwQFxQYGBcUFhYaHSUfGhsjHBYWICwgIyYnKSopGR8tMC0oMCUoKSj/2wBDAQcHBwoIChMKChMoGhYaKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCj/wAARCAABAAEDASIAAhEBAxEB/8QAFQABAQAAAAAAAAAAAAAAAAAAAAv/xAAhEAACAQMDBQAAAAAAAAAAAAABAgMABAUGIWGRkqGx0f/EABUBAQEAAAAAAAAAAAAAAAAAAAMF/8QAGhEAAgIDAAAAAAAAAAAAAAAAAAECEgMRkf/aAAwDAQACEQMRAD8AltJagyeH0AthI5xdrLcNM91BF5pX2HaH9bcfaSXWGaRmknyJckliyjqTzSlT54b6bk+h0R//2Q=="
+          decoding="async"
+          className="size-full object-cover"
         />
       </div>
     </div>
