@@ -56,16 +56,6 @@ This ensures both branches are fully synced with the remote repository and you'r
 - The user must explicitly say "commit & push" or similar command
 - **IMPORTANT: Permission is NOT persistent. You must get explicit permission each time.**
 
-## User Permission Rule
-
-**When the user says "commit & push", that is sufficient permission for that specific request.**
-
-- Execute the commit & push workflow immediately without asking for additional confirmation
-- Permission applies ONLY to that single operation
-- Do not reuse prior permission for future operations  
-- Each new "commit & push" request grants permission for that operation only
-- Never assume permission to commit & push automatically in future requests
-
 ## Documentation Style
 
 Keep all documentation direct and concise.
