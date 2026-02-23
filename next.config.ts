@@ -65,9 +65,18 @@ const nextConfig: NextConfig = {
   // Enable React optimizations
   reactStrictMode: true,
   
-  // Performance headers
+  // Performance headers (documents revalidate; static assets cached)
   async headers() {
     return [
+      {
+        source: '/_next/static/:path*',
+        headers: [
+          {
+            key: 'Cache-Control',
+            value: 'public, max-age=31536000, immutable',
+          },
+        ],
+      },
       {
         source: '/(.*)',
         headers: [
@@ -89,7 +98,7 @@ const nextConfig: NextConfig = {
           },
           {
             key: 'Cache-Control',
-            value: 'public, max-age=3600, s-maxage=86400, stale-while-revalidate=86400'
+            value: 'private, max-age=0, must-revalidate'
           },
         ],
       },

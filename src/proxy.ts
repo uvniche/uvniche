@@ -8,7 +8,7 @@ export function proxy(request: NextRequest) {
   // Add performance headers
   response.headers.set('X-Robots-Tag', 'index, follow')
   
-  // Enable edge caching for static assets
+  // Long cache only for hashed/static assets (browser can cache; updates use new URLs)
   if (request.nextUrl.pathname.startsWith('/_next/static/') || 
       request.nextUrl.pathname.endsWith('.ico') ||
       request.nextUrl.pathname.endsWith('.jpeg') ||
@@ -18,12 +18,13 @@ export function proxy(request: NextRequest) {
       request.nextUrl.pathname.endsWith('.avif') ||
       request.nextUrl.pathname.startsWith('/fonts/')) {
     response.headers.set('Cache-Control', 'public, max-age=31536000, immutable')
+  } else {
+    // Documents and app routes: always revalidate so deploys show up without hard refresh
+    response.headers.set('Cache-Control', 'private, max-age=0, must-revalidate')
   }
   
-  // Optimize main page caching with stale-while-revalidate
+  // Early Hints for root only
   if (request.nextUrl.pathname === '/') {
-    response.headers.set('Cache-Control', 'public, max-age=0, s-maxage=86400, stale-while-revalidate=86400')
-    // Add Early Hints for critical resources
     response.headers.set('Link', '</fonts/inter-latin-400.woff2>; rel=preload; as=font; type=font/woff2; crossorigin, </pfp.avif>; rel=preload; as=image; fetchpriority=high')
   }
   
