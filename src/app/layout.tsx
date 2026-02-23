@@ -58,15 +58,20 @@ export default function RootLayout({
   return (
     <html lang="en" className="dark bg-black" suppressHydrationWarning>
       <head>
+        {/* Critical CSS for instant FCP - paint before full stylesheet loads */}
+        <style
+          dangerouslySetInnerHTML={{
+            __html: `html,body{background:#000;margin:0;height:100%;min-height:100vh;font-family:system-ui,-apple-system,BlinkMacSystemFont,'Segoe UI',arial,sans-serif;-webkit-font-smoothing:antialiased}`,
+          }}
+        />
         {/* Favicon configuration */}
         <link rel="icon" href="/favicon.ico" sizes="any" />
         <link rel="icon" href="/favicon.png" type="image/png" />
         <link rel="manifest" href="/site.webmanifest" />
         
-        {/* Performance optimizations - critical resources only */}
-        <link rel="preload" as="font" href="/fonts/inter-latin-400.woff2" type="font/woff2" crossOrigin="anonymous" fetchPriority="high" />
-        <link rel="preload" as="font" href="/fonts/inter-latin-700.woff2" type="font/woff2" crossOrigin="anonymous" fetchPriority="high" />
+        {/* Preload LCP image first; only primary font to avoid competing with image */}
         <link rel="preload" as="image" href="/pfp.avif" fetchPriority="high" type="image/avif" />
+        <link rel="preload" as="font" href="/fonts/inter-latin-400.woff2" type="font/woff2" crossOrigin="anonymous" />
         
         <meta name="format-detection" content="telephone=no" />
         <meta name="theme-color" content="#000000" />
