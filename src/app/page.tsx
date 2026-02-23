@@ -1,8 +1,8 @@
-import dynamic from "next/dynamic";
+import nextDynamic from "next/dynamic";
 import ProfileImage from "@/components/ProfileImage";
 
 // Lazy-load Search (framer-motion, cmdk, lucide) so initial JS bundle is smaller
-const Search = dynamic(() => import("@/components/Search").then((m) => ({ default: m.Search })), {
+const Search = nextDynamic(() => import("@/components/Search").then((m) => ({ default: m.Search })), {
   ssr: true,
   loading: () => (
     <div className="relative w-full search-container">
@@ -11,8 +11,8 @@ const Search = dynamic(() => import("@/components/Search").then((m) => ({ defaul
   ),
 });
 
-// Use Edge Runtime for faster response times
-export const runtime = 'edge';
+// Edge runtime: no Node cold start, response from edge → lower TTFB
+export const runtime = "edge";
 
 export default function Home() {
   return (
