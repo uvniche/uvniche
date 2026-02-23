@@ -1,15 +1,5 @@
-import nextDynamic from "next/dynamic";
 import ProfileImage from "@/components/ProfileImage";
-
-// Lazy-load Search (framer-motion, cmdk, lucide) so initial JS bundle is smaller
-const Search = nextDynamic(() => import("@/components/Search").then((m) => ({ default: m.Search })), {
-  ssr: true,
-  loading: () => (
-    <div className="relative w-full search-container">
-      <div className="w-full rounded-lg border shadow-md h-9 bg-popover/50 animate-pulse" />
-    </div>
-  ),
-});
+import DeferredSearch from "@/components/DeferredSearch";
 
 // Edge runtime: no Node cold start, response from edge → lower TTFB
 export const runtime = "edge";
@@ -30,7 +20,7 @@ export default function Home() {
 
         {/* Search Links Section */}
         <div className="w-full">
-          <Search />
+          <DeferredSearch />
         </div>
       </div>
     </div>

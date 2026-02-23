@@ -72,6 +72,7 @@ export default function RootLayout({
         {/* Preload LCP image first; only primary font to avoid competing with image */}
         <link rel="preload" as="image" href="/pfp.avif" fetchPriority="high" type="image/avif" />
         <link rel="preload" as="font" href="/fonts/inter-latin-400.woff2" type="font/woff2" crossOrigin="anonymous" />
+        <link rel="preload" as="font" href="/fonts/inter-latin-700.woff2" type="font/woff2" crossOrigin="anonymous" fetchPriority="low" />
         
         <meta name="format-detection" content="telephone=no" />
         <meta name="theme-color" content="#000000" />
