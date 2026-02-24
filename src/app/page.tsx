@@ -1,5 +1,5 @@
 import ProfileImage from "@/components/ProfileImage";
-import DeferredSearch from "@/components/DeferredSearch";
+import { Search } from "@/components/Search";
 
 // Edge runtime: no Node cold start, response from edge → lower TTFB
 export const runtime = "edge";
@@ -23,7 +23,7 @@ export default function Home() {
 
         {/* Search Links Section */}
         <div className="w-full">
-          <DeferredSearch />
+          <Search />
         </div>
       </div>
     </div>
