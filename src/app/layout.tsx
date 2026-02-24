@@ -92,8 +92,7 @@ export default function RootLayout({
                 "https://twitter.com/uvniche",
                 "https://github.com/uvniche",
                 "https://linkedin.com/in/uvniche",
-                "https://youtube.com/@uvniche",
-                "https://tiktok.com/@uvniche"
+                "https://youtube.com/@uvniche"
               ]
             })
           }}

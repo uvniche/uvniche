@@ -164,11 +164,6 @@
       "permanent": true
     },
     {
-      "source": "/tiktok",
-      "destination": "https://tiktok.com/@uvniche",
-      "permanent": true
-    },
-    {
       "source": "/twitter",
       "destination": "https://twitter.com/uvniche",
       "permanent": true
@@ -186,11 +181,6 @@
     {
       "source": "/apple-music",
       "destination": "https://music.apple.com/us/artist/avaneesh/1832229432",
-      "permanent": true
-    },
-    {
-      "source": "/soundcloud",
-      "destination": "https://soundcloud.com/uvniche",
       "permanent": true
     },
     {
