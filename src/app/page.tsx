@@ -4,6 +4,9 @@ import DeferredSearch from "@/components/DeferredSearch";
 // Edge runtime: no Node cold start, response from edge → lower TTFB
 export const runtime = "edge";
 
+// Fully static HTML + CDN cache for best TTFB/FCP
+export const dynamic = "force-static";
+
 export default function Home() {
   return (
     <div className="w-full min-h-screen relative flex items-center justify-center p-4">
