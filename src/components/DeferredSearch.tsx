@@ -1,36 +1,41 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import dynamic from "next/dynamic";
 
-// Chunk (framer-motion, cmdk, lucide) loads only after idle so FCP/LCP aren’t delayed
-const Search = dynamic(() => import("@/components/Search").then((m) => ({ default: m.Search })), {
-  ssr: false,
-  loading: () => (
-    <div className="relative w-full search-container">
-      <div className="w-full rounded-lg border shadow-md h-9 bg-popover/50 animate-pulse" />
-    </div>
-  ),
-});
+// Heavy search UI (framer-motion, cmdk, lucide) is only loaded
+// after the user explicitly activates it, instead of on idle.
+const Search = dynamic(
+  () => import("@/components/Search").then((m) => ({ default: m.Search })),
+  {
+    ssr: false,
+    loading: () => (
+      <div className="relative w-full search-container">
+        <div className="w-full rounded-lg border shadow-md h-9 bg-popover/50 animate-pulse" />
+      </div>
+    ),
+  }
+);
 
-const Placeholder = () => (
-  <div className="relative w-full search-container">
-    <div className="w-full rounded-lg border shadow-md h-9 bg-popover/50 animate-pulse" />
-  </div>
+const InactiveSearch = ({ onActivate }: { onActivate: () => void }) => (
+  <button
+    type="button"
+    onClick={onActivate}
+    className="relative w-full search-container"
+    aria-label="Open search links"
+  >
+    <div className="w-full rounded-lg border shadow-md h-9 bg-popover/50 flex items-center px-3 text-sm text-muted-foreground">
+      Search links
+    </div>
+  </button>
 );
 
 export default function DeferredSearch() {
-  const [ready, setReady] = useState(false);
+  const [activated, setActivated] = useState(false);
 
-  useEffect(() => {
-    const run = () => setReady(true);
-    if (typeof requestIdleCallback !== "undefined") {
-      requestIdleCallback(run, { timeout: 2000 });
-    } else {
-      setTimeout(run, 1500);
-    }
-  }, []);
+  if (!activated) {
+    return <InactiveSearch onActivate={() => setActivated(true)} />;
+  }
 
-  if (!ready) return <Placeholder />;
   return <Search />;
 }
