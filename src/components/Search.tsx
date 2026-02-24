@@ -6,12 +6,10 @@ import {
   Github,
   Instagram,
   Twitter,
-  Music,
   Linkedin,
   Youtube,
   Headphones,
   Play,
-  Radio,
   PenSquare,
 } from "lucide-react"
 
@@ -45,11 +43,6 @@ const searchLinks = [
     url: "https://linkedin.com/in/uvniche",
   },
   {
-    name: "SoundCloud",
-    icon: Radio,
-    url: "https://soundcloud.com/uvniche",
-  },
-  {
     name: "Spotify",
     icon: Headphones,
     url: "https://open.spotify.com/artist/2WZKTiJucQd5UTC5LICRZ6",
@@ -58,11 +51,6 @@ const searchLinks = [
     name: "Substack",
     icon: PenSquare,
     url: "https://substack.com/@uvniche",
-  },
-  {
-    name: "TikTok",
-    icon: Music,
-    url: "https://tiktok.com/@uvniche",
   },
   {
     name: "Twitter",
