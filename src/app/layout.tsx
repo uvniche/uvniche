@@ -69,8 +69,8 @@ export default function RootLayout({
                 background:#000;
                 margin:0;
                 padding:0;
-                height:100%;
-                min-height:100vh;
+                height:calc(var(--vh, 1vh) * 100);
+                min-height:calc(var(--vh, 1vh) * 100);
                 font-family:system-ui,-apple-system,BlinkMacSystemFont,'Segoe UI',arial,sans-serif;
                 -webkit-font-smoothing:antialiased;
                 -moz-osx-font-smoothing:grayscale;
