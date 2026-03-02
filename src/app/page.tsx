@@ -1,9 +1,6 @@
 import ProfileImage from "@/components/ProfileImage";
 import { Search } from "@/components/Search";
 
-// Edge runtime: no Node cold start, response from edge → lower TTFB
-export const runtime = "edge";
-
 // Fully static HTML + CDN cache for best TTFB/FCP
 export const dynamic = "force-static";
 
