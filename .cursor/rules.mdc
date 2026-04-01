@@ -46,12 +46,3 @@ When the user says "sync with remote", follow this specific workflow:
    - Ensure you're on dev branch for continued development
 
 This forcefully discards ALL local changes and makes the local repository match the remote repository exactly.
-
-## CRITICAL: Never Commit & Push Without Permission
-
-**NEVER commit and push code changes without explicit user permission.**
-
-- Only execute git operations when the user specifically requests them
-- This rule overrides all other workflow rules
-- The user must explicitly say "commit & push" or similar command
-- **IMPORTANT: Permission is NOT persistent. You must get explicit permission each time.**
