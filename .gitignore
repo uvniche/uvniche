@@ -26,6 +26,7 @@
 
 # editor / IDE
 .vscode/
+.cursor/
 
 # debug
 npm-debug.log*
