@@ -36,6 +36,7 @@ export const metadata: Metadata = {
     apple: "/favicon.png",
     shortcut: "/favicon.ico",
   },
+  manifest: "/site.webmanifest",
 };
 
 export const viewport: Viewport = {
@@ -54,7 +55,7 @@ export default function RootLayout({
   return (
     <html lang="en" className="dark bg-black" suppressHydrationWarning>
       <head>
-        {/* Critical CSS for instant FCP - keeps initial layout stable before full stylesheet loads */}
+        {/* Minimal critical fallback; full layout rules live in globals.css */}
         <style
           dangerouslySetInnerHTML={{
             __html: `
@@ -62,51 +63,6 @@ export default function RootLayout({
                 background:#000;
                 margin:0;
                 padding:0;
-                height:calc(var(--vh, 1vh) * 100);
-                min-height:calc(var(--vh, 1vh) * 100);
-                font-family:system-ui,-apple-system,BlinkMacSystemFont,'Segoe UI',arial,sans-serif;
-                -webkit-font-smoothing:antialiased;
-                -moz-osx-font-smoothing:grayscale;
-                overflow:hidden;
-              }
-              body {
-                display:flex;
-                justify-content:center;
-                align-items:center;
-                position:fixed;
-                width:100%;
-              }
-              #__next {
-                background:#000;
-                min-height:100%;
-                width:100%;
-                display:flex;
-                align-items:center;
-                justify-content:center;
-                position:relative;
-              }
-              h1, h2, h3, h4, h5, h6, p {
-                min-height:1em;
-                margin:0;
-              }
-              .profile-title {
-                line-height:1.2;
-                height:2.4rem;
-                margin:0;
-              }
-              .profile-subtitle {
-                line-height:1.5;
-                height:1.5rem;
-                margin:0;
-              }
-              .search-container {
-                contain:layout;
-              }
-              img {
-                max-width:100%;
-                height:auto;
-                display:block;
-                image-rendering:-webkit-optimize-contrast;
               }
             `,
           }}
@@ -135,11 +91,6 @@ export default function RootLayout({
             `,
           }}
         />
-        {/* Favicon configuration */}
-        <link rel="icon" href="/favicon.ico" sizes="any" />
-        <link rel="icon" href="/favicon.png" type="image/png" />
-        <link rel="manifest" href="/site.webmanifest" />
-        
         {/* Preload LCP image first; only primary font to avoid competing with image */}
         <link rel="preload" as="image" href="/pfp.avif" fetchPriority="high" type="image/avif" />
         <link rel="preload" as="font" href="/fonts/inter-latin-400.woff2" type="font/woff2" crossOrigin="anonymous" />
