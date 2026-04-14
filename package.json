@@ -10,7 +10,7 @@
   ],
   "scripts": {
     "dev": "next dev --turbopack",
-    "build": "next build",
+    "build": "next build --webpack",
     "start": "next start",
     "lint": "next lint",
     "auto-start": "./auto-start.sh",
@@ -35,6 +35,7 @@
     "@types/react": "^19",
     "@types/react-dom": "^19",
     "baseline-browser-mapping": "^2.9.19",
+    "critters": "^0.0.23",
     "eslint": "^9",
     "eslint-config-next": "^16.0.10",
     "tailwindcss": "^4",

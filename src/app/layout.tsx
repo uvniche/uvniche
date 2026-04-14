@@ -54,10 +54,6 @@ export default function RootLayout({
   return (
     <html lang="en" className="dark bg-black" suppressHydrationWarning>
       <head>
-        {/* Connection hints so the browser can warm up the main origin ASAP */}
-        <link rel="preconnect" href="https://uvniche.com" />
-        <link rel="dns-prefetch" href="//uvniche.com" />
-
         {/* Critical CSS for instant FCP - keeps initial layout stable before full stylesheet loads */}
         <style
           dangerouslySetInnerHTML={{
