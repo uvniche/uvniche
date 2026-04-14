@@ -26,16 +26,6 @@ const nextConfig: NextConfig = {
     reactRemoveProperties: process.env.NODE_ENV === 'production' ? { properties: ['^data-testid$'] } : false,
   },
   
-  // Turbopack configuration (moved from deprecated experimental.turbo)
-  turbopack: {
-    rules: {
-      '*.svg': {
-        loaders: ['@svgr/webpack'],
-        as: '*.js',
-      },
-    },
-  },
-  
   // Server external packages (moved from experimental)
   serverExternalPackages: [],
   
@@ -65,45 +55,6 @@ const nextConfig: NextConfig = {
   // Enable React optimizations
   reactStrictMode: true,
   
-  // Performance headers (documents revalidate; static assets cached)
-  async headers() {
-    return [
-      {
-        source: '/_next/static/:path*',
-        headers: [
-          {
-            key: 'Cache-Control',
-            value: 'public, max-age=31536000, immutable',
-          },
-        ],
-      },
-      {
-        source: '/(.*)',
-        headers: [
-          {
-            key: 'X-DNS-Prefetch-Control',
-            value: 'on'
-          },
-          {
-            key: 'X-Content-Type-Options',
-            value: 'nosniff'
-          },
-          {
-            key: 'Referrer-Policy',
-            value: 'origin-when-cross-origin'
-          },
-          {
-            key: 'X-Preload',
-            value: 'prefetch'
-          },
-          {
-            key: 'Cache-Control',
-            value: 'private, max-age=0, must-revalidate'
-          },
-        ],
-      },
-    ]
-  },
 };
 
 export default nextConfig;

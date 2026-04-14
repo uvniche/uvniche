@@ -13,7 +13,6 @@
     "build": "next build --webpack",
     "start": "next start",
     "lint": "next lint",
-    "auto-start": "./auto-start.sh",
     "postinstall": "echo '🎯 Ready to start! Run: npm run dev'"
   },
   "dependencies": {
