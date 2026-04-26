@@ -6,7 +6,7 @@ import "./globals.css";
 export const metadata: Metadata = {
   metadataBase: new URL(config.baseUrl),
   title: "avaneesh",
-  description: "@uvniche",   // ✅ clean, no newline
+  description: "@uvniche",   // clean, no newline
   openGraph: {
     title: "avaneesh",
     description: "@uvniche",
