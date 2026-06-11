@@ -2,15 +2,6 @@
 
 import { useState, useRef, useEffect, useCallback } from "react"
 import { motion, AnimatePresence, type Variants } from "framer-motion"
-import {
-  Github,
-  Instagram,
-  Twitter,
-  Linkedin,
-  Youtube,
-  Headphones,
-  Play,
-} from "lucide-react"
 
 import {
   Command,
@@ -23,37 +14,30 @@ import {
 const searchLinks = [
   {
     name: "Apple Music",
-    icon: Play,
     url: "https://music.apple.com/us/artist/avaneesh/1832229432",
   },
   {
     name: "GitHub",
-    icon: Github,
     url: "https://github.com/uvniche",
   },
   {
-    name: "Instagram", 
-    icon: Instagram,
+    name: "Instagram",
     url: "https://instagram.com/uvniche",
   },
   {
     name: "LinkedIn",
-    icon: Linkedin,
     url: "https://linkedin.com/in/uvniche",
   },
   {
     name: "Spotify",
-    icon: Headphones,
     url: "https://open.spotify.com/artist/2WZKTiJucQd5UTC5LICRZ6",
   },
   {
-    name: "Twitter",
-    icon: Twitter,
-    url: "https://twitter.com/uvniche",
+    name: "X",
+    url: "https://x.com/uvniche",
   },
   {
     name: "YouTube",
-    icon: Youtube,
     url: "https://www.youtube.com/@uvniche",
   },
 ]
@@ -452,7 +436,6 @@ export function Search() {
                         onSelect={() => handleLinkSelect(link.url)}
                         className="cursor-pointer h-9 flex items-center py-0"
                       >
-                        <link.icon className="size-4" />
                         <span>{link.name}</span>
                       </CommandItem>
                     ))}

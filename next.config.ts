@@ -7,7 +7,6 @@ const nextConfig: NextConfig = {
   experimental: {
     optimizePackageImports: [
       'framer-motion',
-      'lucide-react',
       '@vercel/analytics',
       '@vercel/speed-insights',
       'cmdk'
