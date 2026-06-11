@@ -436,6 +436,10 @@ export function Search() {
                         onSelect={() => handleLinkSelect(link.url)}
                         className="cursor-pointer h-9 flex items-center py-0"
                       >
+                        <span
+                          className="size-1.5 shrink-0 rounded-full bg-current opacity-50"
+                          aria-hidden="true"
+                        />
                         <span>{link.name}</span>
                       </CommandItem>
                     ))}

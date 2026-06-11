@@ -8,10 +8,6 @@
           "value": "nosniff"
         },
         {
-          "key": "X-XSS-Protection",
-          "value": "1; mode=block"
-        },
-        {
           "key": "X-DNS-Prefetch-Control",
           "value": "on"
         },
@@ -105,10 +101,6 @@
     },
     {
       "source": "/robots.txt",
-      "headers": [{ "key": "Cache-Control", "value": "public, max-age=86400, immutable" }]
-    },
-    {
-      "source": "/browserconfig.xml",
       "headers": [{ "key": "Cache-Control", "value": "public, max-age=86400, immutable" }]
     }
   ]
