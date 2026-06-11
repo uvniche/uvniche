@@ -111,7 +111,7 @@ export default function RootLayout({
               "logo": "https://uvniche.com/favicon.png",
               "sameAs": [
                 "https://instagram.com/uvniche",
-                "https://twitter.com/uvniche",
+                "https://x.com/uvniche",
                 "https://github.com/uvniche",
                 "https://linkedin.com/in/uvniche",
                 "https://youtube.com/@uvniche"
@@ -124,8 +124,7 @@ export default function RootLayout({
         className="font-sans antialiased bg-black"
         style={{ 
           fontFamily: 'Inter, system-ui, -apple-system, BlinkMacSystemFont, Segoe UI, arial, sans-serif',
-          '--font-inter': 'Inter, system-ui, sans-serif',
-          '--font-geist-mono': 'Geist Mono, monospace'
+          '--font-inter': 'Inter, system-ui, sans-serif'
         } as React.CSSProperties}
       >
         {children}
