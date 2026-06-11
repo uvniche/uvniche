@@ -2,6 +2,7 @@
 
 import * as React from "react"
 import { Command as CommandPrimitive } from "cmdk"
+import { SearchIcon } from "lucide-react"
 
 import { cn } from "@/lib/utils"
 
@@ -30,20 +31,7 @@ function CommandInput({
       data-slot="command-input-wrapper"
       className="flex h-9 items-center gap-2 border-b px-3"
     >
-      <svg
-        className="size-4 shrink-0 opacity-50"
-        aria-hidden="true"
-        viewBox="0 0 16 16"
-        fill="none"
-      >
-        <path
-          d="m14 14-3.4-3.4m1.9-3.1a5 5 0 1 1-10 0 5 5 0 0 1 10 0Z"
-          stroke="currentColor"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-          strokeWidth="1.5"
-        />
-      </svg>
+      <SearchIcon className="size-4 shrink-0 opacity-50" aria-hidden="true" />
       <CommandPrimitive.Input
         data-slot="command-input"
         className={cn(

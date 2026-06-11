@@ -129,15 +129,13 @@ export default function RootLayout({
       >
         {children}
         <Analytics />
-        
-        {/* Deferred scripts - load after page is interactive */}
+
         <script
           dangerouslySetInnerHTML={{
             __html: `
               (function(){
                 function initVH(){document.documentElement.style.setProperty('--vh',window.innerHeight*0.01+'px')}
-                function initSW(){if('serviceWorker'in navigator){navigator.serviceWorker.register('/sw.js').catch(function(){})}}
-                if(document.readyState==='complete'){initVH();initSW()}else{window.addEventListener('load',function(){initVH();initSW();window.addEventListener('resize',initVH)})}
+                if(document.readyState==='complete'){initVH()}else{window.addEventListener('load',function(){initVH();window.addEventListener('resize',initVH)})}
               })();
             `
           }}
