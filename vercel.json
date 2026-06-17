@@ -43,7 +43,7 @@
       ]
     },
     {
-      "source": "/pfp.(avif|webp|jpeg)",
+      "source": "/pfp.(avif|webp)",
       "headers": [
         {
           "key": "Cache-Control",

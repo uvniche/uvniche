@@ -64,8 +64,6 @@ const listVariants: Variants = {
   }
 }
 
-// Removed itemVariants to prevent touch scroll interference on mobile
-
 export function Search() {
   const [isExpanded, setIsExpanded] = useState(false)
   const [isFocused, setIsFocused] = useState(false)
@@ -80,7 +78,6 @@ export function Search() {
     maxHeight?: number;
   }>({})
   const containerRef = useRef<HTMLDivElement>(null)
-  const dropdownRef = useRef<HTMLDivElement>(null)
   const typingTimeoutRef = useRef<NodeJS.Timeout | null>(null)
 
   // Ensure component is mounted before running browser-specific code
@@ -135,13 +132,8 @@ export function Search() {
     
     // Calculate horizontal position
     if (containerRect.left + dropdownWidth > viewportWidth - padding) {
-      // Would overflow right edge
       position.right = 0
-    } else if (containerRect.left < padding) {
-      // Would overflow left edge
-      position.left = 0
     } else {
-      // Normal positioning
       position.left = 0
     }
     
@@ -149,10 +141,8 @@ export function Search() {
   }, [isMounted])
 
   const handleLinkSelect = (url: string) => {
-    if (typeof window !== 'undefined') {
-      window.open(url, '_blank', 'noopener,noreferrer')
-    }
-    setIsExpanded(false) // Close dropdown after selection
+    window.open(url, '_blank', 'noopener,noreferrer')
+    setIsExpanded(false)
   }
 
   const handleInputChange = (value: string) => {
@@ -182,14 +172,6 @@ export function Search() {
   const handleInputBlur = () => {
     setIsFocused(false)
     // Don't immediately close - let the click outside handler manage it
-  }
-
-  const handleInputClick = () => {
-    // Ensure input is focused and dropdown stays open when clicking
-    setIsFocused(true)
-    setIsExpanded(true)
-    // Calculate position when opening
-    setTimeout(calculateDropdownPosition, 0)
   }
 
   // Determine if dropdown should be visible
@@ -232,66 +214,33 @@ export function Search() {
   useEffect(() => {
     if (!isMounted) return
 
-    const handleResize = () => {
-      if (isExpanded) {
-        calculateDropdownPosition()
-      }
+    const recalculateIfExpanded = () => {
+      if (isExpanded) calculateDropdownPosition()
     }
 
-    const handleVisualViewportResize = () => {
-      if (isExpanded) {
-        // Recalculate immediately when keyboard shows/hides
-        calculateDropdownPosition()
-      }
-    }
+    window.addEventListener('resize', recalculateIfExpanded)
 
-    window.addEventListener('resize', handleResize)
-    
-    // Listen for visualViewport changes (keyboard show/hide on mobile)
     if (window.visualViewport) {
-      window.visualViewport.addEventListener('resize', handleVisualViewportResize)
-      window.visualViewport.addEventListener('scroll', handleVisualViewportResize)
+      window.visualViewport.addEventListener('resize', recalculateIfExpanded)
+      window.visualViewport.addEventListener('scroll', recalculateIfExpanded)
     }
 
     return () => {
-      window.removeEventListener('resize', handleResize)
+      window.removeEventListener('resize', recalculateIfExpanded)
       if (window.visualViewport) {
-        window.visualViewport.removeEventListener('resize', handleVisualViewportResize)
-        window.visualViewport.removeEventListener('scroll', handleVisualViewportResize)
+        window.visualViewport.removeEventListener('resize', recalculateIfExpanded)
+        window.visualViewport.removeEventListener('scroll', recalculateIfExpanded)
       }
     }
   }, [isExpanded, calculateDropdownPosition, isMounted])
 
-  // Completely lock page scroll when dropdown is open
   useEffect(() => {
     if (!isMounted) return
 
-    // Skip scroll locking on mobile devices to prevent layout issues
     const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent)
-    
-    if (isExpanded && !isMobile) {
-      // Get current scroll position
-      const scrollY = window.scrollY
-      
-      // Apply comprehensive body lock
-      document.body.style.position = 'fixed'
-      document.body.style.top = `-${scrollY}px`
-      document.body.style.left = '0'
-      document.body.style.right = '0'
-      document.body.style.overflow = 'hidden'
-      document.body.style.height = '100dvh'
-      document.body.style.width = '100vw'
-      
-      // Also lock html element for extra security
-      document.documentElement.style.overflow = 'hidden'
-      document.documentElement.style.height = '100dvh'
-      
-      // Store scroll position for restoration
-      document.body.setAttribute('data-scroll-y', scrollY.toString())
-    } else if (!isExpanded && !isMobile) {
-      // Restore everything
-      const scrollY = document.body.getAttribute('data-scroll-y')
-      
+    if (isMobile) return
+
+    const unlockBodyScroll = () => {
       document.body.style.position = ''
       document.body.style.top = ''
       document.body.style.left = ''
@@ -299,31 +248,32 @@ export function Search() {
       document.body.style.overflow = ''
       document.body.style.height = ''
       document.body.style.width = ''
-      
       document.documentElement.style.overflow = ''
       document.documentElement.style.height = ''
-      
+      document.body.removeAttribute('data-scroll-y')
+    }
+
+    if (isExpanded) {
+      const scrollY = window.scrollY
+      document.body.style.position = 'fixed'
+      document.body.style.top = `-${scrollY}px`
+      document.body.style.left = '0'
+      document.body.style.right = '0'
+      document.body.style.overflow = 'hidden'
+      document.body.style.height = '100dvh'
+      document.body.style.width = '100vw'
+      document.documentElement.style.overflow = 'hidden'
+      document.documentElement.style.height = '100dvh'
+      document.body.setAttribute('data-scroll-y', scrollY.toString())
+    } else {
+      const scrollY = document.body.getAttribute('data-scroll-y')
+      unlockBodyScroll()
       if (scrollY) {
         window.scrollTo(0, parseInt(scrollY))
-        document.body.removeAttribute('data-scroll-y')
       }
     }
-    
-    return () => {
-      // Cleanup on unmount
-      if (!isMobile) {
-        document.body.style.position = ''
-        document.body.style.top = ''
-        document.body.style.left = ''
-        document.body.style.right = ''
-        document.body.style.overflow = ''
-        document.body.style.height = ''
-        document.body.style.width = ''
-        document.documentElement.style.overflow = ''
-        document.documentElement.style.height = ''
-        document.body.removeAttribute('data-scroll-y')
-      }
-    }
+
+    return unlockBodyScroll
   }, [isExpanded, isMounted])
 
   // Cleanup typing timeout on unmount
@@ -339,14 +289,12 @@ export function Search() {
   if (!isMounted) {
     return (
       <div className="relative w-full search-container">
-        <div className="w-full">
-          <Command className="rounded-lg border shadow-md w-full">
-            <CommandInput 
-              placeholder="Search" 
-              className="transition-all duration-300 ease-out h-9"
-            />
-          </Command>
-        </div>
+        <Command className="rounded-lg border shadow-md w-full">
+          <CommandInput
+            placeholder="Search"
+            className="transition-all duration-300 ease-out h-9"
+          />
+        </Command>
       </div>
     )
   }
@@ -402,7 +350,6 @@ export function Search() {
           <AnimatePresence>
             {isExpanded && (
               <motion.div
-                ref={dropdownRef}
                 variants={listVariants}
                 initial="collapsed"
                 animate="expanded"
@@ -418,12 +365,11 @@ export function Search() {
                 }}
               >
                 <CommandList
-                  className="overflow-y-scroll scrollbar-thin scrollbar-thumb-muted-foreground/20 scrollbar-track-transparent"
+                  className="overflow-y-scroll"
                   style={{
                     maxHeight: dropdownPosition.maxHeight || 300,
                     WebkitOverflowScrolling: 'touch',
                     overscrollBehavior: 'contain',
-                    overscrollBehaviorY: 'contain',
                     touchAction: 'pan-y',
                     scrollbarWidth: 'thin',
                     msOverflowStyle: 'auto',

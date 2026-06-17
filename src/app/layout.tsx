@@ -10,7 +10,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: "avaneesh",
     description: "@uvniche",
-    url: "https://uvniche.com",
+    url: config.baseUrl,
     siteName: "avaneesh",
     images: [
       {
@@ -53,7 +53,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className="dark bg-black" suppressHydrationWarning>
+    <html lang="en" suppressHydrationWarning>
       <head>
         {/* Minimal critical fallback; full layout rules live in globals.css */}
         <style
@@ -107,8 +107,8 @@ export default function RootLayout({
               "@context": "https://schema.org",
               "@type": "Organization",
               "name": "@uvniche",
-              "url": "https://uvniche.com",
-              "logo": "https://uvniche.com/favicon.png",
+              "url": config.baseUrl,
+              "logo": `${config.baseUrl}/favicon.png`,
               "sameAs": [
                 "https://instagram.com/uvniche",
                 "https://x.com/uvniche",
@@ -121,7 +121,7 @@ export default function RootLayout({
         />
       </head>
       <body
-        className="font-sans antialiased bg-black"
+        className="font-sans antialiased"
         style={{ 
           fontFamily: 'Inter, system-ui, -apple-system, BlinkMacSystemFont, Segoe UI, arial, sans-serif',
           '--font-inter': 'Inter, system-ui, sans-serif'
