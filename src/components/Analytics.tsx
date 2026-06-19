@@ -4,7 +4,6 @@ import { useState, useEffect } from "react";
 import dynamic from "next/dynamic";
 
 const VercelAnalytics = dynamic(() => import("@vercel/analytics/react").then(mod => ({ default: mod.Analytics })), { ssr: false });
-const VercelSpeedInsights = dynamic(() => import("@vercel/speed-insights/react").then(mod => ({ default: mod.SpeedInsights })), { ssr: false });
 
 // Defer analytics until after page is interactive + idle so they don't compete with FCP/LCP
 export function Analytics() {
@@ -20,11 +19,5 @@ export function Analytics() {
   }, []);
 
   if (!ready) return null;
-  return (
-    <>
-      <VercelAnalytics />
-      <VercelSpeedInsights />
-    </>
-  );
+  return <VercelAnalytics />;
 }
-
