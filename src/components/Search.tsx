@@ -1,7 +1,7 @@
 "use client"
 
 import { useState, useRef, useEffect, useCallback } from "react"
-import { motion, AnimatePresence, type Variants } from "framer-motion"
+import { motion, type Variants } from "framer-motion"
 
 import {
   Command,
@@ -289,11 +289,13 @@ export function Search() {
   if (!isMounted) {
     return (
       <div className="relative w-full search-container">
-        <Command className="rounded-lg border shadow-md w-full">
+        <Command label="Search" className="rounded-lg border shadow-md w-full">
           <CommandInput
+            expanded={false}
             placeholder="Search"
             className="transition-all duration-300 ease-out h-9"
           />
+          <CommandList className="hidden" />
         </Command>
       </div>
     )
@@ -314,7 +316,7 @@ export function Search() {
           }
         }}
       >
-        <Command className="rounded-lg border shadow-md w-full">
+        <Command label="Search" className="rounded-lg border shadow-md w-full">
           {/* Search Input - Always visible and maintains layout */}
           <div 
             onClick={(e) => {
@@ -336,6 +338,7 @@ export function Search() {
             }}
           >
             <CommandInput 
+              expanded={isExpanded}
               placeholder="Search" 
               value={inputValue}
               onValueChange={handleInputChange}
@@ -347,14 +350,11 @@ export function Search() {
           </div>
           
           {/* Dropdown - Absolutely positioned to not affect layout */}
-          <AnimatePresence>
-            {isExpanded && (
-              <motion.div
+          <motion.div
                 variants={listVariants}
-                initial="collapsed"
-                animate="expanded"
-                exit="collapsed"
-                className="absolute w-full z-50 bg-popover rounded-lg border shadow-md overflow-hidden"
+                initial={false}
+                animate={isExpanded ? "expanded" : "collapsed"}
+                className={`absolute w-full z-50 bg-popover rounded-lg border shadow-md overflow-hidden ${isExpanded ? '' : 'pointer-events-none'}`}
                 style={{ 
                   transformOrigin: dropdownPosition.bottom !== undefined ? "bottom" : "top",
                   top: dropdownPosition.top,
@@ -391,9 +391,7 @@ export function Search() {
                     ))}
                   </CommandGroup>
                 </CommandList>
-              </motion.div>
-            )}
-          </AnimatePresence>
+          </motion.div>
         </Command>
       </motion.div>
     </div>

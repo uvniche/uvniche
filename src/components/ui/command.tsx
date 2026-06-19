@@ -24,8 +24,21 @@ function Command({
 
 function CommandInput({
   className,
+  expanded,
   ...props
-}: React.ComponentProps<typeof CommandPrimitive.Input>) {
+}: React.ComponentProps<typeof CommandPrimitive.Input> & {
+  expanded?: boolean
+}) {
+  const inputRef = React.useRef<HTMLInputElement>(null)
+
+  // cmdk always renders aria-expanded="true". Keep it in sync for command
+  // lists that are shown and hidden without using CommandDialog.
+  React.useLayoutEffect(() => {
+    if (expanded !== undefined) {
+      inputRef.current?.setAttribute("aria-expanded", String(expanded))
+    }
+  }, [expanded])
+
   return (
     <div
       data-slot="command-input-wrapper"
@@ -33,6 +46,7 @@ function CommandInput({
     >
       <SearchIcon className="size-4 shrink-0 opacity-50" aria-hidden="true" />
       <CommandPrimitive.Input
+        ref={inputRef}
         data-slot="command-input"
         className={cn(
           "placeholder:text-muted-foreground flex h-10 w-full rounded-md bg-transparent py-3 text-sm outline-hidden disabled:cursor-not-allowed disabled:opacity-50",
