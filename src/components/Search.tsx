@@ -141,8 +141,8 @@ export function Search() {
   }, [isMounted])
 
   const handleLinkSelect = (url: string) => {
-    window.open(url, '_blank', 'noopener,noreferrer')
     setIsExpanded(false)
+    window.location.assign(url)
   }
 
   const handleInputChange = (value: string) => {
