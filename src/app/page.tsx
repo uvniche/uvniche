@@ -19,7 +19,7 @@ export default function Home() {
         </div>
 
         {/* Search Links Section */}
-        <div className="w-64 max-w-full">
+        <div className="w-56 max-w-full">
           <Search />
         </div>
       </div>
