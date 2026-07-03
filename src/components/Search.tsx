@@ -174,8 +174,13 @@ export function Search() {
     // Don't immediately close - let the click outside handler manage it
   }
 
+  const visibleSearchLinks = searchLinks.filter((link) =>
+    link.name.toLowerCase().includes(inputValue.toLowerCase())
+  )
+  const hasVisibleResults = visibleSearchLinks.length > 0
+
   // Determine if dropdown should be visible
-  const shouldShowDropdown = isFocused || isTyping || inputValue.length > 0 || isExpanded
+  const shouldShowDropdown = hasVisibleResults && (isFocused || isTyping || inputValue.length > 0 || isExpanded)
 
   // Handle click outside to close dropdown
   useEffect(() => {
@@ -350,7 +355,8 @@ export function Search() {
           </div>
           
           {/* Dropdown - Absolutely positioned to not affect layout */}
-          <motion.div
+          {hasVisibleResults ? (
+            <motion.div
                 variants={listVariants}
                 initial={false}
                 animate={isExpanded ? "expanded" : "collapsed"}
@@ -376,7 +382,7 @@ export function Search() {
                   }}
                 >
                   <CommandGroup>
-                    {searchLinks.map((link) => (
+                    {visibleSearchLinks.map((link) => (
                       <CommandItem 
                         key={link.name}
                         onSelect={() => handleLinkSelect(link.url)}
@@ -391,7 +397,8 @@ export function Search() {
                     ))}
                   </CommandGroup>
                 </CommandList>
-          </motion.div>
+            </motion.div>
+          ) : null}
         </Command>
       </motion.div>
     </div>
