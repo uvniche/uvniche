@@ -293,7 +293,7 @@ export function Search() {
           <CommandInput
             expanded={false}
             placeholder="Search"
-            className="transition-all duration-300 ease-out h-9"
+            className="transition-all duration-300 ease-out h-8"
           />
           <CommandList className="hidden" />
         </Command>
@@ -345,7 +345,7 @@ export function Search() {
               onFocus={handleInputFocus}
               onBlur={handleInputBlur}
               onTouchStart={handleInputFocus}
-              className="transition-all duration-300 ease-out h-9"
+              className="transition-all duration-300 ease-out h-8"
             />
           </div>
           

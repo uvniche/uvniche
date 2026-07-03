@@ -14,7 +14,7 @@ export default function Home() {
           
           <div className="text-center space-y-1">
             <h1 className="text-2xl font-bold profile-title">avaneesh</h1>
-            <p className="text-primary profile-subtitle">@uvniche</p>
+            <p className="text-base text-primary profile-subtitle">@uvniche</p>
           </div>
         </div>
 
