@@ -108,8 +108,8 @@
   }
 
   [data-slot="command-input-wrapper"] {
-    height: 2rem !important;
-    min-height: 2rem !important;
-    max-height: 2rem !important;
+    height: 2.25rem !important;
+    min-height: 2.25rem !important;
+    max-height: 2.25rem !important;
   }
 }
