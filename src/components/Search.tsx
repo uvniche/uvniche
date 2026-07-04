@@ -294,7 +294,7 @@ export function Search() {
   if (!isMounted) {
     return (
       <div className="relative w-full search-container">
-        <Command label="Search" className="rounded-lg border shadow-md w-full">
+        <Command label="Search" shouldFilter={false} className="rounded-lg border shadow-md w-full">
           <CommandInput
             expanded={false}
             placeholder="Search"
@@ -321,7 +321,7 @@ export function Search() {
           }
         }}
       >
-        <Command label="Search" className="rounded-lg border shadow-md w-full">
+        <Command label="Search" shouldFilter={false} className="rounded-lg border shadow-md w-full">
           {/* Search Input - Always visible and maintains layout */}
           <div 
             onClick={(e) => {
