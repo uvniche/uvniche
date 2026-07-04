@@ -42,12 +42,10 @@ const searchLinks = [
   },
 ]
 
-// Animation variants for dropdown transitions
 const listVariants: Variants = {
   expanded: {
     height: "auto",
     opacity: 1,
-    marginTop: 0,
     transition: {
       duration: 0.25,
       ease: "easeOut"
@@ -56,7 +54,6 @@ const listVariants: Variants = {
   collapsed: {
     height: 0,
     opacity: 0,
-    marginTop: 0,
     transition: {
       duration: 0.25,
       ease: "easeIn"
@@ -64,23 +61,22 @@ const listVariants: Variants = {
   }
 }
 
+type DropdownPosition = {
+  top?: number
+  bottom?: number
+  left?: number
+  right?: number
+  maxHeight?: number
+}
+
 export function Search() {
   const [isExpanded, setIsExpanded] = useState(false)
   const [isFocused, setIsFocused] = useState(false)
   const [inputValue, setInputValue] = useState("")
-  const [isTyping, setIsTyping] = useState(false)
   const [isMounted, setIsMounted] = useState(false)
-  const [dropdownPosition, setDropdownPosition] = useState<{
-    top?: number;
-    bottom?: number;
-    left?: number;
-    right?: number;
-    maxHeight?: number;
-  }>({})
+  const [dropdownPosition, setDropdownPosition] = useState<DropdownPosition>({})
   const containerRef = useRef<HTMLDivElement>(null)
-  const typingTimeoutRef = useRef<NodeJS.Timeout | null>(null)
 
-  // Ensure component is mounted before running browser-specific code
   useEffect(() => {
     setIsMounted(true)
   }, [])
@@ -95,12 +91,10 @@ export function Search() {
     const viewportHeight = window.visualViewport?.height || window.innerHeight
     const viewportWidth = window.visualViewport?.width || window.innerWidth
     
-    // Dropdown dimensions (estimated)
     const dropdownHeight = 300 // max-h-[300px]
-    const dropdownWidth = containerRect.width
     const padding = 16 // Safe padding from viewport edges
     
-    const position: typeof dropdownPosition = {}
+    const position: DropdownPosition = {}
     
     // Calculate vertical position - always prefer below
     const spaceBelow = viewportHeight - containerRect.bottom
@@ -131,7 +125,7 @@ export function Search() {
     }
     
     // Calculate horizontal position
-    if (containerRect.left + dropdownWidth > viewportWidth - padding) {
+    if (containerRect.right > viewportWidth - padding) {
       position.right = 0
     } else {
       position.left = 0
@@ -145,21 +139,6 @@ export function Search() {
     window.location.assign(url)
   }
 
-  const handleInputChange = (value: string) => {
-    setInputValue(value)
-    setIsTyping(true)
-    
-    // Clear existing timeout
-    if (typingTimeoutRef.current) {
-      clearTimeout(typingTimeoutRef.current)
-    }
-    
-    // Set typing indicator to false after 500ms of no typing
-    typingTimeoutRef.current = setTimeout(() => {
-      setIsTyping(false)
-    }, 500)
-  }
-
   const handleInputFocus = () => {
     setIsFocused(true)
     setIsExpanded(true)
@@ -169,18 +148,12 @@ export function Search() {
     setTimeout(calculateDropdownPosition, 300)
   }
 
-  const handleInputBlur = () => {
-    setIsFocused(false)
-    // Don't immediately close - let the click outside handler manage it
-  }
-
   const visibleSearchLinks = searchLinks.filter((link) =>
     link.name.toLowerCase().includes(inputValue.toLowerCase())
   )
   const hasVisibleResults = visibleSearchLinks.length > 0
 
-  // Determine if dropdown should be visible
-  const shouldShowDropdown = hasVisibleResults && (isFocused || isTyping || inputValue.length > 0 || isExpanded)
+  const shouldShowDropdown = hasVisibleResults && (isFocused || inputValue.length > 0 || isExpanded)
 
   // Handle click outside to close dropdown
   useEffect(() => {
@@ -281,15 +254,6 @@ export function Search() {
     return unlockBodyScroll
   }, [isExpanded, isMounted])
 
-  // Cleanup typing timeout on unmount
-  useEffect(() => {
-    return () => {
-      if (typingTimeoutRef.current) {
-        clearTimeout(typingTimeoutRef.current)
-      }
-    }
-  }, [])
-
   // Don't render anything until mounted to prevent hydration mismatch
   if (!isMounted) {
     return (
@@ -309,14 +273,14 @@ export function Search() {
   return (
     <div className="relative w-full search-container" ref={containerRef}>
       <motion.div
-        className={`group w-full ${isExpanded ? '' : 'cursor-pointer'}`}
+        className={`w-full ${isExpanded ? '' : 'cursor-pointer'}`}
         onMouseEnter={() => {
           setIsExpanded(true)
           setTimeout(calculateDropdownPosition, 0)
         }}
         onMouseLeave={() => {
           // Only close on mouse leave if not focused and no input value
-          if (!isFocused && !inputValue.length && !isTyping) {
+          if (!isFocused && !inputValue.length) {
             setIsExpanded(false)
           }
         }}
@@ -335,7 +299,7 @@ export function Search() {
                 input.focus()
               }
             }}
-            onPointerDown={(e) => {
+            onPointerDown={() => {
               // Additional pointer event handler for better compatibility
               setIsExpanded(true)
               setIsFocused(true)
@@ -346,9 +310,9 @@ export function Search() {
               expanded={isExpanded}
               placeholder="Search" 
               value={inputValue}
-              onValueChange={handleInputChange}
+              onValueChange={setInputValue}
               onFocus={handleInputFocus}
-              onBlur={handleInputBlur}
+              onBlur={() => setIsFocused(false)}
               onTouchStart={handleInputFocus}
               className="transition-all duration-300 ease-out h-9"
             />
