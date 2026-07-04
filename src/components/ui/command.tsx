@@ -4,7 +4,8 @@ import * as React from "react"
 import { Command as CommandPrimitive } from "cmdk"
 import { SearchIcon } from "lucide-react"
 
-import { cn } from "@/lib/utils"
+const classes = (...values: Array<string | undefined>) =>
+  values.filter(Boolean).join(" ")
 
 function Command({
   className,
@@ -13,7 +14,7 @@ function Command({
   return (
     <CommandPrimitive
       data-slot="command"
-      className={cn(
+      className={classes(
         "bg-popover text-popover-foreground flex h-full w-full flex-col overflow-hidden rounded-md",
         className
       )}
@@ -48,7 +49,7 @@ function CommandInput({
       <CommandPrimitive.Input
         ref={inputRef}
         data-slot="command-input"
-        className={cn(
+        className={classes(
           "placeholder:text-muted-foreground flex h-10 w-full rounded-md bg-transparent py-3 text-base outline-hidden disabled:cursor-not-allowed disabled:opacity-50",
           className
         )}
@@ -67,7 +68,7 @@ function CommandList({
   return (
     <CommandPrimitive.List
       data-slot="command-list"
-      className={cn(
+      className={classes(
         "max-h-[300px] scroll-py-1 overflow-x-hidden overflow-y-auto",
         className
       )}
@@ -83,7 +84,7 @@ function CommandGroup({
   return (
     <CommandPrimitive.Group
       data-slot="command-group"
-      className={cn("text-foreground overflow-hidden p-1", className)}
+      className={classes("text-foreground overflow-hidden p-1", className)}
       {...props}
     />
   )
@@ -96,7 +97,7 @@ function CommandItem({
   return (
     <CommandPrimitive.Item
       data-slot="command-item"
-      className={cn(
+      className={classes(
         "data-[selected=true]:bg-accent data-[selected=true]:text-accent-foreground relative flex cursor-default items-center gap-2 rounded-sm px-2 py-1.5 text-sm outline-hidden select-none data-[disabled=true]:pointer-events-none data-[disabled=true]:opacity-50",
         className
       )}

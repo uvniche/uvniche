@@ -73,16 +73,11 @@ export function Search() {
   const [isExpanded, setIsExpanded] = useState(false)
   const [isFocused, setIsFocused] = useState(false)
   const [inputValue, setInputValue] = useState("")
-  const [isMounted, setIsMounted] = useState(false)
   const [dropdownPosition, setDropdownPosition] = useState<DropdownPosition>({})
   const containerRef = useRef<HTMLDivElement>(null)
 
-  useEffect(() => {
-    setIsMounted(true)
-  }, [])
-
   const calculateDropdownPosition = useCallback(() => {
-    if (!containerRef.current || !isMounted) return
+    if (!containerRef.current) return
 
     const container = containerRef.current
     const containerRect = container.getBoundingClientRect()
@@ -132,7 +127,13 @@ export function Search() {
     }
     
     setDropdownPosition(position)
-  }, [isMounted])
+  }, [])
+
+  const openSearch = () => {
+    setIsExpanded(true)
+    setIsFocused(true)
+    setTimeout(calculateDropdownPosition, 0)
+  }
 
   const handleLinkSelect = (url: string) => {
     setIsExpanded(false)
@@ -140,10 +141,7 @@ export function Search() {
   }
 
   const handleInputFocus = () => {
-    setIsFocused(true)
-    setIsExpanded(true)
-    // Calculate position when opening, with delay for keyboard animation
-    setTimeout(calculateDropdownPosition, 0)
+    openSearch()
     setTimeout(calculateDropdownPosition, 100)
     setTimeout(calculateDropdownPosition, 300)
   }
@@ -157,7 +155,7 @@ export function Search() {
 
   // Handle click outside to close dropdown
   useEffect(() => {
-    if (!isMounted) return
+    if (!isExpanded) return
 
     const handleClickOutside = (event: MouseEvent | TouchEvent) => {
       if (containerRef.current && !containerRef.current.contains(event.target as Node)) {
@@ -166,32 +164,26 @@ export function Search() {
       }
     }
 
-    if (isExpanded) {
-      document.addEventListener('mousedown', handleClickOutside)
-      document.addEventListener('touchstart', handleClickOutside)
-    }
+    document.addEventListener('mousedown', handleClickOutside)
+    document.addEventListener('touchstart', handleClickOutside)
 
     return () => {
       document.removeEventListener('mousedown', handleClickOutside)
       document.removeEventListener('touchstart', handleClickOutside)
     }
-  }, [isExpanded, isMounted])
+  }, [isExpanded])
 
   // Update isExpanded based on shouldShowDropdown
   useEffect(() => {
-    if (!isMounted) return
-    
     setIsExpanded(shouldShowDropdown)
     if (shouldShowDropdown) {
       // Recalculate position when expanding
       setTimeout(calculateDropdownPosition, 0)
     }
-  }, [shouldShowDropdown, calculateDropdownPosition, isMounted])
+  }, [shouldShowDropdown, calculateDropdownPosition])
 
   // Handle window resize and visualViewport changes (keyboard) to recalculate position
   useEffect(() => {
-    if (!isMounted) return
-
     const recalculateIfExpanded = () => {
       if (isExpanded) calculateDropdownPosition()
     }
@@ -210,11 +202,9 @@ export function Search() {
         window.visualViewport.removeEventListener('scroll', recalculateIfExpanded)
       }
     }
-  }, [isExpanded, calculateDropdownPosition, isMounted])
+  }, [isExpanded, calculateDropdownPosition])
 
   useEffect(() => {
-    if (!isMounted) return
-
     const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent)
     if (isMobile) return
 
@@ -252,23 +242,7 @@ export function Search() {
     }
 
     return unlockBodyScroll
-  }, [isExpanded, isMounted])
-
-  // Don't render anything until mounted to prevent hydration mismatch
-  if (!isMounted) {
-    return (
-      <div className="relative w-full search-container">
-        <Command label="Search" shouldFilter={false} className="rounded-lg border shadow-md w-full">
-          <CommandInput
-            expanded={false}
-            placeholder="Search"
-            className="transition-all duration-300 ease-out h-9"
-          />
-          <CommandList className="hidden" />
-        </Command>
-      </div>
-    )
-  }
+  }, [isExpanded])
 
   return (
     <div className="relative w-full search-container" ref={containerRef}>
@@ -290,9 +264,7 @@ export function Search() {
           <div 
             onClick={(e) => {
               // Force expansion and focus for in-app browsers
-              setIsExpanded(true)
-              setIsFocused(true)
-              setTimeout(calculateDropdownPosition, 0)
+              openSearch()
               // Try to focus the actual input element
               const input = e.currentTarget.querySelector('input')
               if (input) {
@@ -301,9 +273,7 @@ export function Search() {
             }}
             onPointerDown={() => {
               // Additional pointer event handler for better compatibility
-              setIsExpanded(true)
-              setIsFocused(true)
-              setTimeout(calculateDropdownPosition, 0)
+              openSearch()
             }}
           >
             <CommandInput 
