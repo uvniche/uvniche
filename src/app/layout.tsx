@@ -29,9 +29,11 @@ export const metadata: Metadata = {
     images: ["/pfp.webp"],
   },
   icons: {
-    icon: [{ url: "/favicon.png?v=2", sizes: "320x320", type: "image/png" }],
+    icon: [
+      { url: "/favicon.svg?v=3", type: "image/svg+xml" },
+      { url: "/favicon.png?v=2", sizes: "320x320", type: "image/png" },
+    ],
     apple: "/favicon.png?v=2",
-    shortcut: "/favicon.png?v=2",
   },
   manifest: "/site.webmanifest",
 };
@@ -52,6 +54,8 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <head>
+        {/* Safari uses this transparent monochrome SVG for pinned tabs. */}
+        <link rel="mask-icon" href="/favicon.svg?v=3" color="#000000" />
         {/* Minimal critical fallback; full layout rules live in globals.css */}
         <style
           dangerouslySetInnerHTML={{
