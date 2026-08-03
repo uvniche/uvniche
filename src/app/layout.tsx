@@ -29,12 +29,9 @@ export const metadata: Metadata = {
     images: ["/pfp.webp"],
   },
   icons: {
-    icon: [
-      { url: "/favicon.ico", sizes: "16x16 24x24 32x32 48x48 64x64 128x128 256x256", type: "image/x-icon" },
-      { url: "/favicon.png", sizes: "320x320", type: "image/png" }
-    ],
-    apple: "/favicon.png",
-    shortcut: "/favicon.ico",
+    icon: [{ url: "/favicon.png?v=2", sizes: "320x320", type: "image/png" }],
+    apple: "/favicon.png?v=2",
+    shortcut: "/favicon.png?v=2",
   },
   manifest: "/site.webmanifest",
 };
