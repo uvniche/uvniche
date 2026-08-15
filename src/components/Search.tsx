@@ -33,7 +33,7 @@ const searchLinks = [
     url: "https://open.spotify.com/artist/2WZKTiJucQd5UTC5LICRZ6",
   },
   {
-    name: "X",
+    name: "X (Twitter)",
     url: "https://x.com/uvniche",
   },
   {
