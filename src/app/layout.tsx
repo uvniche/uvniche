@@ -52,7 +52,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" suppressHydrationWarning>
+    <html lang="en">
       <head>
         {/* Safari uses this transparent monochrome SVG for pinned tabs. */}
         <link rel="mask-icon" href="/favicon.svg?v=3" color="#000000" />
