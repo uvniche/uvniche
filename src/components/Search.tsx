@@ -13,12 +13,12 @@ import {
 
 const searchLinks = [
   {
-    name: "Apple Music",
-    url: "https://music.apple.com/us/artist/avaneesh/1832229432",
+    name: "LinkedIn",
+    url: "https://www.linkedin.com/in/uvniche",
   },
   {
-    name: "Spotify",
-    url: "https://open.spotify.com/artist/2WZKTiJucQd5UTC5LICRZ6",
+    name: "GitHub",
+    url: "https://github.com/uvniche",
   },
   {
     name: "YouTube",
