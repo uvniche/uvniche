@@ -111,10 +111,6 @@ export default function RootLayout({
               "url": config.baseUrl,
               "logo": `${config.baseUrl}/favicon.png`,
               "sameAs": [
-                "https://instagram.com/uvniche",
-                "https://x.com/uvniche",
-                "https://github.com/uvniche",
-                "https://linkedin.com/in/uvniche",
                 "https://youtube.com/@uvniche"
               ]
             })

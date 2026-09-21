@@ -17,24 +17,8 @@ const searchLinks = [
     url: "https://music.apple.com/us/artist/avaneesh/1832229432",
   },
   {
-    name: "GitHub",
-    url: "https://github.com/uvniche",
-  },
-  {
-    name: "Instagram",
-    url: "https://instagram.com/uvniche",
-  },
-  {
-    name: "LinkedIn",
-    url: "https://linkedin.com/in/uvniche",
-  },
-  {
     name: "Spotify",
     url: "https://open.spotify.com/artist/2WZKTiJucQd5UTC5LICRZ6",
-  },
-  {
-    name: "X (Twitter)",
-    url: "https://x.com/uvniche",
   },
   {
     name: "YouTube",
