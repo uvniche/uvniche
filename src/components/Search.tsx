@@ -13,12 +13,12 @@ import {
 
 const searchLinks = [
   {
-    name: "LinkedIn",
-    url: "https://www.linkedin.com/in/uvniche",
-  },
-  {
     name: "GitHub",
     url: "https://github.com/uvniche",
+  },
+  {
+    name: "LinkedIn",
+    url: "https://www.linkedin.com/in/uvniche",
   },
   {
     name: "YouTube",
