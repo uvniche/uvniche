@@ -29,7 +29,6 @@ const nextConfig: NextConfig = {
     inlineCss: true,
     optimizePackageImports: [
       'framer-motion',
-      'lucide-react',
       '@vercel/analytics',
       'cmdk'
     ],
@@ -47,16 +46,7 @@ const nextConfig: NextConfig = {
     reactRemoveProperties: process.env.NODE_ENV === 'production' ? { properties: ['^data-testid$'] } : false,
   },
 
-  // Compression and caching
-  compress: true,
   poweredByHeader: false,
-  
-  // Optimize for edge deployment
-  trailingSlash: false,
-  
-  // Enable React optimizations
-  reactStrictMode: true,
-  
 };
 
 export default nextConfig;

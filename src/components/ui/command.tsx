@@ -50,7 +50,7 @@ function CommandInput({
         ref={inputRef}
         data-slot="command-input"
         className={classes(
-          "placeholder:text-muted-foreground flex h-10 w-full rounded-md bg-transparent py-3 text-base outline-hidden disabled:cursor-not-allowed disabled:opacity-50",
+          "placeholder:text-muted-foreground flex h-9 w-full rounded-md bg-transparent py-3 text-base outline-hidden disabled:cursor-not-allowed disabled:opacity-50",
           className
         )}
         aria-autocomplete="list"
@@ -98,7 +98,7 @@ function CommandItem({
     <CommandPrimitive.Item
       data-slot="command-item"
       className={classes(
-        "data-[selected=true]:bg-accent data-[selected=true]:text-accent-foreground relative flex cursor-default items-center gap-2 rounded-sm px-2 py-1.5 text-sm outline-hidden select-none data-[disabled=true]:pointer-events-none data-[disabled=true]:opacity-50",
+        "data-[selected=true]:bg-accent data-[selected=true]:text-accent-foreground relative flex h-9 cursor-pointer items-center gap-2 rounded-sm px-2 py-0 text-sm outline-hidden select-none data-[disabled=true]:pointer-events-none data-[disabled=true]:opacity-50",
         className
       )}
       {...props}

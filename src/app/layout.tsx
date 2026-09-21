@@ -118,11 +118,9 @@ export default function RootLayout({
         />
       </head>
       <body
-        className="font-sans antialiased"
-        style={{ 
-          fontFamily: 'Inter, system-ui, -apple-system, BlinkMacSystemFont, Segoe UI, arial, sans-serif',
-          '--font-inter': 'Inter, system-ui, sans-serif'
-        } as React.CSSProperties}
+        style={{
+          fontFamily: 'Inter, system-ui, -apple-system, BlinkMacSystemFont, Segoe UI, arial, sans-serif'
+        }}
       >
         {children}
         <Analytics />

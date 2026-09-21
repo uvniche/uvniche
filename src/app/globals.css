@@ -2,7 +2,6 @@
 
 @theme inline {
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-inter);
   --color-ring: var(--ring);
   --color-border: var(--border);
   --color-accent-foreground: var(--accent-foreground);
@@ -49,9 +48,6 @@
   body {
     @apply bg-black text-foreground;
     min-height: calc(var(--vh, 1vh) * 100);
-    display: flex;
-    justify-content: center;
-    align-items: center;
     overflow: hidden;
     position: fixed;
     width: 100%;
@@ -96,20 +92,4 @@
     image-rendering: -webkit-optimize-contrast;
   }
 
-  [data-slot="command-item"] {
-    height: 2.25rem !important;
-    min-height: 2.25rem !important;
-    max-height: 2.25rem !important;
-    display: flex !important;
-    align-items: center !important;
-    padding: 0 0.5rem !important;
-    padding-top: 0 !important;
-    padding-bottom: 0 !important;
-  }
-
-  [data-slot="command-input-wrapper"] {
-    height: 2.25rem !important;
-    min-height: 2.25rem !important;
-    max-height: 2.25rem !important;
-  }
 }

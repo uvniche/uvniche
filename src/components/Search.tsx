@@ -139,7 +139,7 @@ export function Search() {
 
   // Handle click outside to close dropdown
   useEffect(() => {
-    if (!isExpanded) return
+    if (!shouldShowDropdown) return
 
     const handleClickOutside = (event: MouseEvent | TouchEvent) => {
       if (containerRef.current && !containerRef.current.contains(event.target as Node)) {
@@ -155,21 +155,12 @@ export function Search() {
       document.removeEventListener('mousedown', handleClickOutside)
       document.removeEventListener('touchstart', handleClickOutside)
     }
-  }, [isExpanded])
-
-  // Update isExpanded based on shouldShowDropdown
-  useEffect(() => {
-    setIsExpanded(shouldShowDropdown)
-    if (shouldShowDropdown) {
-      // Recalculate position when expanding
-      setTimeout(calculateDropdownPosition, 0)
-    }
-  }, [shouldShowDropdown, calculateDropdownPosition])
+  }, [shouldShowDropdown])
 
   // Handle window resize and visualViewport changes (keyboard) to recalculate position
   useEffect(() => {
     const recalculateIfExpanded = () => {
-      if (isExpanded) calculateDropdownPosition()
+      if (shouldShowDropdown) calculateDropdownPosition()
     }
 
     window.addEventListener('resize', recalculateIfExpanded)
@@ -186,7 +177,7 @@ export function Search() {
         window.visualViewport.removeEventListener('scroll', recalculateIfExpanded)
       }
     }
-  }, [isExpanded, calculateDropdownPosition])
+  }, [shouldShowDropdown, calculateDropdownPosition])
 
   useEffect(() => {
     const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent)
@@ -205,7 +196,7 @@ export function Search() {
       document.body.removeAttribute('data-scroll-y')
     }
 
-    if (isExpanded) {
+    if (shouldShowDropdown) {
       const scrollY = window.scrollY
       document.body.style.position = 'fixed'
       document.body.style.top = `-${scrollY}px`
@@ -226,12 +217,12 @@ export function Search() {
     }
 
     return unlockBodyScroll
-  }, [isExpanded])
+  }, [shouldShowDropdown])
 
   return (
     <div className="relative w-full search-container" ref={containerRef}>
       <motion.div
-        className={`w-full ${isExpanded ? '' : 'cursor-pointer'}`}
+        className={`w-full ${shouldShowDropdown ? '' : 'cursor-pointer'}`}
         onMouseEnter={() => {
           setIsExpanded(true)
           setTimeout(calculateDropdownPosition, 0)
@@ -261,14 +252,14 @@ export function Search() {
             }}
           >
             <CommandInput 
-              expanded={isExpanded}
+              expanded={shouldShowDropdown}
               placeholder="Search" 
               value={inputValue}
               onValueChange={setInputValue}
               onFocus={handleInputFocus}
               onBlur={() => setIsFocused(false)}
               onTouchStart={handleInputFocus}
-              className="transition-all duration-300 ease-out h-9"
+              className="transition-all duration-300 ease-out"
             />
           </div>
           
@@ -277,8 +268,8 @@ export function Search() {
             <motion.div
                 variants={listVariants}
                 initial={false}
-                animate={isExpanded ? "expanded" : "collapsed"}
-                className={`absolute w-full z-50 bg-popover rounded-lg border shadow-md overflow-hidden ${isExpanded ? '' : 'pointer-events-none'}`}
+                animate={shouldShowDropdown ? "expanded" : "collapsed"}
+                className={`absolute w-full z-50 bg-popover rounded-lg border shadow-md overflow-hidden ${shouldShowDropdown ? '' : 'pointer-events-none'}`}
                 style={{ 
                   transformOrigin: dropdownPosition.bottom !== undefined ? "bottom" : "top",
                   top: dropdownPosition.top,
@@ -304,7 +295,6 @@ export function Search() {
                       <CommandItem 
                         key={link.name}
                         onSelect={() => handleLinkSelect(link.url)}
-                        className="cursor-pointer h-9 flex items-center py-0"
                       >
                         <span
                           className="size-1.5 shrink-0 rounded-full bg-current opacity-50"
