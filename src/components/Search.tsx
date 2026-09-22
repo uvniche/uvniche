@@ -2,6 +2,7 @@
 
 import { useState, useRef, useEffect, useCallback } from "react"
 import { motion, type Variants } from "framer-motion"
+import { FaGithub, FaLinkedin, FaYoutube } from "react-icons/fa"
 
 import {
   Command,
@@ -15,14 +16,17 @@ const searchLinks = [
   {
     name: "GitHub",
     url: "https://github.com/uvniche",
+    icon: FaGithub,
   },
   {
     name: "LinkedIn",
     url: "https://www.linkedin.com/in/uvniche",
+    icon: FaLinkedin,
   },
   {
     name: "YouTube",
     url: "https://www.youtube.com/@uvniche",
+    icon: FaYoutube,
   },
 ]
 
@@ -296,10 +300,7 @@ export function Search() {
                         key={link.name}
                         onSelect={() => handleLinkSelect(link.url)}
                       >
-                        <span
-                          className="size-1.5 shrink-0 rounded-full bg-current opacity-50"
-                          aria-hidden="true"
-                        />
+                        <link.icon className="size-4 shrink-0" aria-hidden="true" focusable="false" />
                         <span>{link.name}</span>
                       </CommandItem>
                     ))}
