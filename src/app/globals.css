@@ -38,8 +38,8 @@
 
   html {
     @apply bg-black;
-    height: calc(var(--vh, 1vh) * 100);
-    min-height: calc(var(--vh, 1vh) * 100);
+    height: 100dvh;
+    min-height: 100dvh;
     margin: 0;
     padding: 0;
     overflow: hidden;
@@ -47,7 +47,7 @@
 
   body {
     @apply bg-black text-foreground;
-    min-height: calc(var(--vh, 1vh) * 100);
+    min-height: 100dvh;
     overflow: hidden;
     position: fixed;
     width: 100%;

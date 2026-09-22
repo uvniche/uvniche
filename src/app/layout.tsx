@@ -124,17 +124,6 @@ export default function RootLayout({
       >
         {children}
         <Analytics />
-
-        <script
-          dangerouslySetInnerHTML={{
-            __html: `
-              (function(){
-                function initVH(){document.documentElement.style.setProperty('--vh',window.innerHeight*0.01+'px')}
-                if(document.readyState==='complete'){initVH()}else{window.addEventListener('load',function(){initVH();window.addEventListener('resize',initVH)})}
-              })();
-            `
-          }}
-        />
       </body>
     </html>
   );
