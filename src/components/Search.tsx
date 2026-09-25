@@ -2,7 +2,7 @@
 
 import { useState, useRef, useEffect, useCallback } from "react"
 import { motion, type Variants } from "framer-motion"
-import { FaGithub, FaLinkedin, FaYoutube } from "react-icons/fa"
+import { FaGithub, FaInstagram, FaLinkedin, FaYoutube } from "react-icons/fa"
 
 import {
   Command,
@@ -17,6 +17,11 @@ const searchLinks = [
     name: "GitHub",
     url: "https://github.com/uvniche",
     icon: FaGithub,
+  },
+  {
+    name: "Instagram",
+    url: "https://www.instagram.com/uvniche/",
+    icon: FaInstagram,
   },
   {
     name: "LinkedIn",
