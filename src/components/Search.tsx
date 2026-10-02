@@ -1,0 +1,331 @@
+"use client"
+
+import { useState, useRef, useEffect, useCallback } from "react"
+import { motion, type Variants } from "framer-motion"
+import { FaGithub, FaInstagram, FaLinkedin, FaSpotify, FaYoutube } from "react-icons/fa"
+import { SiYoutubemusic } from "react-icons/si"
+
+import {
+  Command,
+  CommandGroup,
+  CommandInput,
+  CommandItem,
+  CommandList,
+} from "@/components/ui/command"
+
+const searchLinks = [
+  {
+    name: "GitHub",
+    url: "https://github.com/uvniche",
+    icon: FaGithub,
+  },
+  {
+    name: "Instagram",
+    url: "https://www.instagram.com/uvniche/",
+    icon: FaInstagram,
+  },
+  {
+    name: "LinkedIn",
+    url: "https://www.linkedin.com/in/uvniche",
+    icon: FaLinkedin,
+  },
+  {
+    name: "Spotify",
+    url: "https://open.spotify.com/artist/2WZKTiJucQd5UTC5LICRZ6",
+    icon: FaSpotify,
+  },
+  {
+    name: "YouTube",
+    url: "https://www.youtube.com/@uvniche",
+    icon: FaYoutube,
+  },
+  {
+    name: "YouTube Music",
+    url: "https://music.youtube.com/@uvniche",
+    icon: SiYoutubemusic,
+  },
+]
+
+const listVariants: Variants = {
+  expanded: {
+    height: "auto",
+    opacity: 1,
+    transition: {
+      duration: 0.25,
+      ease: "easeOut"
+    }
+  },
+  collapsed: {
+    height: 0,
+    opacity: 0,
+    transition: {
+      duration: 0.25,
+      ease: "easeIn"
+    }
+  }
+}
+
+type DropdownPosition = {
+  top?: number
+  bottom?: number
+  left?: number
+  right?: number
+  maxHeight?: number
+}
+
+export function Search() {
+  const [isExpanded, setIsExpanded] = useState(false)
+  const [isFocused, setIsFocused] = useState(false)
+  const [inputValue, setInputValue] = useState("")
+  const [dropdownPosition, setDropdownPosition] = useState<DropdownPosition>({})
+  const containerRef = useRef<HTMLDivElement>(null)
+
+  const calculateDropdownPosition = useCallback(() => {
+    if (!containerRef.current) return
+
+    const container = containerRef.current
+    const containerRect = container.getBoundingClientRect()
+    
+    // Use visualViewport for accurate viewport height that accounts for keyboard
+    const viewportHeight = window.visualViewport?.height || window.innerHeight
+    const viewportWidth = window.visualViewport?.width || window.innerWidth
+    
+    const dropdownHeight = 300 // max-h-[300px]
+    const padding = 16 // Safe padding from viewport edges
+    
+    const position: DropdownPosition = {}
+    
+    // Calculate vertical position - always prefer below
+    const spaceBelow = viewportHeight - containerRect.bottom
+    const spaceAbove = containerRect.top
+    const minItemHeight = 48 // Approximate height of a single search item
+    
+    if (spaceBelow >= dropdownHeight + padding) {
+      // Enough space below for full dropdown - position normally
+      position.top = containerRect.height + 4 // mt-1 equivalent
+    } else if (spaceBelow >= minItemHeight + padding) {
+      // Not enough space for full dropdown, but enough for at least one item - position below with scroll
+      position.top = containerRect.height + 4
+      position.maxHeight = Math.max(spaceBelow - padding, minItemHeight)
+    } else if (spaceAbove >= dropdownHeight + padding) {
+      // No space below even for one item, but full space above - position above
+      position.bottom = containerRect.height + 4
+    } else {
+      // Not enough space anywhere for full dropdown - use the larger available space
+      if (spaceBelow > spaceAbove) {
+        // More space below (even if minimal)
+        position.top = containerRect.height + 4
+        position.maxHeight = Math.max(spaceBelow - padding, minItemHeight)
+      } else {
+        // More space above
+        position.bottom = containerRect.height + 4
+        position.maxHeight = Math.max(spaceAbove - padding, minItemHeight)
+      }
+    }
+    
+    // Calculate horizontal position
+    if (containerRect.right > viewportWidth - padding) {
+      position.right = 0
+    } else {
+      position.left = 0
+    }
+    
+    setDropdownPosition(position)
+  }, [])
+
+  const openSearch = () => {
+    setIsExpanded(true)
+    setIsFocused(true)
+    setTimeout(calculateDropdownPosition, 0)
+  }
+
+  const handleLinkSelect = (url: string) => {
+    setIsExpanded(false)
+    window.location.assign(url)
+  }
+
+  const handleInputFocus = () => {
+    openSearch()
+    setTimeout(calculateDropdownPosition, 100)
+    setTimeout(calculateDropdownPosition, 300)
+  }
+
+  const visibleSearchLinks = searchLinks.filter((link) =>
+    link.name.toLowerCase().includes(inputValue.toLowerCase())
+  )
+  const hasVisibleResults = visibleSearchLinks.length > 0
+
+  const shouldShowDropdown = hasVisibleResults && (isFocused || inputValue.length > 0 || isExpanded)
+
+  // Handle click outside to close dropdown
+  useEffect(() => {
+    if (!shouldShowDropdown) return
+
+    const handleClickOutside = (event: MouseEvent | TouchEvent) => {
+      if (containerRef.current && !containerRef.current.contains(event.target as Node)) {
+        setIsExpanded(false)
+        setIsFocused(false)
+      }
+    }
+
+    document.addEventListener('mousedown', handleClickOutside)
+    document.addEventListener('touchstart', handleClickOutside)
+
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside)
+      document.removeEventListener('touchstart', handleClickOutside)
+    }
+  }, [shouldShowDropdown])
+
+  // Handle window resize and visualViewport changes (keyboard) to recalculate position
+  useEffect(() => {
+    const recalculateIfExpanded = () => {
+      if (shouldShowDropdown) calculateDropdownPosition()
+    }
+
+    window.addEventListener('resize', recalculateIfExpanded)
+
+    if (window.visualViewport) {
+      window.visualViewport.addEventListener('resize', recalculateIfExpanded)
+      window.visualViewport.addEventListener('scroll', recalculateIfExpanded)
+    }
+
+    return () => {
+      window.removeEventListener('resize', recalculateIfExpanded)
+      if (window.visualViewport) {
+        window.visualViewport.removeEventListener('resize', recalculateIfExpanded)
+        window.visualViewport.removeEventListener('scroll', recalculateIfExpanded)
+      }
+    }
+  }, [shouldShowDropdown, calculateDropdownPosition])
+
+  useEffect(() => {
+    const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent)
+    if (isMobile) return
+
+    const unlockBodyScroll = () => {
+      document.body.style.position = ''
+      document.body.style.top = ''
+      document.body.style.left = ''
+      document.body.style.right = ''
+      document.body.style.overflow = ''
+      document.body.style.height = ''
+      document.body.style.width = ''
+      document.documentElement.style.overflow = ''
+      document.documentElement.style.height = ''
+      document.body.removeAttribute('data-scroll-y')
+    }
+
+    if (shouldShowDropdown) {
+      const scrollY = window.scrollY
+      document.body.style.position = 'fixed'
+      document.body.style.top = `-${scrollY}px`
+      document.body.style.left = '0'
+      document.body.style.right = '0'
+      document.body.style.overflow = 'hidden'
+      document.body.style.height = '100dvh'
+      document.body.style.width = '100vw'
+      document.documentElement.style.overflow = 'hidden'
+      document.documentElement.style.height = '100dvh'
+      document.body.setAttribute('data-scroll-y', scrollY.toString())
+    } else {
+      const scrollY = document.body.getAttribute('data-scroll-y')
+      unlockBodyScroll()
+      if (scrollY) {
+        window.scrollTo(0, parseInt(scrollY))
+      }
+    }
+
+    return unlockBodyScroll
+  }, [shouldShowDropdown])
+
+  return (
+    <div className="relative w-full search-container" ref={containerRef}>
+      <motion.div
+        className={`w-full ${shouldShowDropdown ? '' : 'cursor-pointer'}`}
+        onMouseEnter={() => {
+          setIsExpanded(true)
+          setTimeout(calculateDropdownPosition, 0)
+        }}
+        onMouseLeave={() => {
+          // Only close on mouse leave if not focused and no input value
+          if (!isFocused && !inputValue.length) {
+            setIsExpanded(false)
+          }
+        }}
+      >
+        <Command label="Search" shouldFilter={false} className="rounded-lg border shadow-md w-full">
+          {/* Search Input - Always visible and maintains layout */}
+          <div 
+            onClick={(e) => {
+              // Force expansion and focus for in-app browsers
+              openSearch()
+              // Try to focus the actual input element
+              const input = e.currentTarget.querySelector('input')
+              if (input) {
+                input.focus()
+              }
+            }}
+            onPointerDown={() => {
+              // Additional pointer event handler for better compatibility
+              openSearch()
+            }}
+          >
+            <CommandInput 
+              expanded={shouldShowDropdown}
+              placeholder="Search" 
+              value={inputValue}
+              onValueChange={setInputValue}
+              onFocus={handleInputFocus}
+              onBlur={() => setIsFocused(false)}
+              onTouchStart={handleInputFocus}
+              className="transition-all duration-300 ease-out"
+            />
+          </div>
+          
+          {/* Dropdown - Absolutely positioned to not affect layout */}
+          {hasVisibleResults ? (
+            <motion.div
+                variants={listVariants}
+                initial={false}
+                animate={shouldShowDropdown ? "expanded" : "collapsed"}
+                className={`absolute w-full z-50 bg-popover rounded-lg border shadow-md overflow-hidden ${shouldShowDropdown ? '' : 'pointer-events-none'}`}
+                style={{ 
+                  transformOrigin: dropdownPosition.bottom !== undefined ? "bottom" : "top",
+                  top: dropdownPosition.top,
+                  bottom: dropdownPosition.bottom,
+                  left: dropdownPosition.left,
+                  right: dropdownPosition.right,
+                  touchAction: 'pan-y',
+                }}
+              >
+                <CommandList
+                  className="overflow-y-scroll"
+                  style={{
+                    maxHeight: dropdownPosition.maxHeight || 300,
+                    WebkitOverflowScrolling: 'touch',
+                    overscrollBehavior: 'contain',
+                    touchAction: 'pan-y',
+                    scrollbarWidth: 'thin',
+                    msOverflowStyle: 'auto',
+                  }}
+                >
+                  <CommandGroup>
+                    {visibleSearchLinks.map((link) => (
+                      <CommandItem 
+                        key={link.name}
+                        onSelect={() => handleLinkSelect(link.url)}
+                      >
+                        <link.icon className="size-4 shrink-0" aria-hidden="true" focusable="false" />
+                        <span>{link.name}</span>
+                      </CommandItem>
+                    ))}
+                  </CommandGroup>
+                </CommandList>
+            </motion.div>
+          ) : null}
+        </Command>
+      </motion.div>
+    </div>
+  )
+}
