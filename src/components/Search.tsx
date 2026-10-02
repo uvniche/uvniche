@@ -3,7 +3,6 @@
 import { useState, useRef, useEffect, useCallback } from "react"
 import { motion, type Variants } from "framer-motion"
 import { FaGithub, FaInstagram, FaLinkedin, FaSpotify, FaYoutube } from "react-icons/fa"
-import { SiYoutubemusic } from "react-icons/si"
 
 import {
   Command,
@@ -38,11 +37,6 @@ const searchLinks = [
     name: "YouTube",
     url: "https://www.youtube.com/@uvniche",
     icon: FaYoutube,
-  },
-  {
-    name: "YouTube Music",
-    url: "https://music.youtube.com/@uvniche",
-    icon: SiYoutubemusic,
   },
 ]
 
