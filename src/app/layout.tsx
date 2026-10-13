@@ -1,5 +1,5 @@
 import type { Metadata, Viewport } from "next";
-import { Analytics } from "@/components/Analytics";
+import { Analytics } from "@vercel/analytics/next";
 import { config } from "@/lib/config";
 import "./globals.css";
 
