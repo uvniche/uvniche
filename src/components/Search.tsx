@@ -3,6 +3,7 @@
 import { useState, useRef, useEffect, useCallback } from "react"
 import { motion, type Variants } from "framer-motion"
 import { FaGithub, FaInstagram, FaLinkedin, FaSpotify, FaYoutube } from "react-icons/fa"
+import { SiBeatstars, SiHackerone } from "react-icons/si"
 
 import {
   Command,
@@ -14,9 +15,19 @@ import {
 
 const searchLinks = [
   {
+    name: "BeatStars",
+    url: "https://www.beatstars.com/uvniche",
+    icon: SiBeatstars,
+  },
+  {
     name: "GitHub",
     url: "https://github.com/uvniche",
     icon: FaGithub,
+  },
+  {
+    name: "HackerOne",
+    url: "https://hackerone.com/uvniche",
+    icon: SiHackerone,
   },
   {
     name: "Instagram",

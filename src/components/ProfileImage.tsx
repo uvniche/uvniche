@@ -6,6 +6,7 @@
 export default function ProfileImage() {
   return (
     <div className="relative w-28 h-28 rounded-full overflow-hidden border-2 border-border bg-muted">
+      {/* eslint-disable-next-line @next/next/no-img-element */}
       <img
         src="/pfp.avif"
         alt=""

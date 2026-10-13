@@ -1,5 +1,6 @@
 import ProfileImage from "@/components/ProfileImage";
 import { Search } from "@/components/Search";
+import { EmailButton } from "@/components/EmailButton";
 
 // Fully static HTML + CDN cache for best TTFB/FCP
 export const dynamic = "force-static";
@@ -7,6 +8,9 @@ export const dynamic = "force-static";
 export default function Home() {
   return (
     <div className="w-full min-h-dvh relative flex items-center justify-center p-4">
+      {/* Top right corner email */}
+      <EmailButton />
+
       <div className="flex flex-col items-center space-y-6 max-w-md mx-auto">
         {/* Profile Section */}
         <div className="flex flex-col items-center space-y-4">
