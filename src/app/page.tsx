@@ -11,11 +11,11 @@ export default function Home() {
       {/* Top right corner email */}
       <a
         href="mailto:uvniche@gmail.com"
-        className="fixed top-4 right-4 sm:top-6 sm:right-6 z-40 flex items-center justify-center size-9 rounded-full border border-border hover:border-white/20 bg-white/[0.03] hover:bg-white/[0.08] backdrop-blur-sm text-muted-foreground hover:text-foreground transition-all duration-200 group"
+        className="fixed top-4 right-4 sm:top-6 sm:right-6 z-40 flex items-center justify-center size-10 rounded-full border border-white/20 bg-white/[0.08] backdrop-blur-sm text-foreground"
         aria-label="Email uvniche@gmail.com"
         title="uvniche@gmail.com"
       >
-        <Mail className="size-4 shrink-0 transition-transform duration-200 group-hover:scale-110" aria-hidden="true" />
+        <Mail className="size-5 shrink-0" aria-hidden="true" />
       </a>
 
       <div className="flex flex-col items-center space-y-6 max-w-md mx-auto">
