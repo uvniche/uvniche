@@ -52,6 +52,14 @@
       "headers": [{ "key": "Cache-Control", "value": "public, max-age=86400, immutable" }]
     },
     {
+      "source": "/apple-touch-icon(.*)",
+      "headers": [{ "key": "Cache-Control", "value": "public, max-age=86400, immutable" }]
+    },
+    {
+      "source": "/icon-(.*)",
+      "headers": [{ "key": "Cache-Control", "value": "public, max-age=86400, immutable" }]
+    },
+    {
       "source": "/site.webmanifest",
       "headers": [{ "key": "Cache-Control", "value": "public, max-age=86400, immutable" }]
     },

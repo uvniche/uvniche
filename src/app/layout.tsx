@@ -31,10 +31,15 @@ export const metadata: Metadata = {
   },
   icons: {
     icon: [
+      { url: "/favicon.png", sizes: "320x320", type: "image/png" },
+      { url: "/favicon.ico", sizes: "any" },
       { url: "/favicon.svg?v=3", type: "image/svg+xml" },
-      { url: "/favicon.png?v=2", sizes: "320x320", type: "image/png" },
     ],
-    apple: "/favicon.png?v=2",
+    shortcut: "/favicon.png",
+    apple: [
+      { url: "/apple-touch-icon.png", sizes: "180x180", type: "image/png" },
+      { url: "/apple-touch-icon.png" },
+    ],
   },
   manifest: "/site.webmanifest",
 };
@@ -59,6 +64,7 @@ export default function RootLayout({
       <head>
         {/* Safari uses this transparent monochrome SVG for pinned tabs. */}
         <link rel="mask-icon" href="/favicon.svg?v=3" color="#000000" />
+        <link rel="apple-touch-icon-precomposed" href="/apple-touch-icon-precomposed.png" />
         {/* Minimal critical fallback; full layout rules live in globals.css */}
         <style
           dangerouslySetInnerHTML={{
