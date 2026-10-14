@@ -44,6 +44,8 @@ export const viewport: Viewport = {
   maximumScale: 5,
   userScalable: true,
   viewportFit: 'cover',
+  themeColor: '#000000',
+  colorScheme: 'dark',
 };
 
 export default function RootLayout({
@@ -60,6 +62,9 @@ export default function RootLayout({
         <style
           dangerouslySetInnerHTML={{
             __html: `
+              :root {
+                color-scheme: dark;
+              }
               html, body {
                 background:#000;
                 margin:0;
@@ -99,6 +104,7 @@ export default function RootLayout({
         
         <meta name="format-detection" content="telephone=no" />
         <meta name="theme-color" content="#000000" />
+        <meta name="color-scheme" content="dark" />
         
         {/* Structured Data for Google Search */}
         <script
