@@ -7,7 +7,7 @@ export const dynamic = "force-static";
 
 export default function Home() {
   return (
-    <div className="w-full min-h-dvh relative flex items-center justify-center p-4">
+    <div className="size-full min-h-full relative flex items-center justify-center p-4">
       {/* Top right corner email */}
       <a
         href="mailto:uvniche@gmail.com"
